@@ -19,7 +19,7 @@ import org.junit.runners.MethodSorters;
 import br.com.contmatic.model.Endereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EnderecoTeste {
+public class TestesEndereco {
 	
 	private static Endereco enderecoBefore;
 	

@@ -19,7 +19,7 @@ import br.com.contmatic.enums.TipoTelefone;
 import br.com.contmatic.model.Contato;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ContatoTeste {
+public class TestesContato {
 	
 	private static Contato contatoBefore;
 	

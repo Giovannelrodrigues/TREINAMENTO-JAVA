@@ -1,19 +1,20 @@
 package br.com.contmatic.testes;
 
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -25,8 +26,8 @@ import br.com.contmatic.model.Endereco;
 import br.com.contmatic.model.Produto;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EmpresaTeste {
-	
+public class TestesEmpresa {
+
 	private static Empresa empresaBefore;
 
 	private static Endereco enderecoBefore;
@@ -61,11 +62,35 @@ public class EmpresaTeste {
 	
 	private static final String CARACTERES_150 = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 	
+	private static final String CODIGO = "AIRJ-52255-MD4";
+	
+	private static final String NOME_PRODUTO = "AIR JORDAN 3 LOW";
+	
+	private static final String MARCA_PRODUTO = "AIR JORDA X NIKE";
+	
+	private static final double PRECO_PRODUTO = 1499.99;
+	
+	private static final int QUANTIDADE = 12;
+	
+	private static final String COR = "Preto - Vermelho";
+	
+	private static final String NOME_AMBIENTE_TRABALHO = "RH";
+	
+	private static final String DESCRICAO_AMBIENTE_TRABALHO = "recursos humanos";
+	
 	@Before
 	public void antesDeCadaTeste() {
+		List<AmbienteTrabalho> ambientesTrabalhos = new ArrayList<>();
+		List<Produto> produtos = new ArrayList<>();
+		AmbienteTrabalho ambiente1 = new AmbienteTrabalho(NOME_AMBIENTE_TRABALHO, TipoEstabelecimento.PROPRIO, DESCRICAO_AMBIENTE_TRABALHO);
+		Produto produto = new Produto(CODIGO, NOME_PRODUTO, MARCA_PRODUTO, PRECO_PRODUTO, QUANTIDADE, COR);
+		ambientesTrabalhos.add(ambiente1);
+		produtos.add(produto);
 		enderecoBefore = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, ESTADO, CIDADE);
 		contatoBefore  = new Contato(EMAIL, TELEFONE);
 		empresaBefore  = new Empresa(RAZAO_SOCIAL, CNPJ, NOME_FANTASIA, enderecoBefore , contatoBefore);
+		empresaBefore.setProdutos(produtos);
+		empresaBefore.setAmbientesTrabalhos(ambientesTrabalhos);
 	}
 	
 	//CONSTRUTORES
@@ -185,19 +210,23 @@ public class EmpresaTeste {
 		assertEquals(contato, empresaBefore.getContato());
 	}
 	
-	//ADICONAR A LISTA
+	//SETT LISTA
 	
 	@Test
-	public void testeR_deve_adicionar_um_novo_ambiente_trabalho() {
-		AmbienteTrabalho ambiente = new AmbienteTrabalho("RH", TipoEstabelecimento.PROPRIO, "RH");
-		empresaBefore.adicionarAmbienteTrabalho(ambiente);
+	public void testeR_deve_atribuir_uma_nova_lista_ambiente_trabalho() {
+		List<AmbienteTrabalho> ambientesTrabalhos = new ArrayList<>();
+		AmbienteTrabalho ambiente1 = new AmbienteTrabalho(NOME_AMBIENTE_TRABALHO, TipoEstabelecimento.PROPRIO, DESCRICAO_AMBIENTE_TRABALHO);
+		ambientesTrabalhos.add(ambiente1);
+		empresaBefore.setAmbientesTrabalhos(ambientesTrabalhos);
 		assertEquals(1, empresaBefore.getAmbientesTrabalhos().size());
 	}
 	
 	@Test
-	public void testeS_deve_adicionar_um_novo_produto() {
-		Produto produto = new Produto("AIRJ-52255-MD4", "AIR JORDAN 3 LOW", "AIR JORDA X NIKE", 1499.99, 12, "Preto - Vermelho");
-		empresaBefore.adicionarProduto(produto);
+	public void testeS_deve_atribuir_uma_nova_lista_produto() {
+		List<Produto> produtos = new ArrayList<>();
+		Produto produto = new Produto(CODIGO, NOME_PRODUTO, MARCA_PRODUTO, PRECO_PRODUTO, QUANTIDADE, COR);
+		produtos.add(produto);
+		empresaBefore.setProdutos(produtos);
 		assertEquals(1, empresaBefore.getProdutos().size());
 	}
 	
@@ -279,16 +308,20 @@ public class EmpresaTeste {
 	
 	@Test
 	public void testeAG_deve_validar_se_to_string_traz_as_infomacoes_de_produtos() {
+		List<Produto> produtos = new ArrayList<>();
 		Produto produto = new Produto("AIRJ-52255-MD4", "AIR JORDAN 3 LOW", "AIR JORDA X NIKE", 1499.99, 12, "Preto - Vermelho");
-		empresaBefore.adicionarProduto(produto);
+		produtos.add(produto);
+		empresaBefore.setProdutos(produtos);
 		String result = empresaBefore.toString();
 		assertThat(result, containsString("produtos"));
 	}
 	
 	@Test
 	public void testeAH_deve_validar_se_to_string_traz_as_infomacoes_de_ambientes_trabalho() {
-		AmbienteTrabalho ambiente = new AmbienteTrabalho("RH", TipoEstabelecimento.PROPRIO, "RH");
-		empresaBefore.adicionarAmbienteTrabalho(ambiente);
+		List<AmbienteTrabalho> ambientesTrabalhos = new ArrayList<>();
+		AmbienteTrabalho ambiente = new AmbienteTrabalho(NOME_AMBIENTE_TRABALHO, TipoEstabelecimento.PROPRIO, DESCRICAO_AMBIENTE_TRABALHO);
+		ambientesTrabalhos.add(ambiente);
+		empresaBefore.setAmbientesTrabalhos(ambientesTrabalhos);
 		String result = empresaBefore.toString();
 		assertThat(result, containsString("AmbienteTrabalho"));
 	}

@@ -1,15 +1,12 @@
 package br.com.contmatic.model;
 
-
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenericoAceitandoNulo;
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoNome;
 import static br.com.contmatic.util.validacoes.Validador.validarObjetoNulo;
 import static br.com.contmatic.util.validacoes.ValidadorCNPJ.validarCNPJ;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 public class Empresa {
 	
@@ -23,9 +20,9 @@ public class Empresa {
 	
 	private Endereco endereco;
 	
-	private List<AmbienteTrabalho> ambientesTrabalhos = new ArrayList<>();
+	private List<AmbienteTrabalho> ambientesTrabalhos;
 	
-	private List<Produto> produtos = new ArrayList<>();
+	private List<Produto> produtos;
 	
 	public Empresa(String razaoSocial, String cnpj, String nomeFantasia, Endereco endereco, Contato contato) {
 		this.setRazaoSocial(razaoSocial);
@@ -79,23 +76,24 @@ public class Empresa {
 		validarObjetoNulo(endereco);
 		this.endereco = endereco;
 	}
-
+	
+	
 	public List<AmbienteTrabalho> getAmbientesTrabalhos() {
 		return this.ambientesTrabalhos;
 	}
 	
-	public void adicionarAmbienteTrabalho(AmbienteTrabalho ambiente) {
-		validarObjetoNulo(ambiente);
-		this.ambientesTrabalhos.add(ambiente);
+	public void setAmbientesTrabalhos(List<AmbienteTrabalho> ambientesTrabalhos) {
+		validarObjetoNulo(ambientesTrabalhos);
+		this.ambientesTrabalhos = ambientesTrabalhos;
 	}
 
 	public List<Produto> getProdutos() {
 		return this.produtos;
 	}
 	
-	public void adicionarProduto(Produto produto) {
-		validarObjetoNulo(produto);
-		this.produtos.add(produto);
+	public void setProdutos(List<Produto> produtos) {
+		validarObjetoNulo(produtos);
+		this.produtos = produtos;
 	}
 
 	@Override

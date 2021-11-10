@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import br.com.contmatic.enums.TipoTelefone;
 
-
 public class Contato {
 	
 	private String telefone;

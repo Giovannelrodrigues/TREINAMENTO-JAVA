@@ -14,7 +14,7 @@ import br.com.contmatic.model.Endereco;
 import br.com.contmatic.model.Funcionario;
 
 @RunWith(Parameterized.class)
-public class ValidadorCpfTeste {
+public class TestesValidadorCpf {
 	
 	private final String input;
 	
@@ -34,7 +34,7 @@ public class ValidadorCpfTeste {
 		});
 	}
 	
-	public ValidadorCpfTeste(String input) {
+	public TestesValidadorCpf(String input) {
 		this.input = input;
 	}
 	

@@ -7,7 +7,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarSeNumeroZero;
 
 import java.util.Objects;
 
-
 public class Endereco {
 	
 	private String cep;

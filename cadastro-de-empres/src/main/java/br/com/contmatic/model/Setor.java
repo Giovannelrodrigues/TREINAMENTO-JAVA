@@ -4,10 +4,8 @@ import static br.com.contmatic.util.validacoes.Validador.validarAtributoDescrica
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenerico;
 import static br.com.contmatic.util.validacoes.Validador.validarObjetoNulo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 public class Setor {
 	
@@ -15,7 +13,7 @@ public class Setor {
 	
 	private String descricao;
 	
-	private List<Funcionario> funcionarios = new ArrayList<>();
+	private List<Funcionario> funcionarios;
 	
 	public Setor(String nome, String descricao){
 		this.setNome(nome);
@@ -44,9 +42,9 @@ public class Setor {
 		return this.funcionarios;
 	}
 	
-	public void adicionarFuncionario(Funcionario funcionario) {
+	public void setFuncionarios(List<Funcionario> funcionario) {
 		validarObjetoNulo(funcionario);
-		this.funcionarios.add(funcionario);
+		this.funcionarios = funcionario;
 	}
 	
 	@Override

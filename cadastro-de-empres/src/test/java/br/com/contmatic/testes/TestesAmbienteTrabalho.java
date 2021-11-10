@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -20,7 +22,7 @@ import br.com.contmatic.model.AmbienteTrabalho;
 import br.com.contmatic.model.Setor;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AmbienteTrabalhoTeste {
+public class TestesAmbienteTrabalho {
 	
 	static AmbienteTrabalho ambienteBefore;
 	
@@ -34,9 +36,16 @@ public class AmbienteTrabalhoTeste {
 	
 	private static final String CARACTERES_300 = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 	
+	private static String NOME_SETOR = "Contas a pagar";
+	
+	private static String DESCRICAO_SETOR = "gerenciar contas da empresa";
+	
 	@Before
 	public void antesDeCadaTeste() {
+		List<Setor> setores = new ArrayList<>();
+		setores.add(new Setor(NOME_SETOR, DESCRICAO_SETOR));
 		ambienteBefore = new AmbienteTrabalho(NOME, TipoEstabelecimento.PROPRIO, DESCRICAO);
+		ambienteBefore.setSetores(setores);
 	}
 	
 	//CONSTRUTORES
@@ -118,13 +127,14 @@ public class AmbienteTrabalhoTeste {
 		assertEquals(TipoEstabelecimento.TERCEIRO, ambienteBefore.getTipoEstabelecimento());
 	}
 	
-	//ADICONAR A LISTA
+	//SETTER LISTA
 	
 	@Test
-	public void testeN_deve_adicionar_um_novo_setor() {
-		Setor setor = new Setor("Contas a receber", null);
-		ambienteBefore.adicionarSetor(setor);
-		assertEquals(1, ambienteBefore.getSetores().size());	
+	public void testeN_deve_atribuir_uma_nova_lista_setor() {
+		List<Setor> setores = new ArrayList<>();
+		setores.add(new Setor(NOME_SETOR, DESCRICAO_SETOR));
+		ambienteBefore.setSetores(setores);
+		assertNotNull(ambienteBefore.getSetores());	
 	}
 	
 	//TIMEOUT
@@ -161,8 +171,6 @@ public class AmbienteTrabalhoTeste {
 	
 	@Test
 	public void testeT_deve_retornar_lista_de_setores_quando_usar_metodo_to_string() {
-		Setor setor = new Setor("Contas a receber", null);
-		ambienteBefore.adicionarSetor(setor);
 		String result = ambienteBefore.toString();
 		assertThat(result, containsString("setores"));
 	}

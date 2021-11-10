@@ -21,7 +21,7 @@ import br.com.contmatic.model.Funcionario;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FuncionarioTeste {
+public class TestesFuncionario {
 	
 	private static Funcionario funcionarioBefore;
 

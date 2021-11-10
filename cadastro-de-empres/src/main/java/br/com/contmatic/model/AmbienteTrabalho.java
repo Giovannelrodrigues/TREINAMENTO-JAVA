@@ -4,7 +4,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenerico
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenericoAceitandoNulo;
 import static br.com.contmatic.util.validacoes.Validador.validarObjetoNulo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +17,7 @@ public class AmbienteTrabalho {
 	
 	private TipoEstabelecimento tipo;
 	
-	private List<Setor> setores = new ArrayList<>();
+	private List<Setor> setores;
 	
 	public AmbienteTrabalho(String nome, TipoEstabelecimento tipo, String descricao){
 		this.setNome(nome);
@@ -57,11 +56,11 @@ public class AmbienteTrabalho {
 		return this.setores;
 	}
 	
-	public void adicionarSetor(Setor setor) {
-		validarObjetoNulo(setor);
-		this.setores.add(setor);
+	public void setSetores(List<Setor> setores) {
+		validarObjetoNulo(setores);
+		this.setores = setores;
 	}
-	 
+
 	@Override
 	public String toString() {
 		return "AmbienteTrabalho [nome=" + nome + ", descricao=" + descricao + ", tipos=" + tipo + ", setores="

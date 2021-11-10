@@ -4,7 +4,6 @@ import java.util.stream.IntStream;
 
 public final class Validador {
 	
-
 	//MENSAGEM ERRO
 	private static final String MENSAGEM_CAMPO_OBRIGATORIOS_NAO_PODEM_SER_VAZIO = "Campos obrigátorios não podem ser vazios";
 
@@ -24,7 +23,6 @@ public final class Validador {
 	
 	private static final String MENSAGEM_TAMANHO_INVALIDO = "Tamanho inválido";
 	
-	
 	//TAMANHO CAMPO
 	private static final int TAMANHO_MAX_DESCRICAO = 256;
 	
@@ -36,8 +34,13 @@ public final class Validador {
 	private static final int TAMANHO_TELEFONE_CELULAR = 11;
 	
 	//CEP
-	
 	private static final int TAMANHO_CEP = 8;
+	
+	//CALCULO BASE DOCUMENTOS
+	
+	private static final int QUANTIDADE_DIGITOS_CALCULO = 0;
+	
+	private static final int VALOR_INICIAL_SEQUENCIA = 2;
 
 	private Validador() {
 	}
@@ -136,10 +139,8 @@ public final class Validador {
 	}
 	
 	//DOCUMENTOS
-	
 	protected static int calcularNumeroRegistro(String numRegistro, int quantidadeDigitos, int limiteSequencia, boolean inverterCaracteres) {
-        int digitoVerificador = 0;
-        int pularDigitos = 0;
+        int pularDigitos = QUANTIDADE_DIGITOS_CALCULO;
         
         if (inverterCaracteres) {
             numRegistro = new StringBuilder(numRegistro).reverse().toString();
@@ -148,16 +149,15 @@ public final class Validador {
         
         int[] valoresComputados = new int[numRegistro.length() - quantidadeDigitos];
    
-        int valorSequencia = 2;
+        int valorSequencia = VALOR_INICIAL_SEQUENCIA;
         
         for (int index = 0; index < (numRegistro.length() - quantidadeDigitos); index++) {
             valoresComputados[index] = Character.getNumericValue(numRegistro.charAt(index + pularDigitos)) * valorSequencia;
             valorSequencia++;
-            if (valorSequencia > limiteSequencia) valorSequencia = 2;
+            if (valorSequencia > limiteSequencia) valorSequencia = VALOR_INICIAL_SEQUENCIA;
         }
-        
-        digitoVerificador = (IntStream.of(valoresComputados).sum());
-        return digitoVerificador;
+    
+        return (IntStream.of(valoresComputados).sum());
 	}
 	
 	public static void validarCaracteresRepetidos(Object parametro) {
@@ -165,5 +165,6 @@ public final class Validador {
 			throw new IllegalStateException(MENSAGEM_TODOS_CARACTERES_REPETIDOS);
 		}
 	}
+	
 }
 

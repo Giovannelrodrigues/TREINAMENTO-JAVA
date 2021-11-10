@@ -5,7 +5,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenerico
 
 import java.util.Objects;
 
-
 public class Cargo {
 	
 	private String nome;

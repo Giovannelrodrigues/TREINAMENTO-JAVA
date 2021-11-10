@@ -20,7 +20,7 @@ import org.junit.runners.MethodSorters;
 import br.com.contmatic.model.Cargo;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CargoTeste {
+public class TestesCargo {
 	
 	public static Cargo cargoBefore;
 	

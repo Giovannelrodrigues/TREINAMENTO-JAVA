@@ -12,8 +12,7 @@ import br.com.contmatic.model.Empresa;
 import br.com.contmatic.model.Endereco;
 
 @RunWith(Parameterized.class)
-public class ValidadorCnpjTeste {
-	
+public class TestesValidadorCnpj {
 	
 	private final String input;
 	
@@ -30,7 +29,7 @@ public class ValidadorCnpjTeste {
 		});
 	}
 	
-	public ValidadorCnpjTeste(String input) {
+	public TestesValidadorCnpj(String input) {
 		this.input = input;
 	}
 	

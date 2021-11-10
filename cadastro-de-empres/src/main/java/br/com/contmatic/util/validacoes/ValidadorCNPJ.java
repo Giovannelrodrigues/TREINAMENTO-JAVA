@@ -24,6 +24,12 @@ public final class ValidadorCNPJ {
 	
 	private static final int DIGITO_VERIFICADOR = 9;
 	
+	private static final int QUANTIDADE_DE_DIGITOS_PRIMEIRO_CALCULO = 2;
+	
+	private static final int QUANTIDADE_DE_DIGITOS_SEGUNGO_CALCULO = 1;
+	
+	private static final boolean INVERTER_CARACTERES = true;
+	
 	private ValidadorCNPJ() {
 	}
 	
@@ -36,8 +42,8 @@ public final class ValidadorCNPJ {
 	}
 	
 	private static void validadorCNPJ(String cnpj) {
-		int resultDigito1 = calcularNumeroRegistro(cnpj, 2, LIMITE_SEQUENCIA, true);
-		int resultDigito2 = calcularNumeroRegistro(cnpj, 1, LIMITE_SEQUENCIA, true);
+		int resultDigito1 = calcularNumeroRegistro(cnpj, QUANTIDADE_DE_DIGITOS_PRIMEIRO_CALCULO, LIMITE_SEQUENCIA, INVERTER_CARACTERES);
+		int resultDigito2 = calcularNumeroRegistro(cnpj, QUANTIDADE_DE_DIGITOS_SEGUNGO_CALCULO, LIMITE_SEQUENCIA, INVERTER_CARACTERES);
 		validarDigitos(cnpj, resultDigito1, resultDigito2);
 	}
 	
@@ -57,4 +63,5 @@ public final class ValidadorCNPJ {
 			throw new IllegalStateException(MENSAGEM_CNPJ_INVALIDO);
 		}
 	}
+	
 }

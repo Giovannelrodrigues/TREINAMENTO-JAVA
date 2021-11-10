@@ -17,7 +17,7 @@ import org.junit.runners.MethodSorters;
 import br.com.contmatic.model.Produto;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ProdutoTeste {
+public class TestesProduto {
 	
 	private static final String CODIGO = "I13PM";
 	

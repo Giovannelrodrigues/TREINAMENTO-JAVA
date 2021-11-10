@@ -26,6 +26,11 @@ public final class ValidadorCPF {
 	
 	private static final int INDEX_SEGUNDO_DIGITO = 10;
 	
+	private static final int QUANTIDADE_DE_DIGITOS_PRIMEIRO_CALCULO = 2;
+	
+	private static final int QUANTIDADE_DE_DIGITOS_SEGUNGO_CALCULO = 1;
+	
+	private static final boolean INVERTER_CARACTERES = true;
 	
 	private ValidadorCPF(){
 	}
@@ -39,8 +44,8 @@ public final class ValidadorCPF {
 	}
 	
 	private static void validadorCPF(String cpf) {
-		int resultDigito1 = calcularNumeroRegistro(cpf, 2, LIMITE_SEQUENCIA_PRIMEIRO_DIGITO, true);
-		int resultDigito2 = calcularNumeroRegistro(cpf, 1, LIMITE_SEQUENCIA_SEGUNDO_DIGITO, true);
+		int resultDigito1 = calcularNumeroRegistro(cpf, QUANTIDADE_DE_DIGITOS_PRIMEIRO_CALCULO, LIMITE_SEQUENCIA_PRIMEIRO_DIGITO, INVERTER_CARACTERES);
+		int resultDigito2 = calcularNumeroRegistro(cpf, QUANTIDADE_DE_DIGITOS_SEGUNGO_CALCULO, LIMITE_SEQUENCIA_SEGUNDO_DIGITO, INVERTER_CARACTERES);
 		validarDigitos(cpf, resultDigito1, resultDigito2);
 	}
 	

@@ -6,7 +6,6 @@ import static br.com.contmatic.util.validacoes.ValidadorCPF.validarCPF;
 
 import java.util.Objects;
 
-
 public class Funcionario {
 	
 	private String nome;

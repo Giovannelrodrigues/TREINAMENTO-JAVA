@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -22,7 +24,7 @@ import br.com.contmatic.model.Funcionario;
 import br.com.contmatic.model.Setor;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SetorTeste {
+public class TestesSetor {
 	
 	public static Setor setorBefore;
 	
@@ -111,23 +113,23 @@ public class SetorTeste {
 		setorBefore.setDescricao(descricao);
 		assertEquals(descricao, setorBefore.getDescricao());
 	}
-	
-	
-	//ADICONAR A LISTA
+
+	//SETTER LISTA
 	
 	@Test
-	public void testeG_deve_adicionar_um_novo_setor() {
+	public void testeG_deve_atribuir_uma_nova_lista_funcionarios() {
 		Endereco endereco = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, ESTADO, CIDADE);
 		Contato contato  = new Contato(EMAIL, TELEFONE);
 		Cargo cargo = new Cargo("programandor full stack", "desenvolver aplicações web");
+		List<Funcionario> funcionarios = new ArrayList<>();
 		Funcionario funcionario = new Funcionario("giovanne", "39199101840", endereco, contato, cargo);
-		setorBefore.adicionarFuncionario(funcionario);
+		funcionarios.add(funcionario);
+		setorBefore.setFuncionarios(funcionarios);
 		assertEquals(1, setorBefore.getFuncionarios().size());
 	}
 	
 	
 	//SETTER
-	
 	@Test
 	public void testeH_deve_atribuir_um_novo_nome() {
 		String nome = "QA";
@@ -174,8 +176,10 @@ public class SetorTeste {
 		Endereco endereco = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, ESTADO, CIDADE);
 		Contato contato  = new Contato(EMAIL, TELEFONE);
 		Cargo cargo = new Cargo("programandor full stack", "desenvolver aplicações web");
-		Funcionario funcionario = new Funcionario("Giovanne", "39199101840", endereco, contato, cargo);
-		setorBefore.adicionarFuncionario(funcionario);
+		List<Funcionario> funcionarios = new ArrayList<>();
+		Funcionario funcionario = new Funcionario("giovanne", "39199101840", endereco, contato, cargo);
+		funcionarios.add(funcionario);
+		setorBefore.setFuncionarios(funcionarios);
 		String result = setorBefore.toString();
 		assertThat(result, containsString("funcionarios"));
 	}
