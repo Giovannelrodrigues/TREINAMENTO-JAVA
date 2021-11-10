@@ -138,42 +138,42 @@ public class TestesProduto {
 	//SETTERS
 
 	@Test
-	public void testeQ_deve_atribuir_um_valor_para_codigo() {
+	public void testeP_deve_atribuir_um_valor_para_codigo() {
 		final String codigo = "IPHONE13PM";
 		produtoBefore.setCodigo(codigo);
 		assertEquals(codigo, produtoBefore.getCodigo());
 	}
 	
 	@Test
-	public void testeR_deve_atribuir_um_valor_para_nome() {
+	public void testeQ_deve_atribuir_um_valor_para_nome() {
 		final String nome = "IPHONE 13 PRO";
 		produtoBefore.setNome(nome);
 		assertEquals(nome, produtoBefore.getNome());
 	}
 	
 	@Test
-	public void testeS_deve_atribuir_um_valor_para_marca() {
+	public void testeR_deve_atribuir_um_valor_para_marca() {
 		final String marca = "SAMSUNG";
 		produtoBefore.setMarca(marca);
 		assertEquals(marca, produtoBefore.getMarca());
 	}
 	
 	@Test
-	public void testeT_deve_atribuir_um_valor_para_preco() {
+	public void testeS_deve_atribuir_um_valor_para_preco() {
 		final double preco = 12.50;
 		produtoBefore.setPreco(preco);
 		assertEquals(preco, produtoBefore.getPreco());
 	}
 	
 	@Test
-	public void testeU_deve_atribuir_um_valor_para_quantidade() {
+	public void testeT_deve_atribuir_um_valor_para_quantidade() {
 		final int quantidade = 12;
 		produtoBefore.setQuantidade(quantidade);
 		assertEquals(quantidade, produtoBefore.getQuantidade());
 	}
 	
 	@Test
-	public void testeV_deve_atribuir_um_valor_para_cor() {
+	public void testeU_deve_atribuir_um_valor_para_cor() {
 		final String cor = "Vermelho";
 		produtoBefore.setCor(cor);
 		assertEquals(cor, produtoBefore.getCor());
@@ -182,80 +182,80 @@ public class TestesProduto {
 	//GETTERS
 	
 	@Test
-	public void testeW_deve_pegar_codigo_do_objeto_empresa() {
+	public void testeV_deve_pegar_codigo_do_objeto_empresa() {
 		assertEquals(CODIGO, produtoBefore.getCodigo());
 	}
 	
 	@Test
-	public void testeX_deve_pegar_nome_do_objeto_empresa() {
+	public void testeW_deve_pegar_nome_do_objeto_empresa() {
 		assertEquals(NOME, produtoBefore.getNome());
 	}
 	
 	@Test
-	public void testeY_deve_pegar_marca_do_objeto_empresa() {
+	public void testeX_deve_pegar_marca_do_objeto_empresa() {
 		assertEquals(MARCAR, produtoBefore.getMarca());
 	}
 	
 	@Test
-	public void testeZ_deve_pegar_preco_do_objeto_empresa() {
+	public void testeY_deve_pegar_preco_do_objeto_empresa() {
 		assertEquals(PRECO, produtoBefore.getPreco());
 	}
 	
 	@Test
-	public void testeAA_deve_pegar_nome_do_objeto_empresa() {
+	public void testeZ_deve_pegar_nome_do_objeto_empresa() {
 		assertEquals(QUANTIDADE, produtoBefore.getQuantidade());
 	}
 	
 	@Test
-	public void testeAB_deve_pegar_cor_do_objeto_empresa() {
+	public void testeAA_deve_pegar_cor_do_objeto_empresa() {
 		assertEquals(COR, produtoBefore.getCor());
 	}
 	
 	//TIMEOUT
 	
 	@Test
-	public void testeAC_deve_validar_se_para_criar_um_objeto_produto_demora_menos_que_2_segundos() {
+	public void testeAB_deve_validar_se_para_criar_um_objeto_produto_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> { new Produto(CODIGO, NOME, MARCAR, PRECO, QUANTIDADE, COR);});
 	}
 	
 	@Test
-	public void testeAD_deve_validar_se_para_pegar_o_valor_de_um_objeto_produto_demora_menos_que_2_segundos() {
+	public void testeAC_deve_validar_se_para_pegar_o_valor_de_um_objeto_produto_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> { produtoBefore.getNome();});
 	}
 	
 	//TO STRING
 	@Test
-	public void testeAE_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_codigo() {
+	public void testeAD_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_codigo() {
 		String result = produtoBefore.toString();
 		assertThat(result, containsString(produtoBefore.getCodigo()));
 	}
 	
 	@Test
-	public void testeAF_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_nome() {
+	public void testeAE_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_nome() {
 		String result = produtoBefore.toString();
 		assertThat(result, containsString(produtoBefore.getNome()));
 	}
 	
 	@Test
-	public void testeAG_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_marca() {
+	public void testeAF_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_marca() {
 		String result = produtoBefore.toString();
 		assertThat(result, containsString(produtoBefore.getMarca()));
 	}
 	
 	@Test
-	public void testeAH_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_preco() {
+	public void testeAG_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_preco() {
 		String result = produtoBefore.toString();
 		assertThat(result, containsString(String.valueOf(produtoBefore.getPreco())));
 	}
 	
 	@Test
-	public void testeAI_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_quantidade() {
+	public void testeAH_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_quantidade() {
 		String result = produtoBefore.toString();
 		assertThat(result, containsString(String.valueOf(produtoBefore.getQuantidade())));
 	}
 	
 	@Test
-	public void testeAJ_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_cor() {
+	public void testeAI_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_cor() {
 		String result = produtoBefore.toString();
 		assertThat(result, containsString(produtoBefore.getCor()));
 	}
@@ -263,7 +263,7 @@ public class TestesProduto {
 	//EQUALS
 	
 	@Test
-	public void testeAK_deve_validar_equals_do_objeto_produto() {
+	public void testeAJ_deve_validar_equals_do_objeto_produto() {
 		Produto produto1 = new Produto(CODIGO, NOME, MARCAR, PRECO, QUANTIDADE, COR);
 		Produto produto2 = new Produto(CODIGO, NOME, MARCAR, PRECO, QUANTIDADE, COR);
 		boolean resp = produto1.equals(produto2);
@@ -271,27 +271,27 @@ public class TestesProduto {
 	}
 	
 	@Test
-	public void testeAL_deve_validar_equals_do_objeto_produto_passando_nulo() {
+	public void testeAK_deve_validar_equals_do_objeto_produto_passando_nulo() {
 		boolean resp = produtoBefore.equals(null);
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeAJ_deve_validar_equals_do_objeto_produto_passando_a_propria_classe() {
+	public void testeAL_deve_validar_equals_do_objeto_produto_passando_a_propria_classe() {
 		@SuppressWarnings("unlikely-arg-type")
 		boolean resp = produtoBefore.equals(produtoBefore.getClass());
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeAK_deve_validar_equals_do_objeto_produto_passando_this() {
+	public void testeAM_deve_validar_equals_do_objeto_produto_passando_this() {
 		boolean resp = produtoBefore.equals(produtoBefore);
 		assertTrue(resp);
 	}
 	
 	//HASHCODE
 	@Test
-	public void testeAL_deve_validar_hashcode_do_objeto_empresa() {
+	public void testeAN_deve_validar_hashcode_do_objeto_empresa() {
 		Produto produto1 = new Produto(CODIGO, NOME, MARCAR, PRECO, QUANTIDADE, COR);
 		Produto produto2 = new Produto(CODIGO, NOME, MARCAR, PRECO, QUANTIDADE, COR);
 		assertTrue(produto1.equals(produto2) && produto2.equals(produto1));

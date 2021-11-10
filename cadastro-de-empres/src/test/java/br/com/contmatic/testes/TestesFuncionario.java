@@ -2,9 +2,9 @@ package br.com.contmatic.testes;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 import java.time.Duration;
@@ -164,47 +164,73 @@ public class TestesFuncionario {
 		assertEquals(contato, funcionarioBefore.getContato());
 	}
 	
+	//GETTERS
+	@Test
+	public void testeQ_deve_pegar_nome_do_objeto_funcionario() {
+		assertEquals(NOME, funcionarioBefore.getNome());
+	}
+	
+	@Test
+	public void testeR_deve_pegar_cpf_do_objeto_funcionario() {
+		assertEquals(CPF, funcionarioBefore.getCpf());
+	}
+	
+	@Test
+	public void testeS_deve_pegar_endereco_do_objeto_funcionario() {
+		assertEquals(enderecoBefore, funcionarioBefore.getEndereco());
+	}
+	
+	@Test
+	public void testeT_deve_pegar_contato_do_objeto_funcionario() {
+		assertEquals(contatoBefore, funcionarioBefore.getContato());
+	}
+	
+	@Test
+	public void testeU_deve_pegar_cargo_do_objeto_funcionario() {
+		assertEquals(cargoBefore, funcionarioBefore.getCargo());
+	}
+	
 	//TIMEOUT
 	
 	@Test
-	public void testeQ_deve_validar_se_para_criar_um_objeto_funcionario_demora_menos_que_2_segundos() {
+	public void testeV_deve_validar_se_para_criar_um_objeto_funcionario_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> {new Funcionario(NOME, CPF, enderecoBefore, contatoBefore, cargoBefore);});
 	}
 	
 	@Test
-	public void testeR_deve_validar_se_para_pegar_o_valor_de_um_objeto_empresa_demora_menos_que_2_segundos() {
+	public void testeW_deve_validar_se_para_pegar_o_valor_de_um_objeto_empresa_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> {funcionarioBefore.getNome();});
 	}
 	
 	//TO STRING
 	@Test
-	public void testeS_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_nome() {
+	public void testeX_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_nome() {
 		String result = funcionarioBefore.toString();
 		assertThat(result, containsString(funcionarioBefore.getNome()));
 	}
 	
 	@Test
-	public void testeT_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_cpf() {
+	public void testeY_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_cpf() {
 		String result = funcionarioBefore.toString();
 		assertThat(result, containsString(funcionarioBefore.getCpf()));
 	}
 	
 	@Test
-	public void testeU_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_endereco() {
+	public void testeZ_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_endereco() {
 		Funcionario funcionario = new Funcionario(NOME, CPF, enderecoBefore, contatoBefore, cargoBefore);
 		String result = funcionario.toString();
 		assertThat(result, containsString("endereco"));
 	}
 	
 	@Test
-	public void testeV_deve_validar_se_to_string_traz_as_infomacoes_de_contatos() {
+	public void testeAA_deve_validar_se_to_string_traz_as_infomacoes_de_contatos() {
 		String result = funcionarioBefore.toString();
 		assertThat(result, containsString("contato"));
 	}
 	
 	
 	@Test
-	public void testeW_deve_validar_se_to_string_traz_as_infomacoes_de_produtos() {
+	public void testeAB_deve_validar_se_to_string_traz_as_infomacoes_de_produtos() {
 		String result = funcionarioBefore.toString();
 		assertThat(result, containsString("cargo"));
 	}
@@ -212,7 +238,7 @@ public class TestesFuncionario {
 	//EQUALS
 	
 	@Test
-	public void testeX_deve_validar_equals_do_objeto_funcionario() {
+	public void testeAC_deve_validar_equals_do_objeto_funcionario() {
 		Funcionario funcionario1 = new Funcionario(NOME, CPF, enderecoBefore, contatoBefore, cargoBefore);
 		Funcionario funcionario2 = new Funcionario(NOME, CPF, enderecoBefore, contatoBefore, cargoBefore);
 		boolean resp = funcionario1.equals(funcionario2);
@@ -220,27 +246,27 @@ public class TestesFuncionario {
 	}
 	
 	@Test
-	public void testeY_deve_validar_equals_do_objeto_funcionario_passando_nulo() {
+	public void testeAD_deve_validar_equals_do_objeto_funcionario_passando_nulo() {
 		boolean resp = funcionarioBefore.equals(null);
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeZ_deve_validar_equals_do_objeto_funcionario_passando_a_propria_classe() {
+	public void testeAE_deve_validar_equals_do_objeto_funcionario_passando_a_propria_classe() {
 		@SuppressWarnings("unlikely-arg-type")
 		boolean resp = funcionarioBefore.equals(funcionarioBefore.getClass());
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeAA_deve_validar_equals_do_objeto_funcionario_passando_this() {
+	public void testeAF_deve_validar_equals_do_objeto_funcionario_passando_this() {
 		boolean resp = funcionarioBefore.equals(funcionarioBefore);
 		assertTrue(resp);
 	}
 	
 	//HASHCODE
 	@Test
-	public void testeAB_deve_validar_hashcode_do_objeto_empresa() {
+	public void testeAG_deve_validar_hashcode_do_objeto_empresa() {
 		Funcionario funcionario1 = new Funcionario(NOME, CPF, enderecoBefore, contatoBefore, cargoBefore);
 		Funcionario funcionario2 = new Funcionario(NOME, CPF, enderecoBefore, contatoBefore, cargoBefore);
 		assertTrue(funcionario1.equals(funcionario1) && funcionario2.equals(funcionario1));

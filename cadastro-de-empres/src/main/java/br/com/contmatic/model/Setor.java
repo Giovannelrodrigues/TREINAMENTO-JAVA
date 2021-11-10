@@ -2,7 +2,7 @@ package br.com.contmatic.model;
 
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoDescricao;
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenerico;
-import static br.com.contmatic.util.validacoes.Validador.validarObjetoNulo;
+import static br.com.contmatic.util.validacoes.Validador.validarLista;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +43,7 @@ public class Setor {
 	}
 	
 	public void setFuncionarios(List<Funcionario> funcionario) {
-		validarObjetoNulo(funcionario);
+		validarLista(funcionario);
 		this.funcionarios = funcionario;
 	}
 	

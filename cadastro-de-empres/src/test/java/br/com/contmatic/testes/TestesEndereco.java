@@ -320,21 +320,21 @@ public class TestesEndereco {
 	}
 	
 	@Test
-	public void testeAJ_deve_validar_equals_do_objeto_endereco_passando_a_propria_classe() {
+	public void testeAT_deve_validar_equals_do_objeto_endereco_passando_a_propria_classe() {
 		@SuppressWarnings("unlikely-arg-type")
 		boolean resp = enderecoBefore.equals(enderecoBefore.getClass());
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeAK_deve_validar_equals_do_objeto_endereco_passando_this() {
+	public void testeAU_deve_validar_equals_do_objeto_endereco_passando_this() {
 		boolean resp = enderecoBefore.equals(enderecoBefore);
 		assertTrue(resp);
 	}
 	
 	//HASHCODE
 	@Test
-	public void testeAL_deve_validar_hashcode_do_objeto_endereco() {
+	public void testeAV_deve_validar_hashcode_do_objeto_endereco() {
 		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, ESTADO, CIDADE);
 		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, ESTADO, CIDADE);
 		assertTrue(endereco1.equals(endereco2) && endereco2.equals(endereco1));

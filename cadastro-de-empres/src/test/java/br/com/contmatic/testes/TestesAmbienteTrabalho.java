@@ -137,40 +137,75 @@ public class TestesAmbienteTrabalho {
 		assertNotNull(ambienteBefore.getSetores());	
 	}
 	
+	@Test (expected = IllegalArgumentException.class)
+	public void testeO_nao_deve_atribuir_uma_setores_passando_nulo() {
+		ambienteBefore.setSetores(null);
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testeP_nao_deve_atribuir_uma_lista_setores_passando_array_vazio() {
+		List<Setor> setores = new ArrayList<Setor>();
+		ambienteBefore.setSetores(setores);
+	}
+	
+	//GETTERS
+	
+	@Test
+	public void testeQ_deve_pegar_nome_do_objeto_ambiente_trabalho() {
+		assertEquals(NOME, ambienteBefore.getNome());
+	}
+	
+	@Test
+	public void testeR_deve_pegar_descricao_do_objeto_ambiente_trabalho() {
+		assertEquals(DESCRICAO, ambienteBefore.getDescricao());
+	}
+	
+	@Test
+	public void testeS_deve_pegar_tipo_estabelecimento_do_objeto_ambiente_trabalho() {
+		assertEquals(TipoEstabelecimento.PROPRIO, ambienteBefore.getTipoEstabelecimento());
+	}
+	
+	@Test
+	public void testeT_deve_pegar_lista_setores_do_objeto_ambiente_trabalho() {
+		List<Setor> setores = new ArrayList<>();
+		setores.add(new Setor(NOME_SETOR, DESCRICAO_SETOR));
+		assertEquals(setores, ambienteBefore.getSetores());
+	}
+	
 	//TIMEOUT
 	
 	@Test
-	public void testeO_deve_validar_se_para_criar_um_objeto_ambiente_trabalho_demora_menos_que_2_segundos() {
+	public void testeU_deve_validar_se_para_criar_um_objeto_ambiente_trabalho_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> {new AmbienteTrabalho(NOME, TipoEstabelecimento.TERCEIRO, DESCRICAO);});
 	}
 	
 	@Test
-	public void testeP_deve_validar_se_para_pegar_o_valor_de_um_objeto_ambiente_trabalho_demora_menos_que_2_segundos() {
+	public void testeV_deve_validar_se_para_pegar_o_valor_de_um_objeto_ambiente_trabalho_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> {ambienteBefore.getNome();});
 	}
 	
 	//TOSTRING
 	
 	@Test
-	public void testeQ_deve_retornar_nome_quando_usar_metodo_to_string() {
+	public void testeW_deve_retornar_nome_quando_usar_metodo_to_string() {
 		String result = ambienteBefore.toString();
 		assertThat(result, containsString(ambienteBefore.getNome()));
 	}
 	
 	@Test
-	public void testeR_deve_retornar_tipo_do_estabelecimento_quando_usar_metodo_to_string() {
+	public void testeX_deve_retornar_tipo_do_estabelecimento_quando_usar_metodo_to_string() {
 		String result = ambienteBefore.toString();
 		assertThat(result, containsString(String.valueOf(ambienteBefore.getTipoEstabelecimento())));
 	}
 	
 	@Test
-	public void testeS_deve_retornar_descricao_quando_usar_metodo_to_string() {
+	public void testeY_deve_retornar_descricao_quando_usar_metodo_to_string() {
 		String result = ambienteBefore.toString();
 		assertThat(result, containsString(ambienteBefore.getDescricao()));
 	}
 	
 	@Test
-	public void testeT_deve_retornar_lista_de_setores_quando_usar_metodo_to_string() {
+	public void testeZ_deve_retornar_lista_de_setores_quando_usar_metodo_to_string() {
 		String result = ambienteBefore.toString();
 		assertThat(result, containsString("setores"));
 	}
@@ -178,7 +213,7 @@ public class TestesAmbienteTrabalho {
 	//EQUALS
 	
 	@Test
-	public void testeU_deve_validar_equals_do_objeto_ambiente_trabalho() {
+	public void testeAA_deve_validar_equals_do_objeto_ambiente_trabalho() {
 		AmbienteTrabalho ambiente1 = new AmbienteTrabalho(NOME, TipoEstabelecimento.PROPRIO, DESCRICAO);
 		AmbienteTrabalho ambiente2 = new AmbienteTrabalho(NOME, TipoEstabelecimento.PROPRIO, DESCRICAO);
 		boolean resp = ambiente1.equals(ambiente2);
@@ -186,33 +221,32 @@ public class TestesAmbienteTrabalho {
 	}
 	
 	@Test
-	public void testeV_deve_validar_equals_do_objeto_ambiente_trabalho_passando_nulo() {
+	public void testeAB_deve_validar_equals_do_objeto_ambiente_trabalho_passando_nulo() {
 		boolean resp = ambienteBefore.equals(null);
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeW_deve_validar_equals_do_objeto_ambiente_trabalho_passando_a_propria_classe() {
+	public void testeAC_deve_validar_equals_do_objeto_ambiente_trabalho_passando_a_propria_classe() {
 		@SuppressWarnings("unlikely-arg-type")
 		boolean resp = ambienteBefore.equals(ambienteBefore.getClass());
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeX_deve_validar_equals_do_objeto_ambiente_trabalho_passando_this() {
+	public void testeAD_deve_validar_equals_do_objeto_ambiente_trabalho_passando_this() {
 		boolean resp = ambienteBefore.equals(ambienteBefore);
 		assertTrue(resp);
 	}
 
-	
 	//HASHCODE
-	
 	@Test
-	public void testeY_deve_validar_hashcode_do_objeto_empresa() {
+	public void testeAE_deve_validar_hashcode_do_objeto_empresa() {
 		AmbienteTrabalho ambiente1 = new AmbienteTrabalho(NOME, TipoEstabelecimento.PROPRIO, DESCRICAO);
 		AmbienteTrabalho ambiente2 = new AmbienteTrabalho(NOME, TipoEstabelecimento.PROPRIO, DESCRICAO);
 		assertTrue(ambiente1.equals(ambiente2) && ambiente2.equals(ambiente1));
 		boolean resp = ambiente2.hashCode() == ambiente1.hashCode();
 		assertTrue(resp);
 	}
+	
 }

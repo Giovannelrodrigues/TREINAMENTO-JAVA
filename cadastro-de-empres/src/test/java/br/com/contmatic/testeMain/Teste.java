@@ -18,17 +18,17 @@ import br.com.contmatic.testes.TestesProduto;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	TestesEmpresa.class,
-	TestesProduto.class,
 	TestesAmbienteTrabalho.class,
-	TestesSetor.class,
-	TestesFuncionario.class,
 	TestesCargo.class,
 	TestesContato.class,
+	TestesEmpresa.class,
 	TestesEndereco.class,
+	TestesFuncionario.class,
+	TestesProduto.class,
+	TestesSetor.class,
 	TestesValidadorCep.class,
-	TestesValidadorCpf.class,
 	TestesValidadorCnpj.class,
+	TestesValidadorCpf.class,
 	TestesValidadorTelefone.class})
 public class Teste {
 	

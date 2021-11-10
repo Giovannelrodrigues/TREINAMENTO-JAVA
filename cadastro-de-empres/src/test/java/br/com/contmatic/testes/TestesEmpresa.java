@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -210,7 +211,7 @@ public class TestesEmpresa {
 		assertEquals(contato, empresaBefore.getContato());
 	}
 	
-	//SETT LISTA
+	//SERTTER LISTA
 	
 	@Test
 	public void testeR_deve_atribuir_uma_nova_lista_ambiente_trabalho() {
@@ -230,40 +231,62 @@ public class TestesEmpresa {
 		assertEquals(1, empresaBefore.getProdutos().size());
 	}
 	
+	@Test (expected = IllegalArgumentException.class)
+	public void testeT_nao_deve_atribuir_uma_lista_ambiente_trabalho_passando_nulo() {
+		empresaBefore.setAmbientesTrabalhos(null);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testeU_nao_deve_atribuir_uma_lista_produto_passando_nulo() {
+		empresaBefore.setAmbientesTrabalhos(null);
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testeV_nao_deve_atribuir_uma_lista_ambiente_trabalho_passando_array_vazio() {
+		List<AmbienteTrabalho> ambiente = new ArrayList<AmbienteTrabalho>();
+		empresaBefore.setAmbientesTrabalhos(ambiente);
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testeW_nao_deve_atribuir_uma_lista_produto_passando_array_vazio() {
+			List<Produto> produto = new ArrayList<Produto>();
+		empresaBefore.setProdutos(produto);
+	}
+	
 	//GETTERS
 	
 	@Test
-	public void testeT_deve_pegar_razao_social_do_objeto_empresa() {
+	public void testeX_deve_pegar_razao_social_do_objeto_empresa() {
 		assertEquals(RAZAO_SOCIAL, empresaBefore.getRazaoSocial());
 	}
 	
 	@Test
-	public void testeU_deve_pegar_cnpj_do_objeto_empresa() {
+	public void testeY_deve_pegar_cnpj_do_objeto_empresa() {
 		assertEquals(CNPJ, empresaBefore.getCnpj());
 	}
 	
 	@Test
-	public void testeV_deve_pegar_nome_fantasia_do_objeto_empresa() {
+	public void testeZ_deve_pegar_nome_fantasia_do_objeto_empresa() {
 		assertEquals(NOME_FANTASIA , empresaBefore.getNomeFantasia());
 	}
 	
 	@Test
-	public void testeW_deve_pegar_endereco_do_objeto_empresa() {
+	public void testeAA_deve_pegar_endereco_do_objeto_empresa() {
 		assertEquals(enderecoBefore , empresaBefore.getEndereco());
 	}
 	
 	@Test
-	public void testeX_deve_pegar_lista_de_ambientes_do_objeto_empresa() {
+	public void testeAB_deve_pegar_lista_de_ambientes_do_objeto_empresa() {
 		assertNotNull(empresaBefore.getAmbientesTrabalhos());
 	}
 	
 	@Test
-	public void testeY_deve_pegar_lista_de_produtos_do_objeto_empresa() {
+	public void testeAC_deve_pegar_lista_de_produtos_do_objeto_empresa() {
 		assertNotNull(empresaBefore.getProdutos());
 	}
 	
 	@Test
-	public void testeZ_deve_pegar_contato_do_objeto_empresa() {
+	public void testeAD_deve_pegar_contato_do_objeto_empresa() {
 		assertEquals(contatoBefore , empresaBefore.getContato());
 	}
 	
@@ -271,43 +294,43 @@ public class TestesEmpresa {
 	//TIMEOUT
 	
 	@Test
-	public void testeAA_deve_validar_se_para_criar_um_objeto_empresa_demora_menos_que_2_segundos() {
+	public void testeAE_deve_validar_se_para_criar_um_objeto_empresa_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> {new Empresa(RAZAO_SOCIAL, CNPJ, NOME_FANTASIA, enderecoBefore , contatoBefore);});
 	}
 	
 	@Test
-	public void testeAB_deve_validar_se_para_pegar_o_valor_de_um_objeto_empresa_demora_menos_que_2_segundos() {
+	public void testeAF_deve_validar_se_para_pegar_o_valor_de_um_objeto_empresa_demora_menos_que_2_segundos() {
 		assertTimeout(Duration.ofSeconds(2), () -> { empresaBefore.getRazaoSocial();});
 	}
 	
 	//TO STRING
 	@Test
-	public void testeAC_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_razao_social() {
+	public void testeAG_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_razao_social() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(empresaBefore.getRazaoSocial()));
 	}
 	
 	@Test
-	public void testeAD_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_cnpj() {
+	public void testeAH_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_cnpj() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(empresaBefore.getCnpj()));
 	}
 	
 	@Test
-	public void testeAE_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_nome_fantasia() {
+	public void testeAI_deve_validar_se_ao_usar_o_metodos_to_string_ele_traz_nome_fantasia() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(empresaBefore.getNomeFantasia()));
 	}
 	
 	@Test (expected = NullPointerException.class)
-	public void testeAF_nao_deve_retornar_nome_fantasia_no_metodo_tostring_quando_instaciar_sem_passar_nome_fantasia() {
+	public void testeAJ_nao_deve_retornar_nome_fantasia_no_metodo_tostring_quando_instaciar_sem_passar_nome_fantasia() {
 		Empresa empresa = new Empresa(RAZAO_SOCIAL, CNPJ, null, enderecoBefore , contatoBefore);
 		String result = empresa.toString();
 		assertThat(result, containsString(empresa.getNomeFantasia()));
 	}
 	
 	@Test
-	public void testeAG_deve_validar_se_to_string_traz_as_infomacoes_de_produtos() {
+	public void testeAK_deve_validar_se_to_string_traz_as_infomacoes_de_produtos() {
 		List<Produto> produtos = new ArrayList<>();
 		Produto produto = new Produto("AIRJ-52255-MD4", "AIR JORDAN 3 LOW", "AIR JORDA X NIKE", 1499.99, 12, "Preto - Vermelho");
 		produtos.add(produto);
@@ -317,7 +340,7 @@ public class TestesEmpresa {
 	}
 	
 	@Test
-	public void testeAH_deve_validar_se_to_string_traz_as_infomacoes_de_ambientes_trabalho() {
+	public void testeAL_deve_validar_se_to_string_traz_as_infomacoes_de_ambientes_trabalho() {
 		List<AmbienteTrabalho> ambientesTrabalhos = new ArrayList<>();
 		AmbienteTrabalho ambiente = new AmbienteTrabalho(NOME_AMBIENTE_TRABALHO, TipoEstabelecimento.PROPRIO, DESCRICAO_AMBIENTE_TRABALHO);
 		ambientesTrabalhos.add(ambiente);
@@ -329,7 +352,7 @@ public class TestesEmpresa {
 	//EQUALS
 	
 	@Test
-	public void testeAI_deve_validar_equals_do_objeto_funcionario() {
+	public void testeAM_deve_validar_equals_do_objeto_funcionario() {
 		Empresa empresa1 = new Empresa(RAZAO_SOCIAL, CNPJ, NOME_FANTASIA, enderecoBefore , contatoBefore);
 		Empresa empresa2 = new Empresa(RAZAO_SOCIAL, CNPJ, NOME_FANTASIA, enderecoBefore , contatoBefore);
 		boolean resp = empresa1.equals(empresa2);
@@ -337,31 +360,37 @@ public class TestesEmpresa {
 	}
 	
 	@Test
-	public void testeAJ_deve_validar_equals_do_objeto_funcionario_passando_nulo() {
+	public void testeAN_deve_validar_equals_do_objeto_funcionario_passando_nulo() {
 		boolean resp = empresaBefore.equals(null);
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeAK_deve_validar_equals_do_objeto_funcionario_passando_a_propria_classe() {
+	public void testeAO_deve_validar_equals_do_objeto_funcionario_passando_a_propria_classe() {
 		@SuppressWarnings("unlikely-arg-type")
 		boolean resp = empresaBefore.equals(empresaBefore.getClass());
 		assertFalse(resp);
 	}
 	
 	@Test
-	public void testeAL_deve_validar_equals_do_objeto_funcionario_passando_this() {
+	public void testeAP_deve_validar_equals_do_objeto_funcionario_passando_this() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
 	
 	//HASHCODE
 	@Test
-	public void testeAM_deve_validar_hashcode_do_objeto_empresa() {
+	public void testeAQ_deve_validar_hashcode_do_objeto_empresa() {
 		Empresa empresa1 = new Empresa(RAZAO_SOCIAL, CNPJ, NOME_FANTASIA, enderecoBefore , contatoBefore);
 		Empresa empresa2 = new Empresa(RAZAO_SOCIAL, CNPJ, NOME_FANTASIA, enderecoBefore , contatoBefore);
 		assertTrue(empresa1.equals(empresa2) && empresa2.equals(empresa1));
 		boolean resp = empresa2.hashCode() == empresa1.hashCode();
+		assertTrue(resp);
+	}
+	
+	@Ignore
+	public void testeAR_deve_ignorar_esse_teste() {
+		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
 

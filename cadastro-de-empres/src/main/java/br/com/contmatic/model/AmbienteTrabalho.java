@@ -2,6 +2,7 @@ package br.com.contmatic.model;
 
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenerico;
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenericoAceitandoNulo;
+import static br.com.contmatic.util.validacoes.Validador.validarLista;
 import static br.com.contmatic.util.validacoes.Validador.validarObjetoNulo;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class AmbienteTrabalho {
 	}
 	
 	public void setSetores(List<Setor> setores) {
-		validarObjetoNulo(setores);
+		validarLista(setores);
 		this.setores = setores;
 	}
 

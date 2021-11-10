@@ -1,32 +1,34 @@
 package br.com.contmatic.util.validacoes;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 public final class Validador {
 	
+
 	//MENSAGEM ERRO
 	private static final String MENSAGEM_CAMPO_OBRIGATORIOS_NAO_PODEM_SER_VAZIO = "Campos obrigátorios não podem ser vazios";
 
 	private static final String MENSAGEM_CAMPO_OBRIGATORIOS_NAO_PODE_SER_NULO = "Campos obrigátorios não podem ser nulos";
 	
-	private static final String MENSAGEM_CAMPO_DEVE_TER_LIMITES_100_CARACTERES = "Limite de 100 caracteres";
-	
-	private static final String MENSAGEM_CAMPO_DEVE_TER_LIMITES_256_CARACTERES = "Limite de 256 caracteres";
-	
 	private static final String MENSAGEM_DIGITE_SOMENTE_NUMEROS = "Digite somente numeros";
 	
 	private static final String MENSAGEM_TODOS_CARACTERES_REPETIDOS = "Campo não pode ter todos caracteres repetidos";
 	
-	private static final String MENSAGEM_CAMPO_NAO_PODE_SER_0 = "Campos não pode ser 0";
-	
 	private static final String MENSAGEM_CAMPO_NAO_ACEITA_NUMEROS = "Campo não aceita numeros";
+	
+	//TAMANHO CAMPO
 	
 	private static final String MENSAGEM_TAMANHO_INVALIDO = "Tamanho inválido";
 	
-	//TAMANHO CAMPO
+	private static final String MENSAGEM_LISTA_NAO_PODE_SER_VAZIA = "Lista não pode ser vazia";
+	
+	private static final String MENSAGEM_CAMPO_NAO_PODE_SER_0 = "Campos não pode ser 0";
+	
 	private static final int TAMANHO_MAX_DESCRICAO = 256;
 	
 	private static final int TAMANHO_MAX_GENERICO = 100;
+	
 	
 	//TELEFONE
 	private static final int TAMANHO_TELEFONE_FIXO = 10;
@@ -58,18 +60,6 @@ public final class Validador {
 		}
 	}
 	
-	public static void validarTamanhoAtributoGenerico(String parametro) {
-		if(parametro.length() >= TAMANHO_MAX_GENERICO) {
-			throw new IllegalStateException(MENSAGEM_CAMPO_DEVE_TER_LIMITES_100_CARACTERES);
-		}
-	}
-	
-	public static void validarTamanhoDescricao(String parametro) {
-		if(parametro.length() >= TAMANHO_MAX_DESCRICAO) {
-			throw new IllegalStateException(MENSAGEM_CAMPO_DEVE_TER_LIMITES_256_CARACTERES);
-		} 
-	}
-	
 	public static void validarSeNumeroZero(double parametro) {
 		if (parametro == 0) {
 			throw new IllegalStateException(MENSAGEM_CAMPO_NAO_PODE_SER_0);
@@ -94,6 +84,13 @@ public final class Validador {
 		}
 	}
 	
+	//LISTA
+	public static void validarListaVazia(List<?> parametro) {
+		if(parametro.isEmpty()) {
+			throw new IllegalStateException(MENSAGEM_LISTA_NAO_PODE_SER_VAZIA);
+		}
+	}
+	
 	//TELEFONE
 	public static void validarTelefone(String telefone) {
 		validarObjetoNulo(telefone);
@@ -115,27 +112,32 @@ public final class Validador {
 	public static void validarAtributoGenerico(String parametro) {
 		validarObjetoNulo(parametro);
 		validarAtributoVazio(parametro);
-		validarTamanhoAtributoGenerico(parametro);
+		validarTamanho(parametro, TAMANHO_MAX_GENERICO);
 	}
 	
 	public static void validarAtributoGenericoAceitandoNulo(String parametro) {
 		if(parametro != null) {
-			validarTamanhoAtributoGenerico(parametro);
+			validarTamanho(parametro, TAMANHO_MAX_GENERICO);
 		}
 	}
 	
 	public static void validarAtributoDescricao(String parametro) {
 		if(parametro != null) {
 			validarAtributoVazio(parametro);
-			validarTamanhoDescricao(parametro);
+			validarTamanho(parametro, TAMANHO_MAX_DESCRICAO);
 		}		
 	}
 	
 	public static void validarAtributoNome(String parametro) {
 		validarObjetoNulo(parametro);
 		validarAtributoVazio(parametro);
-		validarTamanhoAtributoGenerico(parametro);
+		validarTamanho(parametro, TAMANHO_MAX_GENERICO);
 		validarSomenteLetra(parametro);
+	}
+	
+	public static void validarLista(List<?> parametro) {
+		validarObjetoNulo(parametro);
+		validarListaVazia(parametro);
 	}
 	
 	//DOCUMENTOS
@@ -165,6 +167,7 @@ public final class Validador {
 			throw new IllegalStateException(MENSAGEM_TODOS_CARACTERES_REPETIDOS);
 		}
 	}
+	
 	
 }
 

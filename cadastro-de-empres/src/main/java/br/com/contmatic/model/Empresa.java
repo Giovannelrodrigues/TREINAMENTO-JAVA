@@ -2,6 +2,7 @@ package br.com.contmatic.model;
 
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenericoAceitandoNulo;
 import static br.com.contmatic.util.validacoes.Validador.validarAtributoNome;
+import static br.com.contmatic.util.validacoes.Validador.validarLista;
 import static br.com.contmatic.util.validacoes.Validador.validarObjetoNulo;
 import static br.com.contmatic.util.validacoes.ValidadorCNPJ.validarCNPJ;
 
@@ -77,13 +78,12 @@ public class Empresa {
 		this.endereco = endereco;
 	}
 	
-	
 	public List<AmbienteTrabalho> getAmbientesTrabalhos() {
 		return this.ambientesTrabalhos;
 	}
 	
 	public void setAmbientesTrabalhos(List<AmbienteTrabalho> ambientesTrabalhos) {
-		validarObjetoNulo(ambientesTrabalhos);
+		validarLista(ambientesTrabalhos);
 		this.ambientesTrabalhos = ambientesTrabalhos;
 	}
 
@@ -92,7 +92,7 @@ public class Empresa {
 	}
 	
 	public void setProdutos(List<Produto> produtos) {
-		validarObjetoNulo(produtos);
+		validarLista(produtos);
 		this.produtos = produtos;
 	}
 
