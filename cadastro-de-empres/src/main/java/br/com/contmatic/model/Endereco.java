@@ -1,36 +1,65 @@
 package br.com.contmatic.model;
 
-import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenerico;
-import static br.com.contmatic.util.validacoes.Validador.validarAtributoGenericoAceitandoNulo;
-import static br.com.contmatic.util.validacoes.Validador.validarCEP;
-import static br.com.contmatic.util.validacoes.Validador.validarSeNumeroZero;
+import static br.com.contmatic.util.constants.Constants.NUMERO_MAX_ENDERECO;
+import static br.com.contmatic.util.constants.Constants.REGEX_LETRAS_NUMEROS_PONTOS;
+import static br.com.contmatic.util.constants.Constants.REGEX_SOMENTE_LETRAS;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_CEP;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_BAIRRO_ENDERECO;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_COMPLEMENTO_ENDERECO;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LOGRADOURO_ENDERECO;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_BAIRRO_ENDERECO;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_COMPLEMENTO_ENDERECO;
+import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_LOGRADOURO_ENDERECO;
+import static br.com.contmatic.util.constants.Message.MENSAGEM_ERRO_REGEX_LETRAS_NUMEROS;
+import static br.com.contmatic.util.constants.Message.MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS;
+import static br.com.contmatic.util.validacoes.Validador.validarNulo;
+import static br.com.contmatic.util.validacoes.Validador.validarNumeroMaximo;
+import static br.com.contmatic.util.validacoes.Validador.validarRegex;
+import static br.com.contmatic.util.validacoes.Validador.validarSomenteNumero;
+import static br.com.contmatic.util.validacoes.Validador.validarTamanho;
+import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
+import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
+import static br.com.contmatic.util.validacoes.Validador.validarVazio;
+import static br.com.contmatic.util.validacoes.Validador.validarZero;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Endereco {
-	
+import br.com.contmatic.enums.TipoEndereco;
+
+public class Endereco extends Audit {
+
 	private String cep;
-	
+
 	private String logradouro;
-	
-	private String complemento;
-	
+
 	private Integer numero;
-	
+
 	private String bairro;
-	
-	private String estado;
-	
-	private String cidade;
-	
-	
-	public Endereco(String cep, String logradouro, String complemento, int numero, String bairro, String estado,  String cidade) {
+
+	private Estado estado;
+
+	private Cidade cidade;
+
+	private String complemento;
+
+	private TipoEndereco tipoEndereco;
+
+	public Endereco(Email email, LocalDateTime dataCriacao, String cep, String logradouro, int numero, String bairro,
+			Estado estado, Cidade cidade, TipoEndereco tipoEndereco) {
+		super(email, dataCriacao);
 		this.setCep(cep);
 		this.setLogradouro(logradouro);
 		this.setNumero(numero);
 		this.setBairro(bairro);
 		this.setEstado(estado);
 		this.setCidade(cidade);
+		this.setTipoEndereco(tipoEndereco);
+	}
+
+	public Endereco(Email email, LocalDateTime dataCriacao, String cep, String logradouro, String complemento,
+			int numero, String bairro, Estado estado, Cidade cidade, TipoEndereco tipoEndereco) {
+		this(email, dataCriacao, cep, logradouro, numero, bairro, estado, cidade, tipoEndereco);
 		this.setComplemento(complemento);
 	}
 
@@ -39,7 +68,10 @@ public class Endereco {
 	}
 
 	public void setCep(String cep) {
-		validarCEP(cep);
+		validarNulo(cep);
+		validarVazio(cep);
+		validarSomenteNumero(cep);
+		validarTamanho(cep, TAMANHO_CEP);
 		this.cep = cep;
 	}
 
@@ -48,7 +80,11 @@ public class Endereco {
 	}
 
 	public void setLogradouro(String logradouro) {
-		validarAtributoGenerico(logradouro);
+		validarNulo(logradouro);
+		validarVazio(logradouro);
+		validarTamanhoMaximo(logradouro, TAMANHO_MAX_LOGRADOURO_ENDERECO);
+		validarTamanhoMinimo(logradouro, TAMANHO_MIN_LOGRADOURO_ENDERECO);
+		validarRegex(logradouro, REGEX_LETRAS_NUMEROS_PONTOS, MENSAGEM_ERRO_REGEX_LETRAS_NUMEROS);
 		this.logradouro = logradouro;
 	}
 
@@ -57,7 +93,11 @@ public class Endereco {
 	}
 
 	public void setComplemento(String complemento) {
-		validarAtributoGenericoAceitandoNulo(complemento);
+		validarNulo(complemento);
+		validarVazio(complemento);
+		validarTamanhoMaximo(complemento, TAMANHO_MAX_COMPLEMENTO_ENDERECO);
+		validarTamanhoMinimo(complemento, TAMANHO_MIN_COMPLEMENTO_ENDERECO);
+		validarRegex(complemento, REGEX_LETRAS_NUMEROS_PONTOS, MENSAGEM_ERRO_REGEX_LETRAS_NUMEROS);
 		this.complemento = complemento;
 	}
 
@@ -65,8 +105,10 @@ public class Endereco {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
-		validarSeNumeroZero(numero);
+	public void setNumero(Integer numero) {
+		validarNulo(numero);
+		validarZero(numero);
+		validarNumeroMaximo(numero, NUMERO_MAX_ENDERECO);
 		this.numero = numero;
 	}
 
@@ -75,39 +117,46 @@ public class Endereco {
 	}
 
 	public void setBairro(String bairro) {
-		validarAtributoGenerico(bairro);
+		validarNulo(bairro);
+		validarVazio(bairro);
+		validarTamanhoMaximo(bairro, TAMANHO_MAX_BAIRRO_ENDERECO);
+		validarTamanhoMinimo(bairro, TAMANHO_MIN_BAIRRO_ENDERECO);
+		validarRegex(bairro, REGEX_SOMENTE_LETRAS, MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS);
 		this.bairro = bairro;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
-		validarAtributoGenerico(estado);
+	public void setEstado(Estado estado) {
+		validarNulo(estado);
 		this.estado = estado;
 	}
 
-	public String getCidade() {
+	public Cidade getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
-		validarAtributoGenerico(cidade);
+	public void setCidade(Cidade cidade) {
+		validarNulo(cidade);
 		this.cidade = cidade;
 	}
-	
-	@Override
-	public String toString() {
-		return "Endereco [cep=" + cep + ", logradouro=" + logradouro + ", complemento=" + complemento + ", numero="
-				+ numero + ", bairro=" + bairro + ", estado=" + estado + ", cidade=" + cidade + "]";
+
+	public TipoEndereco getTipoEndereco() {
+		return tipoEndereco;
 	}
-	
+
+	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+		validarNulo(tipoEndereco);
+		this.tipoEndereco = tipoEndereco;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(bairro, cep, cidade, estado, logradouro, numero);
+		return Objects.hash(bairro, cep, cidade, complemento, estado, logradouro, numero);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -119,5 +168,11 @@ public class Endereco {
 		Endereco other = (Endereco) obj;
 		return Objects.equals(obj, other);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Endereco [cep=" + cep + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro
+				+ ", estado=" + estado + ", cidade=" + cidade + ", complemento=" + complemento + ", tipoEndereco="
+				+ tipoEndereco + "]";
+	}
 }
