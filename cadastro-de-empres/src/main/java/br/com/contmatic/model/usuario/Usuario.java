@@ -47,12 +47,6 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Usuario [emailUsuario=" + email + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(email);
@@ -70,4 +64,9 @@ public class Usuario {
 		return Objects.equals(email, other.email);
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [emailUsuario=" + email + "]";
+	}
+	
 }

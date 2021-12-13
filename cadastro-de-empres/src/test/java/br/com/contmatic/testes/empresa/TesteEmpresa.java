@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -436,6 +437,13 @@ public class TesteEmpresa {
 
 	@Test
 	public void teste46_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+		boolean resp = empresaBefore.equals(empresaBefore);
+		assertTrue(resp);
+	}
+	
+	@Test
+	@Ignore
+	public void teste47_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}

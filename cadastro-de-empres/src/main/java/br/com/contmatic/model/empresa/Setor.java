@@ -98,7 +98,7 @@ public class Setor extends Audit {
 		if (getClass() != obj.getClass())
 			return false;
 		Setor other = (Setor) obj;
-		return Objects.equals(ambienteTrabalho, other.ambienteTrabalho) && Objects.equals(nome, other.nome);
+		return Objects.equals(nome, other.nome);
 	}
 
 	@Override
