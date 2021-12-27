@@ -21,11 +21,9 @@ import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 import static br.com.contmatic.util.validacoes.Validador.validarZero;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import br.com.contmatic.model.Audit;
-import br.com.contmatic.model.Email;
 
 public class Produto extends Audit {
 
@@ -43,8 +41,7 @@ public class Produto extends Audit {
 
 	private Empresa empresa;
 
-	public Produto(Email email, LocalDateTime dataCriacao, String codigo, Empresa empresa) {
-		super(email, dataCriacao);
+	public Produto(String codigo, Empresa empresa) {
 		this.setCodigo(codigo);
 		this.setEmpresa(empresa);
 	}
@@ -130,7 +127,6 @@ public class Produto extends Audit {
 		this.empresa = empresa;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);
@@ -151,6 +147,6 @@ public class Produto extends Audit {
 	@Override
 	public String toString() {
 		return "Produto [codigo=" + codigo + ", nome=" + nome + ", marca=" + marca + ", cor=" + cor + ", preco=" + preco
-				+ ", quantidade=" + quantidade + ", empresa=" + empresa + "]";
+				+ ", quantidade=" + quantidade + ", empresa=" + empresa + ", audit()=" + super.toString() + "]";
 	}
 }

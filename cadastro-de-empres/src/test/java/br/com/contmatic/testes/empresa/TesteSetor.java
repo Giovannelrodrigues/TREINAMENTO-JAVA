@@ -26,8 +26,8 @@ import br.com.contmatic.model.empresa.Setor;
 public class TesteSetor {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
-	
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY,3,6,30,40,50000);
+
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
 
 	private static AmbienteTrabalho ambienteBefore;
 
@@ -39,18 +39,22 @@ public class TesteSetor {
 
 	@Before
 	public void antesDeCadaTeste() {
-		List<Funcionario> funcionarios = new ArrayList<>();
-		empresaBefore = new Empresa(EMAIL, LOCAL_TIME, "63516934000109");
-		ambienteBefore = new AmbienteTrabalho(EMAIL, LOCAL_TIME, "financeiro", empresaBefore);
-		setorBefore = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
-		funcionarios.add(new Funcionario(EMAIL, LOCAL_TIME, "41326382004", "20062003", setorBefore));
+		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+		empresaBefore = new Empresa("63516934000109");
+		ambienteBefore = new AmbienteTrabalho("financeiro", empresaBefore);
+		setorBefore = new Setor(NOME, ambienteBefore);
+		funcionarios.add(new Funcionario("41326382004", setorBefore));
 		setorBefore.setFuncionarios(funcionarios);
+		setorBefore.setCreatedBy(EMAIL);
+		setorBefore.setCreateDate(LOCAL_TIME);
+		setorBefore.setLastByUpdadeNotify(EMAIL);
+		setorBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 	}
 
 	// CONSTRUTOR
 	@Test
 	public void teste01_deve_instaciar_um_setor_com_campos_obrigatorios() {
-		Setor setor = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
+		Setor setor = new Setor(NOME, ambienteBefore);
 		assertEquals(NOME, setor.getNome());
 		assertEquals(ambienteBefore, setor.getAmbienteTrabalho());
 	}
@@ -138,7 +142,7 @@ public class TesteSetor {
 	@Test
 	public void teste16_deve_atribuir_uma_nova_lista_funcionarios() {
 		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
-		funcionarios.add(new Funcionario(EMAIL, LOCAL_TIME, "41326382004", "20062003", setorBefore));
+		funcionarios.add(new Funcionario("41326382004", setorBefore));
 		setorBefore.setFuncionarios(funcionarios);
 		assertEquals(funcionarios, setorBefore.getFuncionarios());
 	}
@@ -158,7 +162,7 @@ public class TesteSetor {
 	public void teste19_nao_deve_atribuir_uma_nova_lista_funcionarios_com_mais_de_999_funcionarios() {
 		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		for (int index = 1000; index != 0; index--) {
-			funcionarios.add(new Funcionario(EMAIL, LOCAL_TIME, "41326382004", "20062003", setorBefore));
+			funcionarios.add(new Funcionario("41326382004", setorBefore));
 		}
 		setorBefore.setFuncionarios(funcionarios);
 	}
@@ -166,7 +170,7 @@ public class TesteSetor {
 	// AMBIENTE TRABALHO
 	@Test
 	public void teste20_deve_atribuir_um_novo_ambiente_trabalho() {
-		AmbienteTrabalho ambiente = new AmbienteTrabalho(EMAIL, LOCAL_TIME, NOME, empresaBefore);
+		AmbienteTrabalho ambiente = new AmbienteTrabalho(NOME, empresaBefore);
 		setorBefore.setAmbienteTrabalho(ambiente);
 		assertEquals(ambiente, setorBefore.getAmbienteTrabalho());
 	}
@@ -199,16 +203,16 @@ public class TesteSetor {
 	// HASHCODE
 	@Test
 	public void teste25_deve_retornar_o_mesmo_hashcode_para_da_setor_com_mesmo_nome() {
-		Setor setor1 = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
-		Setor setor2 = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
+		Setor setor1 = new Setor(NOME, ambienteBefore);
+		Setor setor2 = new Setor(NOME, ambienteBefore);
 		boolean resp = setor1.hashCode() == setor2.hashCode();
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste26_deve_retornar_false_hashcode_para_da_setor_com_nome_diferentes() {
-		Setor setor1 = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
-		Setor setor2 = new Setor(EMAIL, LOCAL_TIME, "Teste test", ambienteBefore);
+		Setor setor1 = new Setor(NOME, ambienteBefore);
+		Setor setor2 = new Setor("Teste test", ambienteBefore);
 		boolean resp = setor1.hashCode() == setor2.hashCode();
 		assertFalse(resp);
 	}
@@ -216,16 +220,16 @@ public class TesteSetor {
 	// EQUALS
 	@Test
 	public void teste27_deve_retornar_true_quando_usar_equals_passado_nome_iguais() {
-		Setor setor1 = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
-		Setor setor2 = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
+		Setor setor1 = new Setor(NOME, ambienteBefore);
+		Setor setor2 = new Setor(NOME, ambienteBefore);
 		boolean resp = setor1.equals(setor2);
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste28_deve_retornar_false_quando_usar_equals_passado_nome_diferentes() {
-		Setor setor1 = new Setor(EMAIL, LOCAL_TIME, NOME, ambienteBefore);
-		Setor setor2 = new Setor(EMAIL, LOCAL_TIME, "Teste teste", ambienteBefore);
+		Setor setor1 = new Setor(NOME, ambienteBefore);
+		Setor setor2 = new Setor("Teste teste", ambienteBefore);
 		boolean resp = setor1.equals(setor2);
 		assertFalse(resp);
 	}
@@ -246,6 +250,79 @@ public class TesteSetor {
 	public void teste31_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = setorBefore.equals(setorBefore);
 		assertTrue(resp);
+	}
+
+	// CREATE BY
+	@Test
+	public void teste32_deve_retornar_por_quem_foi_criado() {
+		setorBefore.setCreatedBy(EMAIL);
+		assertEquals(EMAIL, setorBefore.getCreatedBy());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste33_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+		setorBefore.setCreatedBy(null);
+	}
+
+	// CREATE TIME
+	@Test
+	public void teste34_deve_retornar_quando_foi_criado() {
+		setorBefore.setCreateDate(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, setorBefore.getCreateDate());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste35_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+		setorBefore.setCreateDate(null);
+	}
+
+	// LAST BY UPDATE NOTIFY
+	@Test
+	public void teste36_deve_retornar_por_quem_foi_alterado() {
+		setorBefore.setLastByUpdadeNotify(EMAIL);
+		assertEquals(EMAIL, setorBefore.getLastByUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste37_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+		setorBefore.setCreatedBy(null);
+	}
+
+	// LAST DATE UPDATE NOTIFY
+	@Test
+	public void teste38_deve_retornar_quando_foi_alterado() {
+		setorBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, setorBefore.getLastDateUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste39_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+		setorBefore.setLastDateUpdadeNotify(null);
+	}
+
+	// TO STRING
+	@Test
+	public void teste40_deve_retornar_createby_no_to_string() {
+		String result = setorBefore.toString();
+		assertThat(result, containsString(String.valueOf(setorBefore.getCreatedBy())));
+	}
+
+	@Test
+	public void teste41_deve_retornar_create_date_no_to_string() {
+		String result = setorBefore.toString();
+		assertThat(result, containsString(String.valueOf(setorBefore.getCreateDate())));
+	}
+
+	@Test
+	public void teste42_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+		String result = setorBefore.toString();
+		assertThat(result, containsString(String.valueOf(setorBefore.getLastDateUpdadeNotify())));
+	}
+
+	@Test
+	public void teste43_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+		String result = setorBefore.toString();
+		assertThat(result, containsString(String.valueOf(setorBefore.getLastByUpdadeNotify())));
 	}
 
 }

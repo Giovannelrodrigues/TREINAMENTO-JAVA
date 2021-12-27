@@ -15,12 +15,10 @@ import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximoLis
 import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 import br.com.contmatic.model.Audit;
-import br.com.contmatic.model.Email;
 
 public class Setor extends Audit {
 
@@ -32,8 +30,7 @@ public class Setor extends Audit {
 
 	private AmbienteTrabalho ambienteTrabalho;
 
-	public Setor(Email email, LocalDateTime dataCriacao, String nome, AmbienteTrabalho ambienteTrabalho) {
-		super(email, dataCriacao);
+	public Setor(String nome, AmbienteTrabalho ambienteTrabalho) {
 		this.setNome(nome);
 		this.setAmbienteTrabalho(ambienteTrabalho);
 	}
@@ -83,7 +80,6 @@ public class Setor extends Audit {
 		this.ambienteTrabalho = ambienteTrabalho;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(ambienteTrabalho, nome);
@@ -103,7 +99,8 @@ public class Setor extends Audit {
 
 	@Override
 	public String toString() {
-		return "Setor [nome=" + nome + ", descricao=" + descricao + ", funcionarios=" + funcionarios + "]";
+		return "Setor [nome=" + nome + ", descricao=" + descricao + ", funcionarios=" + funcionarios + ", audit()="
+				+ super.toString() + "]";
 	}
-	
+
 }

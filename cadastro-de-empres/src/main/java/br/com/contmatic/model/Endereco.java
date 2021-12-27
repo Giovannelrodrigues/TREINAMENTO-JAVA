@@ -22,7 +22,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 import static br.com.contmatic.util.validacoes.Validador.validarZero;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import br.com.contmatic.enums.TipoEndereco;
@@ -37,29 +36,28 @@ public class Endereco extends Audit {
 
 	private String bairro;
 
-	private Estado estado;
-
 	private Cidade cidade;
+
+	private Estado estado;
 
 	private String complemento;
 
 	private TipoEndereco tipoEndereco;
 
-	public Endereco(Email email, LocalDateTime dataCriacao, String cep, String logradouro, int numero, String bairro,
-			Estado estado, Cidade cidade, TipoEndereco tipoEndereco) {
-		super(email, dataCriacao);
+	public Endereco(String cep, String logradouro, int numero, String bairro, Cidade cidade, Estado estado,
+			TipoEndereco tipoEndereco) {
 		this.setCep(cep);
 		this.setLogradouro(logradouro);
 		this.setNumero(numero);
 		this.setBairro(bairro);
-		this.setEstado(estado);
 		this.setCidade(cidade);
+		this.setEstado(estado);
 		this.setTipoEndereco(tipoEndereco);
 	}
 
-	public Endereco(Email email, LocalDateTime dataCriacao, String cep, String logradouro, String complemento,
-			int numero, String bairro, Estado estado, Cidade cidade, TipoEndereco tipoEndereco) {
-		this(email, dataCriacao, cep, logradouro, numero, bairro, estado, cidade, tipoEndereco);
+	public Endereco(String cep, String logradouro, String complemento, int numero, String bairro, Cidade cidade,
+			Estado estado, TipoEndereco tipoEndereco) {
+		this(cep, logradouro, numero, bairro, cidade, estado, tipoEndereco);
 		this.setComplemento(complemento);
 	}
 
@@ -125,15 +123,6 @@ public class Endereco extends Audit {
 		this.bairro = bairro;
 	}
 
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		validarNulo(estado);
-		this.estado = estado;
-	}
-
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -141,6 +130,15 @@ public class Endereco extends Audit {
 	public void setCidade(Cidade cidade) {
 		validarNulo(cidade);
 		this.cidade = cidade;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		validarNulo(estado);
+		this.estado = estado;
 	}
 
 	public TipoEndereco getTipoEndereco() {
@@ -154,7 +152,7 @@ public class Endereco extends Audit {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bairro, cep, cidade, complemento, estado, logradouro, numero);
+		return Objects.hash(bairro, cep, cidade, complemento, logradouro, numero);
 	}
 
 	@Override
@@ -172,7 +170,7 @@ public class Endereco extends Audit {
 	@Override
 	public String toString() {
 		return "Endereco [cep=" + cep + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro
-				+ ", estado=" + estado + ", cidade=" + cidade + ", complemento=" + complemento + ", tipoEndereco="
-				+ tipoEndereco + "]";
+				+ ", estado=" + ", cidade=" + cidade + ", complemento=" + complemento + ", tipoEndereco=" + tipoEndereco
+				+ ", audit()=" + super.toString() + "]";
 	}
 }

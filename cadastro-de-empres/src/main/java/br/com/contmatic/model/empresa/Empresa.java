@@ -25,7 +25,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 import static br.com.contmatic.util.validacoes.ValidadorCNPJ.validarCNPJ;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,8 +54,7 @@ public class Empresa extends Audit {
 
 	private List<Usuario> usuarios;
 
-	public Empresa(Email email, LocalDateTime dataCriacao, String cnpj) {
-		super(email, dataCriacao);
+	public Empresa(String cnpj) {
 		this.setCnpj(cnpj);
 	}
 
@@ -186,7 +184,8 @@ public class Empresa extends Audit {
 	public String toString() {
 		return "Empresa [cnpj=" + cnpj + ", nomeFantasia=" + nomeFantasia + ", razaoSocial=" + razaoSocial
 				+ ", enderecos=" + enderecos + ", ambientesTrabalhos=" + ambientesTrabalhos + ", produtos=" + produtos
-				+ ", telefones=" + telefones + ", emails=" + emails + ", usuarios=" + usuarios + "]";
+				+ ", telefones=" + telefones + ", emails=" + emails + ", usuarios=" + usuarios + ", audit()="
+				+ super.toString() + "]";
 	}
 
 }

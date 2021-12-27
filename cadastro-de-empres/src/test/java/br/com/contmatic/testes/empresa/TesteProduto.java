@@ -20,10 +20,10 @@ import br.com.contmatic.model.empresa.Produto;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteProduto {
-	
+
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
-	
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY,3,6,30,40,50000);
+
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
 
 	private static Produto produtoBefore;
 
@@ -45,8 +45,8 @@ public class TesteProduto {
 
 	@Before
 	public void antesDeCadaTeste() {
-		empresaBefore = new Empresa(EMAIL, LOCAL_TIME, CNPJ);
-		produtoBefore = new Produto(EMAIL, LOCAL_TIME, CODIGO, empresaBefore);
+		empresaBefore = new Empresa(CNPJ);
+		produtoBefore = new Produto(CODIGO, empresaBefore);
 		produtoBefore.setNome(NOME);
 		produtoBefore.setMarca(MARCA);
 		produtoBefore.setCor(COR);
@@ -242,7 +242,7 @@ public class TesteProduto {
 	@Test
 	public void teste32_deve_atribuir_uma_nova_empresa_para_produto() {
 		String cnpj = "42543514000133";
-		Empresa empresa = new Empresa(EMAIL, LOCAL_TIME, cnpj);
+		Empresa empresa = new Empresa(cnpj);
 		produtoBefore.setEmpresa(empresa);
 		assertEquals(empresa, produtoBefore.getEmpresa());
 	}
@@ -298,8 +298,8 @@ public class TesteProduto {
 	// HASHCODE
 	@Test
 	public void teste41_deve_retornar_o_mesmo_hashcode_para_da_produto_com_mesmo_codigo() {
-		Produto produto1 = new Produto(EMAIL, LOCAL_TIME, CODIGO, empresaBefore);
-		Produto produto2 = new Produto(EMAIL, LOCAL_TIME, CODIGO, empresaBefore);
+		Produto produto1 = new Produto(CODIGO, empresaBefore);
+		Produto produto2 = new Produto(CODIGO, empresaBefore);
 		boolean resp = produto1.hashCode() == produto2.hashCode();
 		assertTrue(resp);
 	}
@@ -307,16 +307,16 @@ public class TesteProduto {
 	// EQUALS
 	@Test
 	public void teste42_deve_retornar_true_quando_usar_equals_passado_produtos_iguais() {
-		Produto produto1 = new Produto(EMAIL, LOCAL_TIME, CODIGO, empresaBefore);
-		Produto produto2 = new Produto(EMAIL, LOCAL_TIME, CODIGO, empresaBefore);
+		Produto produto1 = new Produto(CODIGO, empresaBefore);
+		Produto produto2 = new Produto(CODIGO, empresaBefore);
 		boolean resp = produto1.equals(produto2);
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste43_deve_retornar_falso_quando_usar_equals_passado_produtos_com_codigo_diferente_difentes() {
-		Produto produto1 = new Produto(EMAIL, LOCAL_TIME, CODIGO, empresaBefore);
-		Produto produto2 = new Produto(EMAIL, LOCAL_TIME, "12345", empresaBefore);
+		Produto produto1 = new Produto(CODIGO, empresaBefore);
+		Produto produto2 = new Produto("12345", empresaBefore);
 		boolean resp = produto1.equals(produto2);
 		assertFalse(resp);
 	}
@@ -337,6 +337,79 @@ public class TesteProduto {
 	public void teste46_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = produtoBefore.equals(produtoBefore);
 		assertTrue(resp);
+	}
+
+	// CREATE BY
+	@Test
+	public void teste47_deve_retornar_por_quem_foi_criado() {
+		produtoBefore.setCreatedBy(EMAIL);
+		assertEquals(EMAIL, produtoBefore.getCreatedBy());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste48_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+		produtoBefore.setCreatedBy(null);
+	}
+
+	// CREATE TIME
+	@Test
+	public void teste49_deve_retornar_quando_foi_criado() {
+		produtoBefore.setCreateDate(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, produtoBefore.getCreateDate());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste50_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+		produtoBefore.setCreateDate(null);
+	}
+
+	// LAST BY UPDATE NOTIFY
+	@Test
+	public void teste51_deve_retornar_por_quem_foi_alterado() {
+		produtoBefore.setLastByUpdadeNotify(EMAIL);
+		assertEquals(EMAIL, produtoBefore.getLastByUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste52_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+		produtoBefore.setCreatedBy(null);
+	}
+
+	// LAST DATE UPDATE NOTIFY
+	@Test
+	public void teste53_deve_retornar_quando_foi_alterado() {
+		produtoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, produtoBefore.getLastDateUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste54_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+		produtoBefore.setLastDateUpdadeNotify(null);
+	}
+
+	// TO STRING
+	@Test
+	public void teste55_deve_retornar_createby_no_to_string() {
+		String result = produtoBefore.toString();
+		assertThat(result, containsString(String.valueOf(produtoBefore.getCreatedBy())));
+	}
+
+	@Test
+	public void teste56_deve_retornar_create_date_no_to_string() {
+		String result = produtoBefore.toString();
+		assertThat(result, containsString(String.valueOf(produtoBefore.getCreateDate())));
+	}
+
+	@Test
+	public void teste57_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+		String result = produtoBefore.toString();
+		assertThat(result, containsString(String.valueOf(produtoBefore.getLastDateUpdadeNotify())));
+	}
+
+	@Test
+	public void teste58_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+		String result = produtoBefore.toString();
+		assertThat(result, containsString(String.valueOf(produtoBefore.getLastByUpdadeNotify())));
 	}
 
 }

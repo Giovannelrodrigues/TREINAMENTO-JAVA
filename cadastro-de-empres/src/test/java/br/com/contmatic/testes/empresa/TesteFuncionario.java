@@ -47,32 +47,34 @@ public class TesteFuncionario {
 
 	private static final String CPF = "62709667010";
 
-	private static final String DATA_NASCIMENTO = "20062003";
-
 	@Before
 	public void antesDeCadaTeste() {
-		empresaBefore = new Empresa(EMAIL, LOCAL_TIME, "09535558000146");
-		ambienteBefore = new AmbienteTrabalho(EMAIL, LOCAL_TIME, "Desenvolvimento", empresaBefore);
-		setorBefore = new Setor(EMAIL, LOCAL_TIME, "Infraestrutura", ambienteBefore);
-		cargoBefore = new Cargo(EMAIL, LOCAL_TIME, "desenvolvedor front end");
-		funcionarioBefore = new Funcionario(EMAIL, LOCAL_TIME, CPF, DATA_NASCIMENTO, setorBefore);
+		empresaBefore = new Empresa("09535558000146");
+		ambienteBefore = new AmbienteTrabalho("Desenvolvimento", empresaBefore);
+		setorBefore = new Setor("Infraestrutura", ambienteBefore);
+		cargoBefore = new Cargo("desenvolvedor front end");
+		funcionarioBefore = new Funcionario(CPF, setorBefore);
 		funcionarioBefore.setCargo(cargoBefore);
-		funcionarioBefore.setEndereco(new Endereco(EMAIL, LOCAL_TIME, "04852510", "rua x", 194, "JD lucelia",
-				new Estado("São Paulo"), new Cidade("São Paulo"), TipoEndereco.COMERCIAL));
-		List<Telefone> telefones = new ArrayList<>();
-		List<Email> emails = new ArrayList<>();
-		telefones.add(new Telefone(EMAIL, LOCAL_TIME, "1159160668"));
+		funcionarioBefore.setEndereco(new Endereco("04852510", "rua x", 194, "JD lucelia",
+				new Cidade("São Paulo", 2458, new Estado("São Paulo", "SP")), new Estado("São Paulo", "SP"),
+				TipoEndereco.COMERCIAL));
+		List<Telefone> telefones = new ArrayList<Telefone>();
+		List<Email> emails = new ArrayList<Email>();
+		telefones.add(new Telefone("1159160668"));
 		emails.add(EMAIL);
 		funcionarioBefore.setTelefones(telefones);
 		funcionarioBefore.setEmails(emails);
+		funcionarioBefore.setCreatedBy(EMAIL);
+		funcionarioBefore.setCreateDate(LOCAL_TIME);
+		funcionarioBefore.setLastByUpdadeNotify(EMAIL);
+		funcionarioBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 	}
 
 	// CONSTRUTOR
 	@Test
 	public void teste01_deve_instanciar_um_novo_funcionario() {
-		Funcionario funcionario = new Funcionario(EMAIL, LOCAL_TIME, CPF, DATA_NASCIMENTO, setorBefore);
+		Funcionario funcionario = new Funcionario(CPF, setorBefore);
 		assertEquals(CPF, funcionario.getCpf());
-		assertEquals(DATA_NASCIMENTO, funcionario.getDataNacimento());
 		assertEquals(setorBefore, funcionario.getSetor());
 	}
 
@@ -165,8 +167,9 @@ public class TesteFuncionario {
 	// ENDERECO
 	@Test
 	public void teste18_deve_atribuir_um_novo_endereco_para_funcionario() {
-		Endereco endereco = new Endereco(EMAIL, LOCAL_TIME, "04852510", "rua x", 194, "JD lucelia",
-				new Estado("São Paulo"), new Cidade("São Paulo"), TipoEndereco.COMERCIAL);
+		Endereco endereco = new Endereco("04852510", "rua x", 194, "JD lucelia",
+				new Cidade("São Paulo", 254887, new Estado("São Paulo", "SP")), new Estado("São Paulo", "SP"),
+				TipoEndereco.COMERCIAL);
 		funcionarioBefore.setEndereco(endereco);
 		assertEquals(endereco, funcionarioBefore.getEndereco());
 	}
@@ -179,8 +182,8 @@ public class TesteFuncionario {
 	// LISTA TELEFONE
 	@Test
 	public void teste20_deve_atribuir_uma_nova_lista_de_endereco_para_funcionario() {
-		List<Telefone> telefones = new ArrayList<>();
-		telefones.add(new Telefone(EMAIL, LOCAL_TIME, "1159160668"));
+		List<Telefone> telefones = new ArrayList<Telefone>();
+		telefones.add(new Telefone("1159160668"));
 		funcionarioBefore.setTelefones(telefones);
 		assertEquals(telefones, funcionarioBefore.getTelefones());
 	}
@@ -192,15 +195,15 @@ public class TesteFuncionario {
 
 	@Test(expected = IllegalStateException.class)
 	public void teste22_nao_deve_atribuir_uma_nova_lista_de_telefone_lista_vazia() {
-		List<Telefone> telefones = new ArrayList<>();
+		List<Telefone> telefones = new ArrayList<Telefone>();
 		funcionarioBefore.setTelefones(telefones);
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void teste23_nao_deve_atribuir_uma_nova_lista_de_telefones_coma_mais_de_5_telefones() {
-		List<Telefone> telefones = new ArrayList<>();
+		List<Telefone> telefones = new ArrayList<Telefone>();
 		for (int index = 7; index != 0; index--) {
-			telefones.add(new Telefone(EMAIL, LOCAL_TIME, "1159160668"));
+			telefones.add(new Telefone("1159160668"));
 		}
 		funcionarioBefore.setTelefones(telefones);
 	}
@@ -208,7 +211,7 @@ public class TesteFuncionario {
 	// LISTA EMAILS
 	@Test
 	public void teste24_deve_atribuir_uma_nova_lista_de_email_para_funcionario() {
-		List<Email> emails = new ArrayList<>();
+		List<Email> emails = new ArrayList<Email>();
 		emails.add(new Email("funcionario@cont.com"));
 		funcionarioBefore.setEmails(emails);
 		assertEquals(emails, funcionarioBefore.getEmails());
@@ -227,7 +230,7 @@ public class TesteFuncionario {
 
 	@Test(expected = IllegalStateException.class)
 	public void teste27_nao_deve_atribuir_uma_nova_lista_de_telefones_coma_mais_de_5_telefones() {
-		List<Email> emails = new ArrayList<>();
+		List<Email> emails = new ArrayList<Email>();
 		for (int index = 7; index != 0; index--) {
 			emails.add(new Email("emailcont@cont.com"));
 		}
@@ -237,7 +240,7 @@ public class TesteFuncionario {
 	// TESTE CARGO
 	@Test
 	public void teste28_deve_atribuir_um_novo_cargo_para_funcionario() {
-		Cargo cargo = new Cargo(EMAIL, LOCAL_TIME, "Gerente de infraestrutura");
+		Cargo cargo = new Cargo("Gerente de infraestrutura");
 		funcionarioBefore.setCargo(cargo);
 		assertEquals(cargo, funcionarioBefore.getCargo());
 	}
@@ -250,7 +253,7 @@ public class TesteFuncionario {
 	// TESTE SETOR
 	@Test
 	public void teste30_deve_atribuir_um_novo_setor_para_funcionario() {
-		Setor setor = new Setor(EMAIL, LOCAL_TIME, "Infra", ambienteBefore);
+		Setor setor = new Setor("Infra", ambienteBefore);
 		funcionarioBefore.setSetor(setor);
 		assertEquals(setor, funcionarioBefore.getSetor());
 	}
@@ -263,8 +266,8 @@ public class TesteFuncionario {
 	// DATA NASCIMENTO
 	@Test
 	public void teste31_deve_atribuir_uma_nova_data_de_nascimento() {
-		funcionarioBefore.setDataNacimento(DATA_NASCIMENTO);
-		assertEquals(DATA_NASCIMENTO, funcionarioBefore.getDataNacimento());
+		funcionarioBefore.setDataNacimento("20082004");
+		assertEquals("20082004", funcionarioBefore.getDataNacimento());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -335,6 +338,7 @@ public class TesteFuncionario {
 
 	@Test
 	public void teste44_deve_retonar_data_nascimento_no_to_string() {
+		funcionarioBefore.setDataNacimento("20082003");
 		String result = funcionarioBefore.toString();
 		assertThat(result, containsString(funcionarioBefore.getDataNacimento()));
 	}
@@ -360,16 +364,16 @@ public class TesteFuncionario {
 	// HASHCODE
 	@Test
 	public void teste48_deve_retornar_o_mesmo_hashcode_para_funcionario_com_mesmo_cpf() {
-		Funcionario funcionario1 = new Funcionario(EMAIL, LOCAL_TIME, CPF, "20062003", setorBefore);
-		Funcionario funcionario2 = new Funcionario(EMAIL, LOCAL_TIME, CPF, "20062003", setorBefore);
+		Funcionario funcionario1 = new Funcionario(CPF, setorBefore);
+		Funcionario funcionario2 = new Funcionario(CPF, setorBefore);
 		boolean resp = funcionario1.hashCode() == funcionario2.hashCode();
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste49_deve_retornar_o_mesmo_hashcode_para_funcionario_com_cpf_diferentes() {
-		Funcionario funcionario1 = new Funcionario(EMAIL, LOCAL_TIME, CPF, "20062003", setorBefore);
-		Funcionario funcionario2 = new Funcionario(EMAIL, LOCAL_TIME, "30524250057", "20062003", setorBefore);
+		Funcionario funcionario1 = new Funcionario(CPF, setorBefore);
+		Funcionario funcionario2 = new Funcionario("30524250057", setorBefore);
 		boolean resp = funcionario1.hashCode() == funcionario2.hashCode();
 		assertFalse(resp);
 	}
@@ -377,16 +381,16 @@ public class TesteFuncionario {
 	// EQUALS
 	@Test
 	public void teste50_deve_retornar_true_quando_usar_equals_passado_cpf_iguais() {
-		Funcionario funcionario1 = new Funcionario(EMAIL, LOCAL_TIME, CPF, "20062003", setorBefore);
-		Funcionario funcionario2 = new Funcionario(EMAIL, LOCAL_TIME, CPF, "20062003", setorBefore);
+		Funcionario funcionario1 = new Funcionario(CPF, setorBefore);
+		Funcionario funcionario2 = new Funcionario(CPF, setorBefore);
 		boolean resp = funcionario1.equals(funcionario2);
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste51_deve_retornar_falso_quando_usar_equals_passado_cpf_diferente_difentes() {
-		Funcionario funcionario1 = new Funcionario(EMAIL, LOCAL_TIME, CPF, "20062003", setorBefore);
-		Funcionario funcionario2 = new Funcionario(EMAIL, LOCAL_TIME, "30524250057", "20062003", setorBefore);
+		Funcionario funcionario1 = new Funcionario(CPF, setorBefore);
+		Funcionario funcionario2 = new Funcionario("30524250057", setorBefore);
 		boolean resp = funcionario1.equals(funcionario2);
 		assertFalse(resp);
 	}
@@ -407,6 +411,79 @@ public class TesteFuncionario {
 	public void teste54_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = funcionarioBefore.equals(funcionarioBefore);
 		assertTrue(resp);
+	}
+
+	// CREATE BY
+	@Test
+	public void teste55_deve_retornar_por_quem_foi_criado() {
+		funcionarioBefore.setCreatedBy(EMAIL);
+		assertEquals(EMAIL, funcionarioBefore.getCreatedBy());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste56_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+		funcionarioBefore.setCreatedBy(null);
+	}
+
+	// CREATE TIME
+	@Test
+	public void teste57_deve_retornar_quando_foi_criado() {
+		funcionarioBefore.setCreateDate(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, funcionarioBefore.getCreateDate());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste58_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+		funcionarioBefore.setCreateDate(null);
+	}
+
+	// LAST BY UPDATE NOTIFY
+	@Test
+	public void teste59_deve_retornar_por_quem_foi_alterado() {
+		funcionarioBefore.setLastByUpdadeNotify(EMAIL);
+		assertEquals(EMAIL, funcionarioBefore.getLastByUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste30_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+		funcionarioBefore.setCreatedBy(null);
+	}
+
+	// LAST DATE UPDATE NOTIFY
+	@Test
+	public void teste31_deve_retornar_quando_foi_alterado() {
+		funcionarioBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, funcionarioBefore.getLastDateUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste32_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+		funcionarioBefore.setLastDateUpdadeNotify(null);
+	}
+
+	// TO STRING
+	@Test
+	public void teste33_deve_retornar_createby_no_to_string() {
+		String result = funcionarioBefore.toString();
+		assertThat(result, containsString(String.valueOf(funcionarioBefore.getCreatedBy())));
+	}
+
+	@Test
+	public void teste34_deve_retornar_create_date_no_to_string() {
+		String result = funcionarioBefore.toString();
+		assertThat(result, containsString(String.valueOf(funcionarioBefore.getCreateDate())));
+	}
+
+	@Test
+	public void teste35_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+		String result = funcionarioBefore.toString();
+		assertThat(result, containsString(String.valueOf(funcionarioBefore.getLastDateUpdadeNotify())));
+	}
+
+	@Test
+	public void teste36_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+		String result = funcionarioBefore.toString();
+		assertThat(result, containsString(String.valueOf(funcionarioBefore.getLastByUpdadeNotify())));
 	}
 
 }

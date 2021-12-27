@@ -1,5 +1,6 @@
 package br.com.contmatic.model.usuario;
 
+import static br.com.contmatic.util.constants.Constants.REGEX_SENHA;
 import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_SENHA_USUARIO;
 import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_SENHA_USUARIO;
 import static br.com.contmatic.util.constants.Message.MENSAGEM_SENHA_FRACA;
@@ -14,9 +15,9 @@ import java.util.Objects;
 import br.com.contmatic.model.Email;
 
 public class Usuario {
-	
+
 	private Email email;
-	
+
 	private String senha;
 
 	public Usuario(Email email, String senha) {
@@ -33,7 +34,7 @@ public class Usuario {
 		validarVazio(email);
 		this.email = email;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -43,7 +44,7 @@ public class Usuario {
 		validarVazio(senha);
 		validarTamanhoMaximo(senha, TAMANHO_MAX_SENHA_USUARIO);
 		validarTamanhoMinimo(senha, TAMANHO_MIN_SENHA_USUARIO);
-		validarRegex(senha, "(?=.*[a-z=])(?=.*[0-9])(?=.*[A-Z]).{8,30}", MENSAGEM_SENHA_FRACA);
+		validarRegex(senha, REGEX_SENHA, MENSAGEM_SENHA_FRACA);
 		this.senha = senha;
 	}
 
@@ -68,5 +69,5 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [emailUsuario=" + email + "]";
 	}
-	
+
 }

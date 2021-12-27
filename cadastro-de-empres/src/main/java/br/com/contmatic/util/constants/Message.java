@@ -5,7 +5,8 @@ public final class Message {
 	private Message() {
 	}
 
-	public static final String MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS = "Campo aceita somente de letras minuscula e maiusculas";
+	public static final String MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS_MAIUSCULAS = "Campo aceita somente maiusculas";
+	public static final String MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS = "Campo aceita somente letras minuscula e maiusculas";
 	public static final String MENSAGEM_ERRO_REGEX_SOMENTE_NUMEROS = "Campo aceita somente numeros";
 	public static final String MENSAGEM_ERRO_REGEX_LETRAS_NUMEROS = "Campo aceita somente de letras minuscula, maiusculas e numeros";
 
@@ -39,4 +40,14 @@ public final class Message {
 	public static final String MENSAGEM_SENHA_FRACA = "Senha deve conter letra Maiuscula, Minuscula e Numero";
 
 	public static final String MENSAGEM_SENHA_INVALIDA = "Senha inválida";
+
+	// DATA
+	public static final String DATA_INVALIDA = "Data Invalida";
+
+	// IDADE
+	public static final String MENSAGEM_IDADE_MINIMA = "Você não possui idade suficente. Você deve ter mais de 14 anos";
+
+	// FELEFONE
+	public static final String MENSAGEM_TAMANHO_INVALIDO_TELEFONE = "Telefone n�o pode ter tamanho diferente de 10 ou 11 caracteres";
+
 }

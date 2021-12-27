@@ -21,7 +21,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 import static br.com.contmatic.util.validacoes.ValidadorCPF.validarCPF;
 import static br.com.contmatic.util.validacoes.ValidadorData.validarDataNascimento;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,11 +47,9 @@ public class Funcionario extends Audit {
 
 	private Setor setor;
 
-	public Funcionario(Email email, LocalDateTime dataCriacao, String cpf, String dataNacimento, Setor setor) {
-		super(email, dataCriacao);
+	public Funcionario(String cpf, Setor setor) {
 		this.setCpf(cpf);
 		this.setSetor(setor);
-		this.setDataNacimento(dataNacimento);
 	}
 
 	public String getCpf() {
@@ -164,6 +161,7 @@ public class Funcionario extends Audit {
 	@Override
 	public String toString() {
 		return "Funcionario [cpf=" + cpf + ", nome=" + nome + ", cargo=" + cargo + ", dataNacimento=" + dataNacimento
-				+ ", endereco=" + endereco + ", telefones=" + telefones + ", emails=" + emails + "]";
+				+ ", endereco=" + endereco + ", telefones=" + telefones + ", emails=" + emails + ", audit()="
+				+ super.toString() + "]";
 	}
 }

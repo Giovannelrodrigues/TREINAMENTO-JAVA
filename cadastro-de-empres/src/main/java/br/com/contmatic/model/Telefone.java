@@ -5,7 +5,6 @@ import static br.com.contmatic.util.validacoes.Validador.validarSomenteNumero;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 import static br.com.contmatic.util.validacoes.ValidadorTelefone.validarTamanhoTelefone;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import br.com.contmatic.enums.TipoTelefone;
@@ -16,13 +15,12 @@ public class Telefone extends Audit {
 
 	private TipoTelefone tipoTelefone;
 
-	public Telefone(Email email, LocalDateTime dataCriacao, String numeroTelefone) {
-		super(email, dataCriacao);
+	public Telefone(String numeroTelefone) {
 		this.setTelefone(numeroTelefone);
 	}
 
-	public Telefone(Email email, LocalDateTime dataCriacao, String numeroTelefone, TipoTelefone tipoTelefone) {
-		this(email, dataCriacao, numeroTelefone);
+	public Telefone(String numeroTelefone, TipoTelefone tipoTelefone) {
+		this(numeroTelefone);
 		this.setTipoTelefone(tipoTelefone);
 	}
 
@@ -66,7 +64,8 @@ public class Telefone extends Audit {
 
 	@Override
 	public String toString() {
-		return "Telefone [numeroTelefone=" + numeroTelefone + ", tipoTelefone=" + tipoTelefone + "]";
+		return "Telefone [numeroTelefone=" + numeroTelefone + ", tipoTelefone=" + tipoTelefone + ", audit()="
+				+ super.toString() + "]";
 	}
 
 }

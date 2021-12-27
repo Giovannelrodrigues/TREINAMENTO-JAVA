@@ -21,8 +21,8 @@ import br.com.contmatic.model.empresa.Cargo;
 public class TesteCargo {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
-	
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40 , 50000);
+
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
 
 	private static Cargo cargoBefore;
 
@@ -32,16 +32,19 @@ public class TesteCargo {
 
 	@Before
 	public void antesDeCadaTeste() {
-		cargoBefore = new Cargo(EMAIL, LOCAL_TIME, NOME);
+		cargoBefore = new Cargo(NOME);
 		cargoBefore.setDescricao(DESCRICAO);
+		cargoBefore.setCreatedBy(EMAIL);
+		cargoBefore.setCreateDate(LOCAL_TIME);
+		cargoBefore.setLastByUpdadeNotify(EMAIL);
+		cargoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 	}
 
 	// CONSTRUTOR
 	@Test
 	public void teste01_deve_instaciar_um_cargo_com_campos_obrigatorios() {
-		Cargo cargo = new Cargo(EMAIL, LOCAL_TIME, NOME);
+		Cargo cargo = new Cargo(NOME);
 		assertEquals(NOME, cargo.getNome());
-		assertEquals(EMAIL, cargo.getCreatedBy());
 	}
 
 	@Test
@@ -139,16 +142,16 @@ public class TesteCargo {
 	// HASHCODE
 	@Test
 	public void teste18_deve_retornar_o_mesmo_hashcode_para_da_cargo_com_mesmo_nome() {
-		Cargo cargo1 = new Cargo(EMAIL, LOCAL_TIME, NOME);
-		Cargo cargo2 = new Cargo(EMAIL, LOCAL_TIME, NOME);
+		Cargo cargo1 = new Cargo(NOME);
+		Cargo cargo2 = new Cargo(NOME);
 		boolean resp = cargo1.hashCode() == cargo2.hashCode();
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste19_deve_retornar__hashcode_diferente_para_da_cargo_com_nome_diferente() {
-		Cargo cargo1 = new Cargo(EMAIL, LOCAL_TIME, NOME);
-		Cargo cargo2 = new Cargo(EMAIL, LOCAL_TIME, "alouuu");
+		Cargo cargo1 = new Cargo(NOME);
+		Cargo cargo2 = new Cargo("alouuu");
 		boolean resp = cargo1.hashCode() == cargo2.hashCode();
 		assertFalse(resp);
 	}
@@ -156,36 +159,109 @@ public class TesteCargo {
 	// EQUALS
 	@Test
 	public void teste20_deve_retornar_true_quando_usar_equals_passado_cargos_iguais() {
-		Cargo cargo1 = new Cargo(EMAIL, LOCAL_TIME, NOME);
-		Cargo cargo2 = new Cargo(EMAIL, LOCAL_TIME, NOME);
+		Cargo cargo1 = new Cargo(NOME);
+		Cargo cargo2 = new Cargo(NOME);
 		boolean resp = cargo1.equals(cargo2);
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste21_deve_retornar_falso_quando_usar_equals_passado_nome_cargos_difentes() {
-		Cargo cargo1 = new Cargo(EMAIL, LOCAL_TIME, NOME);
-		Cargo cargo2 = new Cargo(EMAIL, LOCAL_TIME, "teste teste");
+		Cargo cargo1 = new Cargo(NOME);
+		Cargo cargo2 = new Cargo("teste teste");
 		boolean resp = cargo1.equals(cargo2);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste34_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste22_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = cargoBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste35_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste23_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = cargoBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste36_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste24_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = cargoBefore.equals(cargoBefore);
 		assertTrue(resp);
+	}
+
+	// CREATE BY
+	@Test
+	public void teste25_deve_retornar_por_quem_foi_criado() {
+		cargoBefore.setCreatedBy(EMAIL);
+		assertEquals(EMAIL, cargoBefore.getCreatedBy());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste26_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+		cargoBefore.setCreatedBy(null);
+	}
+
+	// CREATE TIME
+	@Test
+	public void teste27_deve_retornar_quando_foi_criado() {
+		cargoBefore.setCreateDate(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, cargoBefore.getCreateDate());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste28_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+		cargoBefore.setCreateDate(null);
+	}
+
+	// LAST BY UPDATE NOTIFY
+	@Test
+	public void teste29_deve_retornar_por_quem_foi_alterado() {
+		cargoBefore.setLastByUpdadeNotify(EMAIL);
+		assertEquals(EMAIL, cargoBefore.getLastByUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste30_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+		cargoBefore.setCreatedBy(null);
+	}
+
+	// LAST DATE UPDATE NOTIFY
+	@Test
+	public void teste31_deve_retornar_quando_foi_alterado() {
+		cargoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		assertEquals(LOCAL_TIME, cargoBefore.getLastDateUpdadeNotify());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste32_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+		cargoBefore.setLastDateUpdadeNotify(null);
+	}
+
+	// TO STRING
+	@Test
+	public void teste33_deve_retornar_createby_no_to_string() {
+		String result = cargoBefore.toString();
+		assertThat(result, containsString(String.valueOf(cargoBefore.getCreatedBy())));
+	}
+
+	@Test
+	public void teste34_deve_retornar_create_date_no_to_string() {
+		String result = cargoBefore.toString();
+		assertThat(result, containsString(String.valueOf(cargoBefore.getCreateDate())));
+	}
+
+	@Test
+	public void teste35_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+		String result = cargoBefore.toString();
+		assertThat(result, containsString(String.valueOf(cargoBefore.getLastDateUpdadeNotify())));
+	}
+
+	@Test
+	public void teste36_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+		String result = cargoBefore.toString();
+		assertThat(result, containsString(String.valueOf(cargoBefore.getLastByUpdadeNotify())));
 	}
 
 }

@@ -1,23 +1,42 @@
 package br.com.contmatic.model;
 
+import static br.com.contmatic.util.constants.Constants.CODIGO_MAX_IBGE;
 import static br.com.contmatic.util.constants.Constants.REGEX_SOMENTE_LETRAS;
 import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_CIDADE_ENDERECO;
 import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_CIDADE_ENDERECO;
 import static br.com.contmatic.util.constants.Message.MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS;
 import static br.com.contmatic.util.validacoes.Validador.validarNulo;
+import static br.com.contmatic.util.validacoes.Validador.validarNumeroMaximo;
 import static br.com.contmatic.util.validacoes.Validador.validarRegex;
 import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
 import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
+import static br.com.contmatic.util.validacoes.Validador.validarZero;
 
 import java.util.Objects;
 
 public class Cidade {
 
+	private Integer codigoIBGE;
+
 	private String nome;
 
-	public Cidade(String nome) {
+	private Estado estado;
+
+	public Cidade(String nome, Integer codigoIBGE, Estado estado) {
 		this.setNome(nome);
+		this.setCodigoIBGE(codigoIBGE);
+		this.setEstado(estado);
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		validarNulo(estado);
+		validarVazio(estado);
+		this.estado = estado;
 	}
 
 	public String getNome() {
@@ -33,9 +52,21 @@ public class Cidade {
 		this.nome = nome;
 	}
 
+	public Integer getCodigoIBGE() {
+		return codigoIBGE;
+	}
+
+	public void setCodigoIBGE(Integer codigoIBGE) {
+		validarNulo(codigoIBGE);
+		validarVazio(codigoIBGE);
+		validarZero(codigoIBGE);
+		validarNumeroMaximo(codigoIBGE, CODIGO_MAX_IBGE);
+		this.codigoIBGE = codigoIBGE;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(codigoIBGE);
 	}
 
 	@Override
@@ -47,12 +78,12 @@ public class Cidade {
 		if (getClass() != obj.getClass())
 			return false;
 		Cidade other = (Cidade) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(codigoIBGE, other.codigoIBGE);
 	}
 
 	@Override
 	public String toString() {
-		return "Cidade [nome=" + nome + "]";
+		return "Cidade [codigoIBGE=" + codigoIBGE + ", nome=" + nome + ", estado=" + estado + "]";
 	}
 
 }

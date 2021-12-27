@@ -87,9 +87,16 @@ public final class Constants {
 	public static final Integer TAMANHO_MAX_CIDADE_ENDERECO = 60;
 	public static final Integer TAMANHO_MIN_CIDADE_ENDERECO = 3;
 
+	public static final Integer CODIGO_MAX_IBGE = 9999999;
+
 	// ESTADO
 	public static final Integer TAMANHO_MAX_ESTADO_ENDERECO = 60;
 	public static final Integer TAMANHO_MIN_ESTADO_ENDERECO = 3;
+
+	public static final Integer TAMANHO_LISTA_MAX_CIDADES = 999;
+
+	public static final Integer TAMANHO_MAX_SIGLA_ESTADO_ENDERECO = 2;
+	public static final Integer TAMANHO_MIN_SIGLA_ESTADO_ENDERECO = 1;
 
 	// TELEFONES
 	public static final Integer TAMANHO_MAX_LISTA_TELEFONES = 5;
@@ -112,6 +119,8 @@ public final class Constants {
 	// REGEX
 	public static final String REGEX_SOMENTE_NUMEROS = "([0-9]*)";
 
+	public static final String REGEX_SIGLA_ESTADO = "([A-Z]*)";
+
 	public static final String REGEX_SOMENTE_LETRAS = "([a-zA-ZÁ-Úá-ú ]*)";
 
 	public static final String REGEX_LETRAS_NUMEROS = "([a-zA-ZÁ-Úá-ú0-9 ]*)";
@@ -119,6 +128,8 @@ public final class Constants {
 	public static final String REGEX_RAZAO_SOCIAL = "([A-Za-zÁ-Úá-ú.&, ]*)";
 
 	public static final String REGEX_LETRAS_NUMEROS_PONTOS = "([a-zA-Z0-9á-úÁ-Ú,. ]*)";
+
+	public static final String REGEX_SENHA = "(?=.*[a-z=])(?=.*[0-9])(?=.*[A-Z]).{8,30}";
 
 	// VALIDADOR DOCUMENTOS
 	public static final Integer QUANTIDADE_DIGITOS_CALCULO = 0;

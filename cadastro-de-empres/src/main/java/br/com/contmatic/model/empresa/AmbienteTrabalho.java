@@ -15,13 +15,11 @@ import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximoLis
 import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 import br.com.contmatic.enums.TipoEstabelecimento;
 import br.com.contmatic.model.Audit;
-import br.com.contmatic.model.Email;
 import br.com.contmatic.model.Endereco;
 
 public class AmbienteTrabalho extends Audit {
@@ -38,8 +36,7 @@ public class AmbienteTrabalho extends Audit {
 
 	private Empresa empresa;
 
-	public AmbienteTrabalho(Email email, LocalDateTime dataCriacao, String nome, Empresa empresa) {
-		super(email, dataCriacao);
+	public AmbienteTrabalho(String nome, Empresa empresa) {
 		this.setNome(nome);
 		this.setEmpresa(empresa);
 	}
@@ -130,7 +127,7 @@ public class AmbienteTrabalho extends Audit {
 	public String toString() {
 		return "AmbienteTrabalho [nome=" + nome + ", descricao=" + descricao + ", tipoEstabelecimento="
 				+ tipoEstabelecimento + ", setores=" + setores + ", enderecos=" + enderecos + ", empresa=" + empresa
-				+ "]";
+				+ ", audit()=" + super.toString() + "]";
 	}
 
 }

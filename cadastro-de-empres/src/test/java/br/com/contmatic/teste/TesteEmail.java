@@ -31,7 +31,6 @@ public class TesteEmail {
 	}
 
 	// EMAIL
-
 	@Test
 	public void teste02_deve_atribuir_um_novo_valor_para_email() {
 		String email = "gio@cont.com";

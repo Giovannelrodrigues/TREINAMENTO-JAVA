@@ -12,11 +12,9 @@ import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
 import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.util.validacoes.Validador.validarVazio;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import br.com.contmatic.model.Audit;
-import br.com.contmatic.model.Email;
 
 public class Cargo extends Audit {
 
@@ -24,8 +22,7 @@ public class Cargo extends Audit {
 
 	private String descricao;
 
-	public Cargo(Email email, LocalDateTime dataCriacao, String nome) {
-		super(email, dataCriacao);
+	public Cargo(String nome) {
 		this.setNome(nome);
 	}
 
@@ -73,6 +70,6 @@ public class Cargo extends Audit {
 
 	@Override
 	public String toString() {
-		return "Cargo [nome=" + nome + ", descricao=" + descricao + "]";
+		return "Cargo [nome=" + nome + ", descricao=" + descricao + ", audit()=" + super.toString() + "]";
 	}
 }
