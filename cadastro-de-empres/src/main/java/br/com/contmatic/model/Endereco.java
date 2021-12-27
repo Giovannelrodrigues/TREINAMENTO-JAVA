@@ -55,12 +55,6 @@ public class Endereco extends Audit {
 		this.setTipoEndereco(tipoEndereco);
 	}
 
-	public Endereco(String cep, String logradouro, String complemento, int numero, String bairro, Cidade cidade,
-			Estado estado, TipoEndereco tipoEndereco) {
-		this(cep, logradouro, numero, bairro, cidade, estado, tipoEndereco);
-		this.setComplemento(complemento);
-	}
-
 	public String getCep() {
 		return cep;
 	}

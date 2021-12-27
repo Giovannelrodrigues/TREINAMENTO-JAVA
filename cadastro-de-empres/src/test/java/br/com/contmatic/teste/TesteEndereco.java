@@ -47,7 +47,8 @@ public class TesteEndereco {
 
 	@Before
 	public void antesDeCadaTeste() {
-		enderecoBefore = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		enderecoBefore = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		enderecoBefore.setComplemento(COMPLEMENTO);
 		enderecoBefore.setCreatedBy(EMAIL);
 		enderecoBefore.setCreateDate(LOCAL_TIME);
 		enderecoBefore.setLastByUpdadeNotify(EMAIL);
@@ -328,8 +329,8 @@ public class TesteEndereco {
 	// HASHCODE
 	@Test
 	public void teste46_deve_retornar_o_mesmo_hashcode_para_enderecos_sao_iguais() {
-		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
-		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
 		boolean resp = endereco1.hashCode() == endereco2.hashCode();
 		assertTrue(resp);
 	}
@@ -337,17 +338,16 @@ public class TesteEndereco {
 	// EQUALS
 	@Test
 	public void teste47_deve_retornar_true_quando_usar_equals_passado_enderecos_iguais() {
-		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
-		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
 		boolean resp = endereco1.equals(endereco2);
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste48_deve_retornar_true_quando_usar_equals_passado_tipos_enderecos_diferentes() {
-		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
-		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, COMPLEMENTO, NUMERO, BAIRRO, CIDADE, ESTADO,
-				TipoEndereco.ENTREGA);
+		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TipoEndereco.ENTREGA);
 		boolean resp = endereco1.equals(endereco2);
 		assertTrue(resp);
 	}
