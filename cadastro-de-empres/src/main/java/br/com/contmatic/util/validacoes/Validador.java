@@ -110,6 +110,11 @@ public class Validador {
 			pularDigitos = quantidadeDigitos;
 		}
 
+		return (IntStream.of(checkValuesCompeted(numRegistro, quantidadeDigitos, limiteSequencia, pularDigitos)).sum());
+	}
+
+	private static int[] checkValuesCompeted(String numRegistro, int quantidadeDigitos, int limiteSequencia,
+			int pularDigitos) {
 		int[] valoresComputados = new int[numRegistro.length() - quantidadeDigitos];
 		int valorSequencia = VALOR_INICIAL_SEQUENCIA;
 		for (int index = 0; index < (numRegistro.length() - quantidadeDigitos); index++) {
@@ -119,8 +124,7 @@ public class Validador {
 			if (valorSequencia > limiteSequencia)
 				valorSequencia = VALOR_INICIAL_SEQUENCIA;
 		}
-
-		return (IntStream.of(valoresComputados).sum());
+		return valoresComputados;
 	}
 
 	public static void validarCaracteresRepetidos(Object parametro) {
