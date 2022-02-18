@@ -17,23 +17,20 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.enums.TipoEndereco;
-import br.com.contmatic.model.Cidade;
-import br.com.contmatic.model.Email;
-import br.com.contmatic.model.Endereco;
-import br.com.contmatic.model.Estado;
-import br.com.contmatic.model.Telefone;
+import br.com.contmatic.model.commons.Cidade;
+import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.commons.Endereco;
+import br.com.contmatic.model.commons.Estado;
+import br.com.contmatic.model.commons.Telefone;
 import br.com.contmatic.model.empresa.AmbienteTrabalho;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Produto;
-import br.com.contmatic.model.usuario.Usuario;
+import br.com.contmatic.model.enums.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEmpresa {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
-
-	private static final String SENHA = "123Abc123Abc";
 
 	private static Empresa empresaBefore;
 
@@ -316,37 +313,7 @@ public class TesteEmpresa {
 		empresaBefore.setEmails(emails);
 	}
 
-	// LISTA USUARIOS
-	@Test
-	public void teste42_deve_atribuir_uma_nova_lista_de_usuarios() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(new Usuario(EMAIL, SENHA));
-		empresaBefore.setUsuarios(usuarios);
-		assertEquals(usuarios, empresaBefore.getUsuarios());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste43_nao_deve_atribuir_uma_nova_lista_de_usuarios_passando_nulo() {
-		empresaBefore.setUsuarios(null);
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void teste44_nao_deve_atribuir_uma_nova_lista_de_usuarios_lista_vazia() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		empresaBefore.setUsuarios(usuarios);
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void teste45_nao_deve_atribuir_uma_nova_lista_de_usuarios_com_mais_de_15_usuarios() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		for (int index = 16; index != 0; index--) {
-			usuarios.add(new Usuario(EMAIL, SENHA));
-		}
-		empresaBefore.setUsuarios(usuarios);
-	}
-
 	// TO STRING
-
 	@Test
 	public void teste46_deve_retonar_cnpj_no_to_string() {
 		String result = empresaBefore.toString();
@@ -397,12 +364,6 @@ public class TesteEmpresa {
 		assertThat(result, containsString(String.valueOf(empresaBefore.getTelefones())));
 	}
 
-	@Test
-	public void teste54_deve_retonar_lista_usuarios_no_to_string() {
-		String result = empresaBefore.toString();
-		assertThat(result, containsString(String.valueOf(empresaBefore.getUsuarios())));
-	}
-
 	// HASHCODE
 	@Test
 	public void teste41_deve_retornar_o_mesmo_hashcode_para_da_empresa_com_mesmo_cnpj() {
@@ -449,82 +410,81 @@ public class TesteEmpresa {
 
 	// CREATE BY
 	@Test
-	public void teste02_deve_retornar_por_quem_foi_criado() {
+	public void teste47_deve_retornar_por_quem_foi_criado() {
 		empresaBefore.setCreatedBy(EMAIL);
 		assertEquals(EMAIL, empresaBefore.getCreatedBy());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste03_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+	public void teste48_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
 		empresaBefore.setCreatedBy(null);
 	}
 
 	// CREATE TIME
 	@Test
-	public void teste04_deve_retornar_quando_foi_criado() {
+	public void teste49_deve_retornar_quando_foi_criado() {
 		empresaBefore.setCreateDate(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, empresaBefore.getCreateDate());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste05_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+	public void teste50_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
 		empresaBefore.setCreateDate(null);
 	}
 
 	// LAST BY UPDATE NOTIFY
 	@Test
-	public void teste06_deve_retornar_por_quem_foi_alterado() {
+	public void teste51_deve_retornar_por_quem_foi_alterado() {
 		empresaBefore.setLastByUpdadeNotify(EMAIL);
 		assertEquals(EMAIL, empresaBefore.getLastByUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste07_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+	public void teste52_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
 		empresaBefore.setCreatedBy(null);
 	}
 
 	// LAST DATE UPDATE NOTIFY
 	@Test
-	public void teste08_deve_retornar_quando_foi_alterado() {
+	public void teste53_deve_retornar_quando_foi_alterado() {
 		empresaBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, empresaBefore.getLastDateUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste09_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+	public void teste54_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
 		empresaBefore.setLastDateUpdadeNotify(null);
 	}
 
 	// TO STRING
 	@Test
-	public void teste10_deve_retornar_createby_no_to_string() {
+	public void teste55_deve_retornar_createby_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getCreatedBy())));
 	}
 
 	@Test
-	public void teste11_deve_retornar_create_date_no_to_string() {
+	public void teste56_deve_retornar_create_date_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getCreateDate())));
 	}
 
 	@Test
-	public void teste12_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+	public void teste57_deve_retornar_LastDateUpdadeNotify_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getLastDateUpdadeNotify())));
 	}
 
 	@Test
-	public void teste13_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+	public void teste58_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getLastByUpdadeNotify())));
 	}
 
 	@Test
 	@Ignore
-	public void teste47_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste59_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
-
 }

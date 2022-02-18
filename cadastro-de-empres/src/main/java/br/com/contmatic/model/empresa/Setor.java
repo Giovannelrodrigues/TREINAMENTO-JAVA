@@ -1,24 +1,36 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.util.constants.Constants.REGEX_SOMENTE_LETRAS;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_DESCRICAO_SETOR;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_FUNCIONARIOS_SETOR;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_NOME_SETOR;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_DESCRICAO_SETOR;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_NOME_SETOR;
-import static br.com.contmatic.util.constants.Message.MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS;
-import static br.com.contmatic.util.validacoes.Validador.validarListaVazia;
-import static br.com.contmatic.util.validacoes.Validador.validarNulo;
-import static br.com.contmatic.util.validacoes.Validador.validarRegex;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximoLista;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
-import static br.com.contmatic.util.validacoes.Validador.validarVazio;
+import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MAX_LISTA_FUNCIONARIOS;
+import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_AMBIENTE_TRABALHO_NOTNULL;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_DESCRICAO_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_DESCRICAO_NOTNULL;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_FUCIONARIOS_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_FUCIONARIOS_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_FUCIONARIOS_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
+import static br.com.contmatic.model.validacoes.Validador.validarListaVazia;
+import static br.com.contmatic.model.validacoes.Validador.validarNulo;
+import static br.com.contmatic.model.validacoes.Validador.validarRegex;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximoLista;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
+import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.Audit;
+import br.com.contmatic.model.commons.Audit;
 
 public class Setor extends Audit {
 
@@ -40,11 +52,11 @@ public class Setor extends Audit {
 	}
 
 	public void setNome(String nome) {
-		validarNulo(nome);
-		validarVazio(nome);
-		validarTamanhoMaximo(nome, TAMANHO_MAX_NOME_SETOR);
-		validarTamanhoMinimo(nome, TAMANHO_MIN_NOME_SETOR);
-		validarRegex(nome, REGEX_SOMENTE_LETRAS, MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS);
+		validarNulo(nome, MESSAGE_NOME_NOTNULL);
+		validarVazio(nome, MESSAGE_NOME_NOTBLANK);
+		validarTamanhoMaximo(nome, TAMANHO_MAX_NOME, MESSAGE_TAMANHO_MAX_NOME);
+		validarTamanhoMinimo(nome, TAMANHO_MIN_NOME, MESSAGE_TAMANHO_MIN_NOME);
+		validarRegex(nome, SOMENTE_LETRAS, MESSAGE_NOME_REGEX);
 		this.nome = nome;
 	}
 
@@ -53,10 +65,10 @@ public class Setor extends Audit {
 	}
 
 	public void setDescricao(String descricao) {
-		validarNulo(descricao);
-		validarVazio(descricao);
-		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO_SETOR);
-		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO_SETOR);
+		validarNulo(descricao, MESSAGE_DESCRICAO_NOTNULL);
+		validarVazio(descricao, MESSAGE_DESCRICAO_NOTBLANK);
+		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO, MESSAGE_TAMANHO_MAX_DESCRICAO);
+		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO, MESSAGE_TAMANHO_MIN_DESCRICAO);
 		this.descricao = descricao;
 	}
 
@@ -65,9 +77,9 @@ public class Setor extends Audit {
 	}
 
 	public void setFuncionarios(List<Funcionario> funcionario) {
-		validarNulo(funcionario);
-		validarListaVazia(funcionario);
-		validarTamanhoMaximoLista(funcionario, TAMANHO_MAX_LISTA_FUNCIONARIOS_SETOR);
+		validarNulo(funcionario, MESSAGE_FUCIONARIOS_NOT_NULL);
+		validarListaVazia(funcionario, MESSAGE_FUCIONARIOS_IS_EMPTY);
+		validarTamanhoMaximoLista(funcionario, TAMANHO_MAX_LISTA_FUNCIONARIOS, MESSAGE_FUCIONARIOS_LIST_MAX);
 		this.funcionarios = funcionario;
 	}
 
@@ -76,13 +88,13 @@ public class Setor extends Audit {
 	}
 
 	public void setAmbienteTrabalho(AmbienteTrabalho ambienteTrabalho) {
-		validarNulo(ambienteTrabalho);
+		validarNulo(ambienteTrabalho, MESSAGE_AMBIENTE_TRABALHO_NOTNULL);
 		this.ambienteTrabalho = ambienteTrabalho;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ambienteTrabalho, nome);
+		return Objects.hash(nome);
 	}
 
 	@Override
@@ -99,8 +111,18 @@ public class Setor extends Audit {
 
 	@Override
 	public String toString() {
-		return "Setor [nome=" + nome + ", descricao=" + descricao + ", funcionarios=" + funcionarios + ", audit()="
-				+ super.toString() + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Setor [nome=");
+		builder.append(nome);
+		builder.append(", descricao=");
+		builder.append(descricao);
+		builder.append(", funcionarios=");
+		builder.append(funcionarios);
+		builder.append(", ambienteTrabalho=");
+		builder.append(ambienteTrabalho);
+		builder.append(", toString()=");
+		builder.append(super.toString());
+		builder.append("]");
+		return builder.toString();
 	}
-
 }

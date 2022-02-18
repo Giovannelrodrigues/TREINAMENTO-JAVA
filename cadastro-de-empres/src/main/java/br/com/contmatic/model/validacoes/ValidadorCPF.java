@@ -1,9 +1,10 @@
-package br.com.contmatic.util.validacoes;
+package br.com.contmatic.model.validacoes;
 
-import static br.com.contmatic.util.constants.Message.MENSAGEM_CPF_INVALIDO;
-import static br.com.contmatic.util.validacoes.Validador.calcularNumeroRegistro;
+import static br.com.contmatic.model.validacoes.Validador.calcularNumeroRegistro;
 
 public final class ValidadorCPF {
+	
+	private static final String MENSAGEM_CPF_INVALIDO = "CPF inválido";
 
 	private static final int DIVIDENTO_DIMINUENDO = 11;
 

@@ -11,8 +11,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.Cidade;
-import br.com.contmatic.model.Estado;
+import br.com.contmatic.model.commons.Cidade;
+import br.com.contmatic.model.commons.Estado;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteCidade {

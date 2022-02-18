@@ -1,20 +1,28 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.util.constants.Constants.REGEX_SOMENTE_LETRAS;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_DESCRICAO_CARGO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_NOME_CARGO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_DESCRICAO_CARGO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_NOME_CARGO;
-import static br.com.contmatic.util.constants.Message.MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS;
-import static br.com.contmatic.util.validacoes.Validador.validarNulo;
-import static br.com.contmatic.util.validacoes.Validador.validarRegex;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
-import static br.com.contmatic.util.validacoes.Validador.validarVazio;
+import static br.com.contmatic.model.constants.CargoConstants.TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.CargoConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.CargoConstants.TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_DESCRICAO_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_DESCRICAO_NOTNULL;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
+import static br.com.contmatic.model.validacoes.Validador.validarNulo;
+import static br.com.contmatic.model.validacoes.Validador.validarRegex;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
+import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.Audit;
+import br.com.contmatic.model.commons.Audit;
+import br.com.contmatic.model.constants.CargoConstants;
 
 public class Cargo extends Audit {
 
@@ -31,11 +39,11 @@ public class Cargo extends Audit {
 	}
 
 	public void setNome(String nome) {
-		validarNulo(nome);
-		validarVazio(nome);
-		validarTamanhoMaximo(nome, TAMANHO_MAX_NOME_CARGO);
-		validarTamanhoMinimo(nome, TAMANHO_MIN_NOME_CARGO);
-		validarRegex(nome, REGEX_SOMENTE_LETRAS, MENSAGEM_ERRO_REGEX_SOMENTE_LETRAS);
+		validarNulo(nome, MESSAGE_NOME_NOTNULL);
+		validarVazio(nome, MESSAGE_NOME_NOTBLANK);
+		validarTamanhoMaximo(nome, TAMANHO_MAX_NOME, MESSAGE_TAMANHO_MAX_NOME);
+		validarTamanhoMinimo(nome, TAMANHO_MIN_NOME, MESSAGE_TAMANHO_MIN_NOME);
+		validarRegex(nome, SOMENTE_LETRAS, MESSAGE_NOME_REGEX);
 		this.nome = nome;
 	}
 
@@ -44,10 +52,10 @@ public class Cargo extends Audit {
 	}
 
 	public void setDescricao(String descricao) {
-		validarNulo(descricao);
-		validarVazio(descricao);
-		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO_CARGO);
-		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO_CARGO);
+		validarNulo(descricao, MESSAGE_DESCRICAO_NOTNULL);
+		validarVazio(descricao, MESSAGE_DESCRICAO_NOTBLANK);
+		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO, MESSAGE_TAMANHO_MAX_DESCRICAO);
+		validarTamanhoMinimo(descricao, CargoConstants.TAMANHO_MIN_DESCRICAO, MESSAGE_TAMANHO_MIN_DESCRICAO);
 		this.descricao = descricao;
 	}
 
@@ -70,6 +78,14 @@ public class Cargo extends Audit {
 
 	@Override
 	public String toString() {
-		return "Cargo [nome=" + nome + ", descricao=" + descricao + ", audit()=" + super.toString() + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Cargo [nome=");
+		builder.append(nome);
+		builder.append(", descricao=");
+		builder.append(descricao);
+		builder.append(", toString()=");
+		builder.append(super.toString());
+		builder.append("]");
+		return builder.toString();
 	}
 }

@@ -1,26 +1,42 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.util.constants.Constants.REGEX_SOMENTE_LETRAS;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_DESCRICAO_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_ENDERECOS_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_SETORES_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_NOME_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_DESCRICAO_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_NOME_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.validacoes.Validador.validarListaVazia;
-import static br.com.contmatic.util.validacoes.Validador.validarNulo;
-import static br.com.contmatic.util.validacoes.Validador.validarRegex;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximoLista;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
-import static br.com.contmatic.util.validacoes.Validador.validarVazio;
+import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_LISTA_ENDERECOS;
+import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_LISTA_SETORES;
+import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_DESCRICAO_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_DESCRICAO_NOTNULL;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_EMPRESA_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_ENDERECOS_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_SETORES_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_SETORES_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_SETORES_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TIPO_NOTNULL;
+import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
+import static br.com.contmatic.model.validacoes.Validador.validarListaVazia;
+import static br.com.contmatic.model.validacoes.Validador.validarNulo;
+import static br.com.contmatic.model.validacoes.Validador.validarRegex;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximoLista;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
+import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.enums.TipoEstabelecimento;
-import br.com.contmatic.model.Audit;
-import br.com.contmatic.model.Endereco;
+import br.com.contmatic.model.commons.Audit;
+import br.com.contmatic.model.commons.Endereco;
+import br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage;
+import br.com.contmatic.model.enums.TipoEstabelecimento;
 
 public class AmbienteTrabalho extends Audit {
 
@@ -46,11 +62,11 @@ public class AmbienteTrabalho extends Audit {
 	}
 
 	public void setNome(String nome) {
-		validarNulo(nome);
-		validarVazio(nome);
-		validarTamanhoMaximo(nome, TAMANHO_MAX_NOME_AMBIENTE_TRABALHO);
-		validarTamanhoMinimo(nome, TAMANHO_MIN_NOME_AMBIENTE_TRABALHO);
-		validarRegex(nome, REGEX_SOMENTE_LETRAS, nome);
+		validarNulo(nome, MESSAGE_NOME_NOTNULL);
+		validarVazio(nome, MESSAGE_NOME_NOTBLANK);
+		validarTamanhoMaximo(nome, TAMANHO_MAX_NOME, MESSAGE_TAMANHO_MAX_NOME);
+		validarTamanhoMinimo(nome, TAMANHO_MIN_NOME, MESSAGE_TAMANHO_MIN_NOME);
+		validarRegex(nome, SOMENTE_LETRAS, MESSAGE_NOME_REGEX);
 		this.nome = nome;
 	}
 
@@ -59,10 +75,10 @@ public class AmbienteTrabalho extends Audit {
 	}
 
 	public void setDescricao(String descricao) {
-		validarNulo(descricao);
-		validarVazio(descricao);
-		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO_AMBIENTE_TRABALHO);
-		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO_AMBIENTE_TRABALHO);
+		validarNulo(descricao, MESSAGE_DESCRICAO_NOTNULL);
+		validarVazio(descricao, MESSAGE_DESCRICAO_NOTBLANK);
+		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO, MESSAGE_TAMANHO_MAX_DESCRICAO);
+		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO, MESSAGE_TAMANHO_MIN_DESCRICAO);
 		this.descricao = descricao;
 	}
 
@@ -71,7 +87,7 @@ public class AmbienteTrabalho extends Audit {
 	}
 
 	public void setTipoEstabelecimento(TipoEstabelecimento tipoEstabelecimento) {
-		validarNulo(tipoEstabelecimento);
+		validarNulo(tipoEstabelecimento, MESSAGE_TIPO_NOTNULL);
 		this.tipoEstabelecimento = tipoEstabelecimento;
 	}
 
@@ -80,9 +96,9 @@ public class AmbienteTrabalho extends Audit {
 	}
 
 	public void setSetores(List<Setor> setores) {
-		validarNulo(setores);
-		validarListaVazia(setores);
-		validarTamanhoMaximoLista(setores, TAMANHO_MAX_LISTA_SETORES_AMBIENTE_TRABALHO);
+		validarNulo(setores, MESSAGE_SETORES_NOT_NULL);
+		validarListaVazia(setores, MESSAGE_SETORES_IS_EMPTY);
+		validarTamanhoMaximoLista(setores, TAMANHO_MAX_LISTA_SETORES, MESSAGE_SETORES_LIST_MAX);
 		this.setores = setores;
 	}
 
@@ -91,9 +107,9 @@ public class AmbienteTrabalho extends Audit {
 	}
 
 	public void setEnderecos(List<Endereco> enderecos) {
-		validarNulo(enderecos);
-		validarListaVazia(enderecos);
-		validarTamanhoMaximoLista(enderecos, TAMANHO_MAX_LISTA_ENDERECOS_AMBIENTE_TRABALHO);
+		validarNulo(enderecos, AmbienteTrabalhoMessage.MESSAGE_ENDERECOS_NOT_NULL);
+		validarListaVazia(enderecos, AmbienteTrabalhoMessage.MESSAGE_ENDERECOS_IS_EMPTY);
+		validarTamanhoMaximoLista(enderecos, TAMANHO_MAX_LISTA_ENDERECOS, MESSAGE_ENDERECOS_LIST_MAX);
 		this.enderecos = enderecos;
 	}
 
@@ -102,7 +118,7 @@ public class AmbienteTrabalho extends Audit {
 	}
 
 	public void setEmpresa(Empresa empresa) {
-		validarNulo(empresa);
+		validarNulo(empresa, MESSAGE_EMPRESA_NOT_NULL);
 		this.empresa = empresa;
 	}
 
@@ -125,9 +141,22 @@ public class AmbienteTrabalho extends Audit {
 
 	@Override
 	public String toString() {
-		return "AmbienteTrabalho [nome=" + nome + ", descricao=" + descricao + ", tipoEstabelecimento="
-				+ tipoEstabelecimento + ", setores=" + setores + ", enderecos=" + enderecos + ", empresa=" + empresa
-				+ ", audit()=" + super.toString() + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("AmbienteTrabalho [nome=");
+		builder.append(nome);
+		builder.append(", descricao=");
+		builder.append(descricao);
+		builder.append(", tipoEstabelecimento=");
+		builder.append(tipoEstabelecimento);
+		builder.append(", setores=");
+		builder.append(setores);
+		builder.append(", enderecos=");
+		builder.append(enderecos);
+		builder.append(", empresa=");
+		builder.append(empresa);
+		builder.append(", toString()=");
+		builder.append(super.toString());
+		builder.append("]");
+		return builder.toString();
 	}
-
 }

@@ -11,7 +11,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.Email;
+import br.com.contmatic.model.commons.Email;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEmail {
@@ -50,7 +50,7 @@ public class TesteEmail {
 
 	@Test(expected = IllegalStateException.class)
 	public void teste05_nao_deve_atribuir_um_novo_valor_para_email_passando_mais_de_60_caracteres() {
-		emailBefore.setEmail("giovannelrodriguesgiovannelrodriguesgiovannelrodriguesgiovannelrodrigues@gmail.com");
+		emailBefore.setEmail("giovannelrodriguesgiovannesgiovannelrodriguesgiovannelrodriguesgielrodriguesgiovannelrodriguesgiovannelrodrigues@gmail.com");
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -67,7 +67,7 @@ public class TesteEmail {
 	@Test
 	public void teste08_deve_retonar_email_no_to_string() {
 		String result = emailBefore.toString();
-		assertThat(result, containsString(emailBefore.getEmail()));
+		assertThat(result, containsString(emailBefore.getEmail().toString()));
 	}
 
 	// HASHCODE

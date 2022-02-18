@@ -1,8 +1,5 @@
-package br.com.contmatic.util.validacoes;
+package br.com.contmatic.model.validacoes;
 
-import static br.com.contmatic.util.constants.Constants.IDADE_MINIMA;
-import static br.com.contmatic.util.constants.Message.DATA_INVALIDA;
-import static br.com.contmatic.util.constants.Message.MENSAGEM_IDADE_MINIMA;
 import static java.time.LocalDate.now;
 import static java.time.LocalDate.parse;
 import static java.time.Period.between;
@@ -13,8 +10,14 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public final class ValidadorData {
+	
+	private static final Integer IDADE_MINIMA = 14;
 
 	private static final String FORMATO = "ddMMyyyy";
+	
+	private static final String DATA_INVALIDA = "Data Inválida";
+	
+	private static final String MENSAGEM_IDADE_MINIMA = "Você não possui idade suficente. Você deve ter mais de 14 anos";
 
 	private ValidadorData() {
 	}

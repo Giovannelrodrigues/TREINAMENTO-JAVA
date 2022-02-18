@@ -14,7 +14,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.Email;
+import br.com.contmatic.model.commons.Email;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Produto;
 

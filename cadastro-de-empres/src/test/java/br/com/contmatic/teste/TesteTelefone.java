@@ -14,9 +14,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.enums.TipoTelefone;
-import br.com.contmatic.model.Email;
-import br.com.contmatic.model.Telefone;
+import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.commons.Telefone;
+import br.com.contmatic.model.enums.TipoTelefone;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteTelefone {

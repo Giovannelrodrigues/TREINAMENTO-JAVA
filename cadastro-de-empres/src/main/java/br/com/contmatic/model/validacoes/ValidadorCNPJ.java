@@ -1,10 +1,11 @@
-package br.com.contmatic.util.validacoes;
+package br.com.contmatic.model.validacoes;
 
-import static br.com.contmatic.util.constants.Message.MENSAGEM_CNPJ_INVALIDO;
-import static br.com.contmatic.util.validacoes.Validador.calcularNumeroRegistro;
+import static br.com.contmatic.model.validacoes.Validador.calcularNumeroRegistro;
 
 public final class ValidadorCNPJ {
-
+	
+	private static final String MENSAGEM_CNPJ_INVALIDO = "CNPJ inválido";
+	
 	private static final int LIMITE_SEQUENCIA = 9;
 
 	private static final int INDEX_PRIMEIRO_DIGITO = 12;

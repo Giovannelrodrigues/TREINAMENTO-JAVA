@@ -16,17 +16,17 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.enums.TipoEndereco;
-import br.com.contmatic.model.Cidade;
-import br.com.contmatic.model.Email;
-import br.com.contmatic.model.Endereco;
-import br.com.contmatic.model.Estado;
-import br.com.contmatic.model.Telefone;
+import br.com.contmatic.model.commons.Cidade;
+import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.commons.Endereco;
+import br.com.contmatic.model.commons.Estado;
+import br.com.contmatic.model.commons.Telefone;
 import br.com.contmatic.model.empresa.AmbienteTrabalho;
 import br.com.contmatic.model.empresa.Cargo;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Funcionario;
 import br.com.contmatic.model.empresa.Setor;
+import br.com.contmatic.model.enums.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteFuncionario {

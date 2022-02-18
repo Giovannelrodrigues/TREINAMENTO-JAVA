@@ -1,8 +1,8 @@
-package br.com.contmatic.util.validacoes;
-
-import static br.com.contmatic.util.constants.Message.MENSAGEM_TAMANHO_INVALIDO_TELEFONE;
+package br.com.contmatic.model.validacoes;
 
 public final class ValidadorTelefone {
+	
+	private static final String MENSAGEM_TAMANHO_INVALIDO_TELEFONE = "Telefone n�o pode ter tamanho diferente de 10 ou 11 caracteres";
 	
 	private static final int TAMANHO_TELEFONE_FIXO = 10;
 

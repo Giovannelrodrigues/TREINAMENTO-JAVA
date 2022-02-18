@@ -16,7 +16,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.Email;
+import br.com.contmatic.model.commons.Email;
 import br.com.contmatic.model.empresa.AmbienteTrabalho;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Funcionario;
@@ -188,7 +188,7 @@ public class TesteSetor {
 	}
 
 	@Test
-	public void teste23_deve_retonar__no_to_string() {
+	public void teste23_deve_retonar_no_to_string() {
 		setorBefore.setDescricao("teste teste");
 		String result = setorBefore.toString();
 		assertThat(result, containsString(setorBefore.getDescricao()));

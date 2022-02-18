@@ -1,38 +1,62 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.util.constants.Constants.REGEX_RAZAO_SOCIAL;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_CNPJ;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_EMAILS;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_ENDERECO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_PRODUTO;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_TELEFONES;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_LISTA_USUARIOS;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_NOME_FANTASIA;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MAX_RAZAO_SOCIAL;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_NOME_FANTASIA;
-import static br.com.contmatic.util.constants.Constants.TAMANHO_MIN_RAZAO_SOCIAL;
-import static br.com.contmatic.util.constants.Message.MENSAGEM_ERRO_REGEX_RAZAO_SOCIAL;
-import static br.com.contmatic.util.validacoes.Validador.validarCaracteresRepetidos;
-import static br.com.contmatic.util.validacoes.Validador.validarListaVazia;
-import static br.com.contmatic.util.validacoes.Validador.validarNulo;
-import static br.com.contmatic.util.validacoes.Validador.validarRegex;
-import static br.com.contmatic.util.validacoes.Validador.validarSomenteNumero;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanho;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximo;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMaximoLista;
-import static br.com.contmatic.util.validacoes.Validador.validarTamanhoMinimo;
-import static br.com.contmatic.util.validacoes.Validador.validarVazio;
-import static br.com.contmatic.util.validacoes.ValidadorCNPJ.validarCNPJ;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_CNPJ;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_LISTA_EMAILS;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_LISTA_ENDERECO;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_LISTA_PRODUTO;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_LISTA_TELEFONES;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_NOME_FANTASIA;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MAX_RAZAO_SOCIAL;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MIN_NOME_FANTASIA;
+import static br.com.contmatic.model.constants.EmpresaConstants.TAMANHO_MIN_RAZAO_SOCIAL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MENSAGEM_CNPJ_CARACTERES_REPETIDOS;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MENSAGEM_RAZAO_SOCIAL_REGEX;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_CNPJ_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_CNPJ_NOTNULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_CNPJ_REGEX;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_EMAILS_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_EMAILS_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_EMAILS_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_ENDERECOS_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_ENDERECOS_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_ENDERECOS_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_NOME_FANTASIA_NOTNULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_PRODUTOS_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_PRODUTOS_LIST_MAX;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_PRODUTOS_NOT_NULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_RAZAO_SOCIAL_NOTBLANK;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_RAZAO_SOCIAL_NOTNULL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TAMANHO_CNPJ;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TAMANHO_MAX_NOME_FANTASIA;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TAMANHO_MAX_RAZAO_SOCIAL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TAMANHO_MIN_NOME_FANTASIA;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TAMANHO_MIN_RAZAO_SOCIAL;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TELEFONES_IS_EMPTY;
+import static br.com.contmatic.model.constants.messages.EmpresaMessage.MESSAGE_TELEFONES_NOT_NULL;
+import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_NUMEROS;
+import static br.com.contmatic.model.constants.regex.EmpresaRegex.REGEX_RAZAO_SOCIAL;
+import static br.com.contmatic.model.validacoes.Validador.validarCaracteresRepetidos;
+import static br.com.contmatic.model.validacoes.Validador.validarListaVazia;
+import static br.com.contmatic.model.validacoes.Validador.validarNulo;
+import static br.com.contmatic.model.validacoes.Validador.validarRegex;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanho;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximoLista;
+import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
+import static br.com.contmatic.model.validacoes.Validador.validarVazio;
+import static br.com.contmatic.model.validacoes.ValidadorCNPJ.validarCNPJ;
 
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.Audit;
-import br.com.contmatic.model.Email;
-import br.com.contmatic.model.Endereco;
-import br.com.contmatic.model.Telefone;
-import br.com.contmatic.model.usuario.Usuario;
+import br.com.contmatic.model.commons.Audit;
+import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.commons.Endereco;
+import br.com.contmatic.model.commons.Telefone;
 
 public class Empresa extends Audit {
 
@@ -52,8 +76,6 @@ public class Empresa extends Audit {
 
 	private List<Email> emails;
 
-	private List<Usuario> usuarios;
-
 	public Empresa(String cnpj) {
 		this.setCnpj(cnpj);
 	}
@@ -63,11 +85,11 @@ public class Empresa extends Audit {
 	}
 
 	public void setCnpj(String cnpj) {
-		validarNulo(cnpj);
-		validarVazio(cnpj);
-		validarTamanho(cnpj, TAMANHO_CNPJ);
-		validarSomenteNumero(cnpj);
-		validarCaracteresRepetidos(cnpj);
+		validarNulo(cnpj, MESSAGE_CNPJ_NOTNULL);
+		validarVazio(cnpj, MESSAGE_CNPJ_NOTBLANK);
+		validarTamanho(cnpj, TAMANHO_CNPJ, MESSAGE_TAMANHO_CNPJ);
+		validarRegex(cnpj, SOMENTE_NUMEROS, MESSAGE_CNPJ_REGEX);
+		validarCaracteresRepetidos(cnpj, MENSAGEM_CNPJ_CARACTERES_REPETIDOS);
 		validarCNPJ(cnpj);
 		this.cnpj = cnpj;
 	}
@@ -77,11 +99,11 @@ public class Empresa extends Audit {
 	}
 
 	public void setRazaoSocial(String razaoSocial) {
-		validarNulo(razaoSocial);
-		validarVazio(razaoSocial);
-		validarTamanhoMaximo(razaoSocial, TAMANHO_MAX_RAZAO_SOCIAL);
-		validarTamanhoMinimo(razaoSocial, TAMANHO_MIN_RAZAO_SOCIAL);
-		validarRegex(razaoSocial, REGEX_RAZAO_SOCIAL, MENSAGEM_ERRO_REGEX_RAZAO_SOCIAL);
+		validarNulo(razaoSocial, MESSAGE_RAZAO_SOCIAL_NOTNULL);
+		validarVazio(razaoSocial, MESSAGE_RAZAO_SOCIAL_NOTBLANK);
+		validarTamanhoMaximo(razaoSocial, TAMANHO_MAX_RAZAO_SOCIAL, MESSAGE_TAMANHO_MAX_RAZAO_SOCIAL);
+		validarTamanhoMinimo(razaoSocial, TAMANHO_MIN_RAZAO_SOCIAL, MESSAGE_TAMANHO_MIN_RAZAO_SOCIAL);
+		validarRegex(razaoSocial, REGEX_RAZAO_SOCIAL, MENSAGEM_RAZAO_SOCIAL_REGEX);
 		this.razaoSocial = razaoSocial;
 	}
 
@@ -90,10 +112,10 @@ public class Empresa extends Audit {
 	}
 
 	public void setNomeFantasia(String nomeFantasia) {
-		validarNulo(nomeFantasia);
-		validarVazio(nomeFantasia);
-		validarTamanhoMaximo(nomeFantasia, TAMANHO_MAX_NOME_FANTASIA);
-		validarTamanhoMinimo(nomeFantasia, TAMANHO_MIN_NOME_FANTASIA);
+		validarNulo(nomeFantasia, MESSAGE_NOME_FANTASIA_NOTNULL);
+		validarVazio(nomeFantasia, MESSAGE_CNPJ_NOTBLANK);
+		validarTamanhoMaximo(nomeFantasia, TAMANHO_MAX_NOME_FANTASIA, MESSAGE_TAMANHO_MAX_NOME_FANTASIA);
+		validarTamanhoMinimo(nomeFantasia, TAMANHO_MIN_NOME_FANTASIA, MESSAGE_TAMANHO_MIN_NOME_FANTASIA);
 		this.nomeFantasia = nomeFantasia;
 	}
 
@@ -102,9 +124,9 @@ public class Empresa extends Audit {
 	}
 
 	public void setEnderecos(List<Endereco> enderecos) {
-		validarNulo(enderecos);
-		validarListaVazia(enderecos);
-		validarTamanhoMaximoLista(enderecos, TAMANHO_MAX_LISTA_ENDERECO);
+		validarNulo(enderecos, MESSAGE_ENDERECOS_NOT_NULL);
+		validarListaVazia(enderecos, MESSAGE_ENDERECOS_IS_EMPTY);
+		validarTamanhoMaximoLista(enderecos, TAMANHO_MAX_LISTA_ENDERECO, MESSAGE_ENDERECOS_LIST_MAX);
 		this.enderecos = enderecos;
 	}
 
@@ -113,9 +135,10 @@ public class Empresa extends Audit {
 	}
 
 	public void setAmbientesTrabalhos(List<AmbienteTrabalho> ambientesTrabalhos) {
-		validarNulo(ambientesTrabalhos);
-		validarListaVazia(ambientesTrabalhos);
-		validarTamanhoMaximoLista(ambientesTrabalhos, TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO);
+		validarNulo(ambientesTrabalhos, MESSAGE_AMBIENTE_TRABALHO_NOT_NULL);
+		validarListaVazia(ambientesTrabalhos, MESSAGE_AMBIENTE_TRABALHO_IS_EMPTY);
+		validarTamanhoMaximoLista(ambientesTrabalhos, TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO,
+				MESSAGE_AMBIENTE_TRABALHO_LIST_MAX);
 		this.ambientesTrabalhos = ambientesTrabalhos;
 	}
 
@@ -124,9 +147,9 @@ public class Empresa extends Audit {
 	}
 
 	public void setProdutos(List<Produto> produtos) {
-		validarNulo(produtos);
-		validarListaVazia(produtos);
-		validarTamanhoMaximoLista(produtos, TAMANHO_MAX_LISTA_PRODUTO);
+		validarNulo(produtos, MESSAGE_PRODUTOS_NOT_NULL);
+		validarListaVazia(produtos, MESSAGE_PRODUTOS_IS_EMPTY);
+		validarTamanhoMaximoLista(produtos, TAMANHO_MAX_LISTA_PRODUTO, MESSAGE_PRODUTOS_LIST_MAX);
 		this.produtos = produtos;
 	}
 
@@ -135,9 +158,9 @@ public class Empresa extends Audit {
 	}
 
 	public void setTelefones(List<Telefone> telefones) {
-		validarNulo(telefones);
-		validarListaVazia(telefones);
-		validarTamanhoMaximoLista(telefones, TAMANHO_MAX_LISTA_TELEFONES);
+		validarNulo(telefones, MESSAGE_TELEFONES_NOT_NULL);
+		validarListaVazia(telefones, MESSAGE_TELEFONES_IS_EMPTY);
+		validarTamanhoMaximoLista(telefones, TAMANHO_MAX_LISTA_TELEFONES, MESSAGE_TELEFONES_IS_EMPTY);
 		this.telefones = telefones;
 	}
 
@@ -146,21 +169,10 @@ public class Empresa extends Audit {
 	}
 
 	public void setEmails(List<Email> emails) {
-		validarNulo(emails);
-		validarListaVazia(emails);
-		validarTamanhoMaximoLista(emails, TAMANHO_MAX_LISTA_EMAILS);
+		validarNulo(emails, MESSAGE_EMAILS_NOT_NULL);
+		validarListaVazia(emails, MESSAGE_EMAILS_IS_EMPTY);
+		validarTamanhoMaximoLista(emails, TAMANHO_MAX_LISTA_EMAILS, MESSAGE_EMAILS_LIST_MAX);
 		this.emails = emails;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		validarNulo(usuarios);
-		validarListaVazia(usuarios);
-		validarTamanhoMaximoLista(usuarios, TAMANHO_MAX_LISTA_USUARIOS);
-		this.usuarios = usuarios;
 	}
 
 	@Override
@@ -182,10 +194,26 @@ public class Empresa extends Audit {
 
 	@Override
 	public String toString() {
-		return "Empresa [cnpj=" + cnpj + ", nomeFantasia=" + nomeFantasia + ", razaoSocial=" + razaoSocial
-				+ ", enderecos=" + enderecos + ", ambientesTrabalhos=" + ambientesTrabalhos + ", produtos=" + produtos
-				+ ", telefones=" + telefones + ", emails=" + emails + ", usuarios=" + usuarios + ", audit()="
-				+ super.toString() + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Empresa [cnpj=");
+		builder.append(cnpj);
+		builder.append(", nomeFantasia=");
+		builder.append(nomeFantasia);
+		builder.append(", razaoSocial=");
+		builder.append(razaoSocial);
+		builder.append(", enderecos=");
+		builder.append(enderecos);
+		builder.append(", ambientesTrabalhos=");
+		builder.append(ambientesTrabalhos);
+		builder.append(", produtos=");
+		builder.append(produtos);
+		builder.append(", telefones=");
+		builder.append(telefones);
+		builder.append(", emails=");
+		builder.append(emails);
+		builder.append(", toString()=");
+		builder.append(super.toString());
+		builder.append("]");
+		return builder.toString();
 	}
-
 }

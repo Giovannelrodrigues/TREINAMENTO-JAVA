@@ -14,11 +14,11 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.enums.TipoEndereco;
-import br.com.contmatic.model.Cidade;
-import br.com.contmatic.model.Email;
-import br.com.contmatic.model.Endereco;
-import br.com.contmatic.model.Estado;
+import br.com.contmatic.model.commons.Cidade;
+import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.commons.Endereco;
+import br.com.contmatic.model.commons.Estado;
+import br.com.contmatic.model.enums.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEndereco {
@@ -334,7 +334,7 @@ public class TesteEndereco {
 		boolean resp = endereco1.hashCode() == endereco2.hashCode();
 		assertTrue(resp);
 	}
-
+	
 	// EQUALS
 	@Test
 	public void teste47_deve_retornar_true_quando_usar_equals_passado_enderecos_iguais() {
@@ -345,100 +345,111 @@ public class TesteEndereco {
 	}
 
 	@Test
-	public void teste48_deve_retornar_true_quando_usar_equals_passado_tipos_enderecos_diferentes() {
+	public void teste48_deve_retornar_true_quando_usar_equals_passando_tipos_enderecos_diferentes() {
 		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
 		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TipoEndereco.ENTREGA);
 		boolean resp = endereco1.equals(endereco2);
 		assertTrue(resp);
 	}
+	
+	@Test
+	public void teste49_deve_retornar_false_quando_usar_equals_passando_cep_diferente() {
+		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco2 = new Endereco("45789541", LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TipoEndereco.ENTREGA);
+		boolean resp = endereco1.equals(endereco2);
+		assertFalse(resp);
+	}
+	
+	@Test
+	public void teste50_deve_retornar_false_quando_usar_equals_passando_numero_diferente() {
+		Endereco endereco1 = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
+		Endereco endereco2 = new Endereco(CEP, LOGRADOURO, 47, BAIRRO, CIDADE, ESTADO, TipoEndereco.ENTREGA);
+		boolean resp = endereco1.equals(endereco2);
+		assertFalse(resp);
+	}
 
 	@Test
-	public void teste49_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste51_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = enderecoBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste50_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste52_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = enderecoBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste51_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste53_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = enderecoBefore.equals(enderecoBefore);
 		assertTrue(resp);
 	}
 
-	// CREATE BY
 	@Test
-	public void teste52_deve_retornar_por_quem_foi_criado() {
+	public void teste54_deve_retornar_por_quem_foi_criado() {
 		enderecoBefore.setCreatedBy(EMAIL);
 		assertEquals(EMAIL, enderecoBefore.getCreatedBy());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste53_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+	public void teste55_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
 		enderecoBefore.setCreatedBy(null);
 	}
 
-	// CREATE TIME
 	@Test
-	public void teste54_deve_retornar_quando_foi_criado() {
+	public void teste56_deve_retornar_quando_foi_criado() {
 		enderecoBefore.setCreateDate(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, enderecoBefore.getCreateDate());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste55_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+	public void teste57_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
 		enderecoBefore.setCreateDate(null);
 	}
 
-	// LAST BY UPDATE NOTIFY
 	@Test
-	public void teste56_deve_retornar_por_quem_foi_alterado() {
+	public void teste58_deve_retornar_por_quem_foi_alterado() {
 		enderecoBefore.setLastByUpdadeNotify(EMAIL);
 		assertEquals(EMAIL, enderecoBefore.getLastByUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste57_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+	public void teste59_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
 		enderecoBefore.setCreatedBy(null);
 	}
 
-	// LAST DATE UPDATE NOTIFY
 	@Test
-	public void teste58_deve_retornar_quando_foi_alterado() {
+	public void teste60_deve_retornar_quando_foi_alterado() {
 		enderecoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, enderecoBefore.getLastDateUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste59_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+	public void teste61_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
 		enderecoBefore.setLastDateUpdadeNotify(null);
 	}
 
-	// TO STRING
 	@Test
-	public void teste60_deve_retornar_createby_no_to_string() {
+	public void teste62_deve_retornar_createby_no_to_string() {
 		String result = enderecoBefore.toString();
 		assertThat(result, containsString(String.valueOf(enderecoBefore.getCreatedBy())));
 	}
 
 	@Test
-	public void teste61_deve_retornar_create_date_no_to_string() {
+	public void teste63_deve_retornar_create_date_no_to_string() {
 		String result = enderecoBefore.toString();
 		assertThat(result, containsString(String.valueOf(enderecoBefore.getCreateDate())));
 	}
 
 	@Test
-	public void teste62_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+	public void teste64_deve_retornar_LastDateUpdadeNotify_no_to_string() {
 		String result = enderecoBefore.toString();
 		assertThat(result, containsString(String.valueOf(enderecoBefore.getLastDateUpdadeNotify())));
 	}
 
 	@Test
-	public void teste63_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+	public void teste65_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
 		String result = enderecoBefore.toString();
 		assertThat(result, containsString(String.valueOf(enderecoBefore.getLastByUpdadeNotify())));
 	}
