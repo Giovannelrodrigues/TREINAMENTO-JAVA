@@ -16,7 +16,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.contato.Email;
 import br.com.contmatic.model.empresa.AmbienteTrabalho;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Funcionario;
@@ -27,7 +27,7 @@ public class TesteSetor {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	private static AmbienteTrabalho ambienteBefore;
 
@@ -38,7 +38,7 @@ public class TesteSetor {
 	private static final String NOME = "Departemendo de contas a receber";
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		empresaBefore = new Empresa("63516934000109");
 		ambienteBefore = new AmbienteTrabalho("financeiro", empresaBefore);

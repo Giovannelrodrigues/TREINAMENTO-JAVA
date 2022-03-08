@@ -1,4 +1,4 @@
-package br.com.contmatic.model.commons;
+package br.com.contmatic.model.endereco;
 
 import static br.com.contmatic.model.constants.EstadoConstants.TAMANHO_LISTA_MAX_CIDADES;
 import static br.com.contmatic.model.constants.EstadoConstants.TAMANHO_MAX_ESTADO;

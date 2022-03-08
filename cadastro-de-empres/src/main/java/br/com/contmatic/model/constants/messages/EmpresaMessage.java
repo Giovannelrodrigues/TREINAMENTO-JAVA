@@ -24,8 +24,8 @@ public final class EmpresaMessage {
 	
 	public static final String MESSAGE_RAZAO_SOCIAL_NOTNULL = "A razão social não pode ser nulo";
 	public static final String MESSAGE_RAZAO_SOCIAL_NOTBLANK = "A razão social não pode ser vazio";
-	public static final String MESSAGE_TAMANHO_MAX_RAZAO_SOCIAL = "A razão social não pode conter mais que " + TAMANHO_MAX_RAZAO_SOCIAL + " caracteres";
-	public static final String MESSAGE_TAMANHO_MIN_RAZAO_SOCIAL = "A razão social não pode conter menos que " + TAMANHO_MIN_RAZAO_SOCIAL + " caracteres";
+	public static final String MESSAGE_TAMANHO_MAX_RAZAO_SOCIAL = "A razão social não pode conter mais que " + TAMANHO_MAX_RAZAO_SOCIAL + " caracteres.";
+	public static final String MESSAGE_TAMANHO_MIN_RAZAO_SOCIAL = "A razão social não pode conter menos que " + TAMANHO_MIN_RAZAO_SOCIAL + " caracteres!";
 	public static final String MENSAGEM_RAZAO_SOCIAL_REGEX = "A razão social aceita texto alfanumerico, pontos e o (&) comercial";
 	
 	public static final String MESSAGE_NOME_FANTASIA_NOTNULL = "O nome fantasia não pode ser nulo";

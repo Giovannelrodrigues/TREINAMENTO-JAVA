@@ -30,7 +30,7 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.commons.Audit;
+import br.com.contmatic.model.auditoria.Audit;
 
 public class Setor extends Audit {
 

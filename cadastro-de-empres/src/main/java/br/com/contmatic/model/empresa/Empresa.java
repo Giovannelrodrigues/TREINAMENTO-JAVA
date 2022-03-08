@@ -53,10 +53,10 @@ import static br.com.contmatic.model.validacoes.ValidadorCNPJ.validarCNPJ;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.commons.Audit;
-import br.com.contmatic.model.commons.Email;
-import br.com.contmatic.model.commons.Endereco;
-import br.com.contmatic.model.commons.Telefone;
+import br.com.contmatic.model.auditoria.Audit;
+import br.com.contmatic.model.contato.Email;
+import br.com.contmatic.model.contato.Telefone;
+import br.com.contmatic.model.endereco.Endereco;
 
 public class Empresa extends Audit {
 
@@ -87,8 +87,8 @@ public class Empresa extends Audit {
 	public void setCnpj(String cnpj) {
 		validarNulo(cnpj, MESSAGE_CNPJ_NOTNULL);
 		validarVazio(cnpj, MESSAGE_CNPJ_NOTBLANK);
-		validarTamanho(cnpj, TAMANHO_CNPJ, MESSAGE_TAMANHO_CNPJ);
 		validarRegex(cnpj, SOMENTE_NUMEROS, MESSAGE_CNPJ_REGEX);
+		validarTamanho(cnpj, TAMANHO_CNPJ, MESSAGE_TAMANHO_CNPJ);
 		validarCaracteresRepetidos(cnpj, MENSAGEM_CNPJ_CARACTERES_REPETIDOS);
 		validarCNPJ(cnpj);
 		this.cnpj = cnpj;

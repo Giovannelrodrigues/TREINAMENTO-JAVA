@@ -1,4 +1,4 @@
-package br.com.contmatic.model.commons;
+package br.com.contmatic.model.contato;
 
 import static br.com.contmatic.model.constants.messages.TelefoneMessage.MESSAGE_TELEFONE_NOT_BLANK;
 import static br.com.contmatic.model.constants.messages.TelefoneMessage.MESSAGE_TELEFONE_NOT_NULL;
@@ -12,7 +12,7 @@ import static br.com.contmatic.model.validacoes.ValidadorTelefone.validarTamanho
 
 import java.util.Objects;
 
-import br.com.contmatic.model.enums.TipoTelefone;
+import br.com.contmatic.model.auditoria.Audit;
 
 public class Telefone extends Audit {
 
@@ -79,4 +79,7 @@ public class Telefone extends Audit {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
+	
 }

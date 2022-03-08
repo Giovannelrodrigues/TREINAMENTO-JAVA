@@ -1,4 +1,4 @@
-package br.com.contmatic.teste;
+package br.com.contmatic.endereco;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,8 +11,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Cidade;
-import br.com.contmatic.model.commons.Estado;
+import br.com.contmatic.model.endereco.Cidade;
+import br.com.contmatic.model.endereco.Estado;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteCidade {
@@ -30,7 +30,7 @@ public class TesteCidade {
 	private static final String SIGLA_ESTADO = "MG";
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		estadoBefore = new Estado(NOME_ESTADO, SIGLA_ESTADO);
 		cidadeBefore = new Cidade(NOME_CIDADE, CODIGO_IBGE, estadoBefore);
 	}
@@ -41,7 +41,7 @@ public class TesteCidade {
 	}
 
 	@Test
-	public void teste02_deve_atribuir_um_novo_nome_para_cidade_cidade() {
+	public void teste02_deve_atribuir_um_novo_nome_para_cidade() {
 		String nome = "São Paulo";
 		cidadeBefore.setNome(nome);
 		assertEquals(nome, cidadeBefore.getNome());
@@ -64,7 +64,7 @@ public class TesteCidade {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste06_nao_deve_atribuir_nome_passando_string_com_menos_de_2_caracteres() {
+	public void teste06_nao_deve_atribuir_nome_passando_string_com_menos_de_3_caracteres() {
 		cidadeBefore.setNome("SP");
 	}
 
@@ -133,34 +133,49 @@ public class TesteCidade {
 
 	// HASH CODE
 	@Test
-	public void teste18_deve_retornar_true_no_hashcode_ao_instanciar_nomes_iguals() {
+	public void teste18_deve_retornar_true_no_hashcode_ao_instanciar_cidade_com_mesmo_codigo_ibge() {
 		Cidade cidade = new Cidade(NOME_CIDADE, CODIGO_IBGE, estadoBefore);
 		boolean resp = cidade.hashCode() == cidadeBefore.hashCode();
 		assertTrue(resp);
 	}
+	
+	@Test
+	public void teste19_deve_retornar_false_no_hashcode_ao_instanciar_cidade_com_codigo_ibge_diferente() {
+		Cidade cidade = new Cidade(NOME_CIDADE, 14785, estadoBefore);
+		boolean resp = cidade.hashCode() == cidadeBefore.hashCode();
+		assertFalse(resp);
+	}
 
 	// EQUALS
+	
 	@Test
-	public void teste19_deve_retornar_true_quando_usar_equals_passado_cidades_iguais() {
+	public void teste20_deve_retornar_true_quando_usar_equals_passado_cidades_com_mesmo_codigo_do_ibge() {
 		Cidade cidade = new Cidade(NOME_CIDADE, CODIGO_IBGE, estadoBefore);
 		boolean resp = cidadeBefore.equals(cidade);
 		assertTrue(resp);
 	}
-
+	
 	@Test
-	public void teste20_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste21_deve_retornar_false_quando_usar_equals_passado_cidades_com_codigo_do_ibge_diferente() {
+		Cidade cidade = new Cidade(NOME_CIDADE, 14785, estadoBefore);
+		boolean resp = cidadeBefore.equals(cidade);
+		assertFalse(resp);
+	}
+	
+	@Test
+	public void teste22_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = cidadeBefore.equals(null);
 		assertFalse(resp);
 	}
-
+	
 	@Test
-	public void teste21_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste23_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = cidadeBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste22_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste24_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = cidadeBefore.equals(cidadeBefore);
 		assertTrue(resp);
 	}

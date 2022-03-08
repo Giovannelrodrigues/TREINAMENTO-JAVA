@@ -17,7 +17,7 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.contato.Email;
 
 public class Usuario {
 

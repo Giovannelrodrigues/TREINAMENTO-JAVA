@@ -1,4 +1,4 @@
-package br.com.contmatic.model.commons;
+package br.com.contmatic.model.endereco;
 
 import static br.com.contmatic.model.constants.EnderecoConstants.NUMERO_MAX;
 import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_CEP;
@@ -46,7 +46,7 @@ import static br.com.contmatic.model.validacoes.Validador.validarZero;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.enums.TipoEndereco;
+import br.com.contmatic.model.auditoria.Audit;
 
 public class Endereco extends Audit {
 

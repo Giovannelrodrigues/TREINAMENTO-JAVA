@@ -1,4 +1,4 @@
-package br.com.contmatic.teste;
+package br.com.contmatic.contato;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,9 +14,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Email;
-import br.com.contmatic.model.commons.Telefone;
-import br.com.contmatic.model.enums.TipoTelefone;
+import br.com.contmatic.model.contato.Email;
+import br.com.contmatic.model.contato.Telefone;
+import br.com.contmatic.model.contato.TipoTelefone;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteTelefone {
@@ -27,10 +27,10 @@ public class TesteTelefone {
 
 	private static final String TELEFONE = "1195845635";
 
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		telefoneBefore = new Telefone(TELEFONE, TipoTelefone.CELULAR);
 		telefoneBefore.setCreatedBy(EMAIL);
 		telefoneBefore.setCreateDate(LOCAL_TIME);
@@ -135,94 +135,102 @@ public class TesteTelefone {
 		boolean resp = telefone1.equals(telefone2);
 		assertTrue(resp);
 	}
+	
+	@Test
+	public void teste16_deve_retornar_false_quando_usar_equals_passado_telefones_diferentes() {
+		Telefone telefone1 = new Telefone("1159160668");
+		Telefone telefone2 = new Telefone("1159666668");
+		boolean resp = telefone1.equals(telefone2);
+		assertFalse(resp);
+	}
 
 	@Test
-	public void teste16_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste17_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = telefoneBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste17_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste18_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = telefoneBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste18_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste19_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = telefoneBefore.equals(telefoneBefore);
 		assertTrue(resp);
 	}
 
 	// CREATE BY
 	@Test
-	public void teste19_deve_retornar_por_quem_foi_criado() {
+	public void teste21_deve_retornar_por_quem_foi_criado() {
 		telefoneBefore.setCreatedBy(EMAIL);
 		assertEquals(EMAIL, telefoneBefore.getCreatedBy());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste20_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+	public void teste21_nao_deve_atribuir_createdby_passando_email_nulo() {
 		telefoneBefore.setCreatedBy(null);
 	}
 
 	// CREATE TIME
 	@Test
-	public void teste21_deve_retornar_quando_foi_criado() {
+	public void teste22_deve_retornar_quando_foi_criado() {
 		telefoneBefore.setCreateDate(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, telefoneBefore.getCreateDate());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste22_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+	public void teste23_nao_deve_atribuir_createdate_passando_nulo() {
 		telefoneBefore.setCreateDate(null);
 	}
 
 	// LAST BY UPDATE NOTIFY
 	@Test
-	public void teste23_deve_retornar_por_quem_foi_alterado() {
+	public void teste24_deve_retornar_por_quem_foi_alterado() {
 		telefoneBefore.setLastByUpdadeNotify(EMAIL);
 		assertEquals(EMAIL, telefoneBefore.getLastByUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste24_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
-		telefoneBefore.setCreatedBy(null);
+	public void teste25_nao_deve_atribuir_lastByUpdatedNotify_passando_email_nulo() {
+		telefoneBefore.setLastByUpdadeNotify(null);
 	}
 
 	// LAST DATE UPDATE NOTIFY
 	@Test
-	public void teste25_deve_retornar_quando_foi_alterado() {
+	public void teste26_deve_retornar_quando_foi_alterado() {
 		telefoneBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, telefoneBefore.getLastDateUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste26_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+	public void teste27_nao_deve_atribuir_lastDateUpdatedNotify_passando_nulo() {
 		telefoneBefore.setLastDateUpdadeNotify(null);
 	}
 
 	// TO STRING
 	@Test
-	public void teste27_deve_retornar_createby_no_to_string() {
+	public void teste28_deve_retornar_createby_no_to_string() {
 		String result = telefoneBefore.toString();
 		assertThat(result, containsString(String.valueOf(telefoneBefore.getCreatedBy())));
 	}
 
 	@Test
-	public void teste28_deve_retornar_create_date_no_to_string() {
+	public void teste29_deve_retornar_create_date_no_to_string() {
 		String result = telefoneBefore.toString();
 		assertThat(result, containsString(String.valueOf(telefoneBefore.getCreateDate())));
 	}
 
 	@Test
-	public void teste29_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+	public void teste30_deve_retornar_LastDateUpdadeNotify_no_to_string() {
 		String result = telefoneBefore.toString();
 		assertThat(result, containsString(String.valueOf(telefoneBefore.getLastDateUpdadeNotify())));
 	}
 
 	@Test
-	public void teste30_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+	public void teste31_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
 		String result = telefoneBefore.toString();
 		assertThat(result, containsString(String.valueOf(telefoneBefore.getLastByUpdadeNotify())));
 	}

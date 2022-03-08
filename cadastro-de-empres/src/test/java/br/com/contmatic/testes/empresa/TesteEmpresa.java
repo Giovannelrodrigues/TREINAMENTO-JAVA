@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
@@ -17,15 +18,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Cidade;
-import br.com.contmatic.model.commons.Email;
-import br.com.contmatic.model.commons.Endereco;
-import br.com.contmatic.model.commons.Estado;
-import br.com.contmatic.model.commons.Telefone;
+import br.com.contmatic.model.contato.Email;
+import br.com.contmatic.model.contato.Telefone;
 import br.com.contmatic.model.empresa.AmbienteTrabalho;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Produto;
-import br.com.contmatic.model.enums.TipoEndereco;
+import br.com.contmatic.model.endereco.Cidade;
+import br.com.contmatic.model.endereco.Endereco;
+import br.com.contmatic.model.endereco.Estado;
+import br.com.contmatic.model.endereco.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEmpresa {
@@ -36,10 +37,10 @@ public class TesteEmpresa {
 
 	private static final String CNPJ = "63516934000109";
 
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
-
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
+	
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		empresaBefore = new Empresa(CNPJ);
 		empresaBefore.setCreatedBy(EMAIL);
 		empresaBefore.setCreateDate(LOCAL_TIME);
@@ -372,10 +373,19 @@ public class TesteEmpresa {
 		boolean resp = empresa1.hashCode() == empresa2.hashCode();
 		assertTrue(resp);
 	}
+	
+	
+	@Test
+	public void teste42_deve_retornar_hash_code_diferentes_para_cnpj_diferentes() {
+		Empresa empresa1 = new Empresa(CNPJ);
+		Empresa empresa2 = new Empresa("96160438000106");
+		boolean resp = empresa1.hashCode() == empresa2.hashCode();
+		assertFalse(resp);
+	}
 
 	// EQUALS
 	@Test
-	public void teste42_deve_retornar_true_quando_usar_equals_passado_empresas_iguais() {
+	public void teste43_deve_retornar_true_quando_usar_equals_passado_empresas_iguais() {
 		Empresa empresa1 = new Empresa(CNPJ);
 		Empresa empresa2 = new Empresa(CNPJ);
 		boolean resp = empresa1.equals(empresa2);
@@ -383,7 +393,7 @@ public class TesteEmpresa {
 	}
 
 	@Test
-	public void teste43_deve_retornar_falso_quando_usar_equals_passado_empresa_com_cnpj_diferente_difentes() {
+	public void teste44_deve_retornar_falso_quando_usar_equals_passado_empresa_com_cnpj_diferente_difentes() {
 		Empresa empresa1 = new Empresa(CNPJ);
 		Empresa empresa2 = new Empresa("45626047000101");
 		boolean resp = empresa1.equals(empresa2);
@@ -391,100 +401,112 @@ public class TesteEmpresa {
 	}
 
 	@Test
-	public void teste44_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste45_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = empresaBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste45_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste46_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = empresaBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste46_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste47_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
 
 	// CREATE BY
 	@Test
-	public void teste47_deve_retornar_por_quem_foi_criado() {
+	public void teste48_deve_retornar_por_quem_foi_criado() {
 		empresaBefore.setCreatedBy(EMAIL);
 		assertEquals(EMAIL, empresaBefore.getCreatedBy());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste48_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
+	public void teste49_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
 		empresaBefore.setCreatedBy(null);
 	}
 
 	// CREATE TIME
 	@Test
-	public void teste49_deve_retornar_quando_foi_criado() {
+	public void teste50_deve_retornar_quando_foi_criado() {
 		empresaBefore.setCreateDate(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, empresaBefore.getCreateDate());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste50_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
+	public void teste51_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
 		empresaBefore.setCreateDate(null);
 	}
 
 	// LAST BY UPDATE NOTIFY
 	@Test
-	public void teste51_deve_retornar_por_quem_foi_alterado() {
+	public void teste52_deve_retornar_por_quem_foi_alterado() {
 		empresaBefore.setLastByUpdadeNotify(EMAIL);
 		assertEquals(EMAIL, empresaBefore.getLastByUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste52_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
+	public void teste53_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
 		empresaBefore.setCreatedBy(null);
 	}
 
 	// LAST DATE UPDATE NOTIFY
 	@Test
-	public void teste53_deve_retornar_quando_foi_alterado() {
+	public void teste54_deve_retornar_quando_foi_alterado() {
 		empresaBefore.setLastDateUpdadeNotify(LOCAL_TIME);
 		assertEquals(LOCAL_TIME, empresaBefore.getLastDateUpdadeNotify());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste54_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
+	public void teste55_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
 		empresaBefore.setLastDateUpdadeNotify(null);
 	}
 
 	// TO STRING
 	@Test
-	public void teste55_deve_retornar_createby_no_to_string() {
+	public void teste56_deve_retornar_createby_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getCreatedBy())));
 	}
 
 	@Test
-	public void teste56_deve_retornar_create_date_no_to_string() {
+	public void teste57_deve_retornar_create_date_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getCreateDate())));
 	}
 
 	@Test
-	public void teste57_deve_retornar_LastDateUpdadeNotify_no_to_string() {
+	public void teste58_deve_retornar_LastDateUpdadeNotify_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getLastDateUpdadeNotify())));
 	}
 
 	@Test
-	public void teste58_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
+	public void teste59_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getLastByUpdadeNotify())));
 	}
-
+	
+	//IGNORE
 	@Test
 	@Ignore
-	public void teste59_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste60_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
+	
+	@Test(timeout = 1000)
+	public void teste61_deve_criar_um_objeto_empresas_em_menos_de_1_segundo() throws InterruptedException {
+		assertNotNull(new Empresa("17940064000175"));
+	}
+	
+//	@Test(timeout = 1000)
+//	public void teste62_nao_deve_criar_um_objeto_empresas_que_demore_mais_de_1_segundo() throws InterruptedException {
+//		TimeUnit.SECONDS.sleep(2);
+//		assertNull(new Empresa("17940064000175"));
+//	}
 }

@@ -14,7 +14,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.contato.Email;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Produto;
 
@@ -23,7 +23,7 @@ public class TesteProduto {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	private static Produto produtoBefore;
 
@@ -44,7 +44,7 @@ public class TesteProduto {
 	private static final String CNPJ = "02240233000197";
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		empresaBefore = new Empresa(CNPJ);
 		produtoBefore = new Produto(CODIGO, empresaBefore);
 		produtoBefore.setNome(NOME);

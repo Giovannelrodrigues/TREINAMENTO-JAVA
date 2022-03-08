@@ -1,4 +1,4 @@
-package br.com.contmatic.model.commons;
+package br.com.contmatic.model.endereco;
 
 import static br.com.contmatic.model.constants.CidadeConstants.CODIGO_IBGE_MAX;
 import static br.com.contmatic.model.constants.CidadeConstants.TAMANHO_MAX_NOME;

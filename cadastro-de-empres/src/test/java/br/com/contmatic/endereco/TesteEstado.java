@@ -1,4 +1,4 @@
-package br.com.contmatic.teste;
+package br.com.contmatic.endereco;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,8 +14,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Cidade;
-import br.com.contmatic.model.commons.Estado;
+import br.com.contmatic.model.endereco.Cidade;
+import br.com.contmatic.model.endereco.Estado;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEstado {
@@ -27,7 +27,7 @@ public class TesteEstado {
 	private static final String SIGLA_ESTADO = "MG";
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		estadoBefore = new Estado(NOME_ESTADO, SIGLA_ESTADO);
 	}
 

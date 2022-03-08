@@ -1,12 +1,16 @@
-package br.com.contmatic.model.commons;
+package br.com.contmatic.model.auditoria;
 
 import static br.com.contmatic.model.constants.messages.AuditMessage.MESSAGE_CREATEDATE_NOT_NULL;
 import static br.com.contmatic.model.constants.messages.AuditMessage.MESSAGE_CREATEDBY_NOT_NULL;
 import static br.com.contmatic.model.constants.messages.AuditMessage.MESSAGE_LASTBYUPDATE_NOT_NULL;
 import static br.com.contmatic.model.constants.messages.AuditMessage.MESSAGE_LASTDATEUPDATE_NOT_NULL;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
+import static br.com.contmatic.model.validacoes.ValidadorData.validarDataAntiga;
+import static br.com.contmatic.model.validacoes.ValidadorData.validarMaxDate;
 
 import java.time.LocalDateTime;
+
+import br.com.contmatic.model.contato.Email;
 
 public class Audit {
 
@@ -33,6 +37,8 @@ public class Audit {
 
 	public void setCreateDate(LocalDateTime createDate) {
 		validarNulo(createDate, MESSAGE_CREATEDATE_NOT_NULL);
+		validarDataAntiga(createDate);
+		validarMaxDate(createDate);
 		this.createDate = createDate;
 	}
 
@@ -51,6 +57,8 @@ public class Audit {
 
 	public void setLastDateUpdadeNotify(LocalDateTime lastDateUpdadeNotify) {
 		validarNulo(lastDateUpdadeNotify, MESSAGE_LASTDATEUPDATE_NOT_NULL);
+		validarDataAntiga(lastDateUpdadeNotify);
+		validarMaxDate(lastDateUpdadeNotify);
 		this.lastDateUpdadeNotify = lastDateUpdadeNotify;
 	}
 

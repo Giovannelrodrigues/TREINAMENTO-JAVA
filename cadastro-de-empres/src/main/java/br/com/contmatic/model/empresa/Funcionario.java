@@ -45,10 +45,10 @@ import static br.com.contmatic.model.validacoes.ValidadorData.validarDataNascime
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.commons.Audit;
-import br.com.contmatic.model.commons.Email;
-import br.com.contmatic.model.commons.Endereco;
-import br.com.contmatic.model.commons.Telefone;
+import br.com.contmatic.model.auditoria.Audit;
+import br.com.contmatic.model.contato.Email;
+import br.com.contmatic.model.contato.Telefone;
+import br.com.contmatic.model.endereco.Endereco;
 
 public class Funcionario extends Audit {
 
@@ -80,8 +80,8 @@ public class Funcionario extends Audit {
 	public void setCpf(String cpf) {
 		validarNulo(cpf, MESSAGE_CPF_NOTNULL);
 		validarVazio(cpf, MESSAGE_CPF_NOTBLANK);
-		validarTamanho(cpf, TAMANHO_CPF, MESSAGE_TAMANHO_MAX_NOME);
 		validarRegex(cpf, SOMENTE_NUMEROS, MESSAGE_CPF_REGEX);
+		validarTamanho(cpf, TAMANHO_CPF, MESSAGE_TAMANHO_MAX_NOME);
 		validarCaracteresRepetidos(cpf, MENSAGEM_CPF_CARACTERES_REPETIDOS);
 		validarCPF(cpf);
 		this.cpf = cpf;

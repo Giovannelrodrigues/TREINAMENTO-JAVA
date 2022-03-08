@@ -1,4 +1,4 @@
-package br.com.contmatic.teste;
+package br.com.contmatic.contato;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,7 +11,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Email;
+import br.com.contmatic.model.contato.Email;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEmail {
@@ -21,12 +21,12 @@ public class TesteEmail {
 	private static final String EMAIL = "giovanne.rodrigues@cont@.com";
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		emailBefore = new Email(EMAIL);
 	}
 
 	@Test
-	public void teste01_deve_instaciar_um_novo_email_para_empresa() {
+	public void teste01_deve_instaciar_um_novo_email() {
 		assertEquals(EMAIL, emailBefore.getEmail());
 	}
 
@@ -49,7 +49,7 @@ public class TesteEmail {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste05_nao_deve_atribuir_um_novo_valor_para_email_passando_mais_de_60_caracteres() {
+	public void teste05_nao_deve_atribuir_um_novo_valor_para_email_passando_mais_de_100_caracteres() {
 		emailBefore.setEmail("giovannelrodriguesgiovannesgiovannelrodriguesgiovannelrodriguesgielrodriguesgiovannelrodriguesgiovannelrodrigues@gmail.com");
 	}
 
@@ -59,8 +59,8 @@ public class TesteEmail {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste07_nao_deve_atribuir_um_novo_valor_para_email_sem_passar_arroba() {
-		emailBefore.setEmail("giovannelrodrigues.com");
+	public void teste07_nao_deve_atribuir_um_novo_valor_para_email_sem_passar_caractere_obrigatorio() {
+		emailBefore.setEmail("giovannelrodrigues.gmail.com");
 	}
 
 	// TO STRING
@@ -78,6 +78,14 @@ public class TesteEmail {
 		boolean resp = email1.hashCode() == email2.hashCode();
 		assertTrue(resp);
 	}
+	
+	@Test
+	public void teste10_deve_retornar_o_hashcode_diferente_para_emails_diferentes() {
+		Email email1 = new Email(EMAIL);
+		Email email2 = new Email("giovannerodri@gmail.com");
+		boolean resp = email1.hashCode() == email2.hashCode();
+		assertFalse(resp);
+	}
 
 	// EQUALS
 	@Test
@@ -87,21 +95,29 @@ public class TesteEmail {
 		boolean resp = email1.equals(email2);
 		assertTrue(resp);
 	}
+	
+	@Test
+	public void teste11_deve_retornar_false_quando_usar_equals_passado_emails_diferentes() {
+		Email email1 = new Email(EMAIL);
+		Email email2 = new Email("GIO@GIOVANNE.COM");
+		boolean resp = email1.equals(email2);
+		assertFalse(resp);
+	}
 
 	@Test
-	public void teste11_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste12_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = emailBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste12_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste13_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = emailBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste13_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste14_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = emailBefore.equals(emailBefore);
 		assertTrue(resp);
 	}

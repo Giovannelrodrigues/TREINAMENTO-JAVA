@@ -33,10 +33,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.commons.Audit;
-import br.com.contmatic.model.commons.Endereco;
+import br.com.contmatic.model.auditoria.Audit;
 import br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage;
-import br.com.contmatic.model.enums.TipoEstabelecimento;
+import br.com.contmatic.model.endereco.Endereco;
 
 public class AmbienteTrabalho extends Audit {
 

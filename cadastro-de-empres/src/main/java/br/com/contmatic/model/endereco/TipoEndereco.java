@@ -1,4 +1,4 @@
-package br.com.contmatic.model.enums;
+package br.com.contmatic.model.endereco;
 
 public enum TipoEndereco {
 	RESIDENCIAL, ENTREGA, COMERCIAL;

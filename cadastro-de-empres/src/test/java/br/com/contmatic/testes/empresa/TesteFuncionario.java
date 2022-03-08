@@ -16,24 +16,24 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Cidade;
-import br.com.contmatic.model.commons.Email;
-import br.com.contmatic.model.commons.Endereco;
-import br.com.contmatic.model.commons.Estado;
-import br.com.contmatic.model.commons.Telefone;
+import br.com.contmatic.model.contato.Email;
+import br.com.contmatic.model.contato.Telefone;
 import br.com.contmatic.model.empresa.AmbienteTrabalho;
 import br.com.contmatic.model.empresa.Cargo;
 import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.empresa.Funcionario;
 import br.com.contmatic.model.empresa.Setor;
-import br.com.contmatic.model.enums.TipoEndereco;
+import br.com.contmatic.model.endereco.Cidade;
+import br.com.contmatic.model.endereco.Endereco;
+import br.com.contmatic.model.endereco.Estado;
+import br.com.contmatic.model.endereco.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteFuncionario {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	private static Empresa empresaBefore;
 
@@ -48,7 +48,7 @@ public class TesteFuncionario {
 	private static final String CPF = "62709667010";
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		empresaBefore = new Empresa("09535558000146");
 		ambienteBefore = new AmbienteTrabalho("Desenvolvimento", empresaBefore);
 		setorBefore = new Setor("Infraestrutura", ambienteBefore);

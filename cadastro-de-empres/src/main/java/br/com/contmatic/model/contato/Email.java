@@ -1,4 +1,4 @@
-package br.com.contmatic.model.commons;
+package br.com.contmatic.model.contato;
 
 import static br.com.contmatic.model.constants.EmailConstants.CARACTERE_OBRIGATORIO_EMAIL;
 import static br.com.contmatic.model.constants.EmailConstants.TAMANHO_MAX_EMAIL;

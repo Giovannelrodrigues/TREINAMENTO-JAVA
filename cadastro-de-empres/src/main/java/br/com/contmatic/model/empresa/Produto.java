@@ -46,7 +46,7 @@ import static br.com.contmatic.model.validacoes.Validador.validarZero;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.commons.Audit;
+import br.com.contmatic.model.auditoria.Audit;
 
 public class Produto extends Audit {
 

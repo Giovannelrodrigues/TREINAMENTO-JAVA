@@ -1,4 +1,4 @@
-package br.com.contmatic.teste;
+package br.com.contmatic.endereco;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,18 +14,18 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.commons.Cidade;
-import br.com.contmatic.model.commons.Email;
-import br.com.contmatic.model.commons.Endereco;
-import br.com.contmatic.model.commons.Estado;
-import br.com.contmatic.model.enums.TipoEndereco;
+import br.com.contmatic.model.contato.Email;
+import br.com.contmatic.model.endereco.Cidade;
+import br.com.contmatic.model.endereco.Endereco;
+import br.com.contmatic.model.endereco.Estado;
+import br.com.contmatic.model.endereco.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEndereco {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2017, Month.FEBRUARY, 3, 6, 30, 40, 50000);
+	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	private static Endereco enderecoBefore;
 
@@ -46,7 +46,7 @@ public class TesteEndereco {
 	private static final TipoEndereco TIPO_ENDERECO = TipoEndereco.COMERCIAL;
 
 	@Before
-	public void antesDeCadaTeste() {
+	public void antesDeTodosOsTeste() {
 		enderecoBefore = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
 		enderecoBefore.setComplemento(COMPLEMENTO);
 		enderecoBefore.setCreatedBy(EMAIL);
