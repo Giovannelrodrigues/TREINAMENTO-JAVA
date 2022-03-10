@@ -494,7 +494,7 @@ public class TesteEmpresa {
 	//IGNORE
 	@Test
 	@Ignore
-	public void teste60_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste60_deve_ignorar_teste() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
