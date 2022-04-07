@@ -1,37 +1,37 @@
 package br.com.contmatic.model.endereco;
 
-import static br.com.contmatic.model.constants.EnderecoConstants.NUMERO_MAX;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_CEP;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_MAX_BAIRRO;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_MAX_COMPLEMENTO;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_MAX_LOGRADOURO;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_MIN_BAIRRO;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_MIN_COMPLEMENTO;
-import static br.com.contmatic.model.constants.EnderecoConstants.TAMANHO_MIN_LOGRADOURO;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_BAIRRO_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_BAIRRO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_BAIRRO_REGEX;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_CEP_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_CEP_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_CEP_SOMENTE_NUMEROS;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_CIDADE_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_COMPLEMENTO_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_COMPLEMENTO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_COMPLEMENTO_REGEX;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_ESTADO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_LOGRADOURO_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_LOGRADOURO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_LOGRADOURO_REGEX;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_NUMERO_MAX;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_NUMERO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_NUMERO_NOT_ZERO;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TAMANHO_BAIRRO_MAX;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TAMANHO_BAIRRO_MIN;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TAMANHO_COMPLEMENTO_MAX;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TAMANHO_COMPLEMENTO_MIN;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TAMANHO_MAX_LOGRADOURO;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TAMANHO_MIN_LOGRADOURO;
-import static br.com.contmatic.model.constants.messages.EnderecoMessage.MESSAGE_TIPO_ENDERECO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_BAIRRO_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_BAIRRO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_BAIRRO_REGEX;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_CEP_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_CEP_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_CEP_SOMENTE_NUMEROS;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_CIDADE_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_COMPLEMENTO_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_COMPLEMENTO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_COMPLEMENTO_REGEX;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_ESTADO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_LOGRADOURO_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_LOGRADOURO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_LOGRADOURO_REGEX;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_NUMERO_MAX;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_NUMERO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_NUMERO_NOT_ZERO;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TAMANHO_BAIRRO_MAX;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TAMANHO_BAIRRO_MIN;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TAMANHO_COMPLEMENTO_MAX;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TAMANHO_COMPLEMENTO_MIN;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TAMANHO_MAX_LOGRADOURO;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TAMANHO_MIN_LOGRADOURO;
+import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_TIPO_ENDERECO_NOT_NULL;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.NUMERO_MAX;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_CEP;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_MAX_BAIRRO;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_MAX_COMPLEMENTO;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_MAX_LOGRADOURO;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_MIN_BAIRRO;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_MIN_COMPLEMENTO;
+import static br.com.contmatic.model.constants.numericas.EnderecoConstants.TAMANHO_MIN_LOGRADOURO;
 import static br.com.contmatic.model.constants.regex.BaseRegex.ALFANUMERICO_PONTOS;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_NUMEROS;
@@ -46,9 +46,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarZero;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.auditoria.Audit;
+import br.com.contmatic.model.auditoria.Auditoria;
 
-public class Endereco extends Audit {
+public class Endereco extends Auditoria {
 
 	private String cep;
 
@@ -65,9 +65,8 @@ public class Endereco extends Audit {
 	private String complemento;
 
 	private TipoEndereco tipoEndereco;
-
-	public Endereco(String cep, String logradouro, int numero, String bairro, Cidade cidade, Estado estado,
-			TipoEndereco tipoEndereco) {
+	
+	public Endereco(String cep, String logradouro, Integer numero, String bairro, Cidade cidade, Estado estado, TipoEndereco tipoEndereco) {
 		this.setCep(cep);
 		this.setLogradouro(logradouro);
 		this.setNumero(numero);

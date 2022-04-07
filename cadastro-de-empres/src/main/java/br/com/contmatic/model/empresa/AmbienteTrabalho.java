@@ -1,26 +1,26 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_DESCRICAO;
-import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_LISTA_ENDERECOS;
-import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_LISTA_SETORES;
-import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MIN_DESCRICAO;
-import static br.com.contmatic.model.constants.AmbienteTrabalhoConstants.TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_DESCRICAO_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_DESCRICAO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_EMPRESA_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_ENDERECOS_LIST_MAX;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_NOME_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_NOME_NOTNULL;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_NOME_REGEX;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_SETORES_IS_EMPTY;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_SETORES_LIST_MAX;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_SETORES_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage.MESSAGE_TIPO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_DESCRICAO_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_DESCRICAO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_EMPRESA_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_ENDERECOS_LIST_MAX;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_SETORES_IS_EMPTY;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_SETORES_LIST_MAX;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_SETORES_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage.MESSAGE_TIPO_NOTNULL;
+import static br.com.contmatic.model.constants.numericas.AmbienteTrabalhoConstants.TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.numericas.AmbienteTrabalhoConstants.TAMANHO_MAX_LISTA_ENDERECOS;
+import static br.com.contmatic.model.constants.numericas.AmbienteTrabalhoConstants.TAMANHO_MAX_LISTA_SETORES;
+import static br.com.contmatic.model.constants.numericas.AmbienteTrabalhoConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.numericas.AmbienteTrabalhoConstants.TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.numericas.AmbienteTrabalhoConstants.TAMANHO_MIN_NOME;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.validacoes.Validador.validarListaVazia;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
@@ -33,17 +33,17 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.auditoria.Audit;
-import br.com.contmatic.model.constants.messages.AmbienteTrabalhoMessage;
+import br.com.contmatic.model.auditoria.Auditoria;
+import br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage;
 import br.com.contmatic.model.endereco.Endereco;
 
-public class AmbienteTrabalho extends Audit {
+public class AmbienteTrabalho extends Auditoria {
 
 	private String nome;
 
 	private String descricao;
 
-	private TipoEstabelecimento tipoEstabelecimento;
+	private TipoAmbienteTrabalho tipo;
 
 	private List<Setor> setores;
 
@@ -81,13 +81,13 @@ public class AmbienteTrabalho extends Audit {
 		this.descricao = descricao;
 	}
 
-	public TipoEstabelecimento getTipoEstabelecimento() {
-		return this.tipoEstabelecimento;
+	public TipoAmbienteTrabalho getTipo() {
+		return this.tipo;
 	}
 
-	public void setTipoEstabelecimento(TipoEstabelecimento tipoEstabelecimento) {
-		validarNulo(tipoEstabelecimento, MESSAGE_TIPO_NOTNULL);
-		this.tipoEstabelecimento = tipoEstabelecimento;
+	public void setTipo(TipoAmbienteTrabalho tipo) {
+		validarNulo(tipo, MESSAGE_TIPO_NOTNULL);
+		this.tipo = tipo;
 	}
 
 	public List<Setor> getSetores() {
@@ -123,7 +123,7 @@ public class AmbienteTrabalho extends Audit {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(empresa, nome);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class AmbienteTrabalho extends Audit {
 		if (getClass() != obj.getClass())
 			return false;
 		AmbienteTrabalho other = (AmbienteTrabalho) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(empresa, other.empresa) && Objects.equals(nome, other.nome);
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class AmbienteTrabalho extends Audit {
 		builder.append(", descricao=");
 		builder.append(descricao);
 		builder.append(", tipoEstabelecimento=");
-		builder.append(tipoEstabelecimento);
+		builder.append(tipo);
 		builder.append(", setores=");
 		builder.append(setores);
 		builder.append(", enderecos=");

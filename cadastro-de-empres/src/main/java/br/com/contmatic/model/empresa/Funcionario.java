@@ -1,33 +1,33 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.constants.FuncionarioConstants.TAMANHO_CPF;
-import static br.com.contmatic.model.constants.FuncionarioConstants.TAMANHO_DATA_NASCIMENTO;
-import static br.com.contmatic.model.constants.FuncionarioConstants.TAMANHO_MAX_LISTA_EMAILS;
-import static br.com.contmatic.model.constants.FuncionarioConstants.TAMANHO_MAX_LISTA_TELEFONES;
-import static br.com.contmatic.model.constants.FuncionarioConstants.TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.FuncionarioConstants.TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MENSAGEM_CPF_CARACTERES_REPETIDOS;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_CARGO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_CPF_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_CPF_NOTNULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_CPF_REGEX;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_DATA_NASCIMENTO_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_DATA_NASCIMENTO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_DATA_NASCIMENTO_REGEX;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_EMAILS_IS_EMPTY;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_EMAILS_LIST_MAX;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_EMAILS_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_ENDERECO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_NOME_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_NOME_NOTNULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_NOME_REGEX;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_SETOR_NOTNULL;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_TAMANHO_DATA_NASCIMENTO;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_TELEFONES_IS_EMPTY;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_TELEFONES_LIST_MAX;
-import static br.com.contmatic.model.constants.messages.FuncionarioMessage.MESSAGE_TELEFONES_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MENSAGEM_CPF_CARACTERES_REPETIDOS;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_CARGO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_CPF_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_CPF_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_CPF_REGEX;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_DATA_NASCIMENTO_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_DATA_NASCIMENTO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_DATA_NASCIMENTO_REGEX;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_EMAILS_IS_EMPTY;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_EMAILS_LIST_MAX;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_EMAILS_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_ENDERECO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_SETOR_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_TAMANHO_DATA_NASCIMENTO;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_TELEFONES_IS_EMPTY;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_TELEFONES_LIST_MAX;
+import static br.com.contmatic.model.constants.mensagens.FuncionarioMessage.MESSAGE_TELEFONES_NOT_NULL;
+import static br.com.contmatic.model.constants.numericas.FuncionarioConstants.TAMANHO_CPF;
+import static br.com.contmatic.model.constants.numericas.FuncionarioConstants.TAMANHO_DATA_NASCIMENTO;
+import static br.com.contmatic.model.constants.numericas.FuncionarioConstants.TAMANHO_MAX_LISTA_EMAILS;
+import static br.com.contmatic.model.constants.numericas.FuncionarioConstants.TAMANHO_MAX_LISTA_TELEFONES;
+import static br.com.contmatic.model.constants.numericas.FuncionarioConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.numericas.FuncionarioConstants.TAMANHO_MIN_NOME;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_NUMEROS;
 import static br.com.contmatic.model.validacoes.Validador.validarCaracteresRepetidos;
@@ -45,12 +45,12 @@ import static br.com.contmatic.model.validacoes.ValidadorData.validarDataNascime
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.auditoria.Audit;
+import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.contato.Email;
 import br.com.contmatic.model.contato.Telefone;
 import br.com.contmatic.model.endereco.Endereco;
 
-public class Funcionario extends Audit {
+public class Funcionario extends Auditoria {
 
 	private String cpf;
 
@@ -67,6 +67,10 @@ public class Funcionario extends Audit {
 	private List<Email> emails;
 
 	private Setor setor;
+	
+	public Funcionario(String cpf) {
+		this.setCpf(cpf);
+	}
 
 	public Funcionario(String cpf, Setor setor) {
 		this.setCpf(cpf);

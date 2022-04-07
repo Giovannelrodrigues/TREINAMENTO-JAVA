@@ -24,6 +24,8 @@ import br.com.contmatic.model.endereco.TipoEndereco;
 public class TesteEndereco {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
+	
+	private static final String IP = "122.21.123.1";
 
 	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
@@ -39,20 +41,22 @@ public class TesteEndereco {
 
 	private static final String BAIRRO = "Vila Azevedo";
 
-	private static final Estado ESTADO = new Estado("São Paulo", "SP");
+	private static final Estado ESTADO = new Estado("SP", "São Paulo");
 
 	private static final Cidade CIDADE = new Cidade("São Paulo", 5215485, ESTADO);
 
 	private static final TipoEndereco TIPO_ENDERECO = TipoEndereco.COMERCIAL;
 
 	@Before
-	public void antesDeTodosOsTeste() {
+	public void antesDeCadaTestes() {
 		enderecoBefore = new Endereco(CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, ESTADO, TIPO_ENDERECO);
 		enderecoBefore.setComplemento(COMPLEMENTO);
 		enderecoBefore.setCreatedBy(EMAIL);
 		enderecoBefore.setCreateDate(LOCAL_TIME);
-		enderecoBefore.setLastByUpdadeNotify(EMAIL);
-		enderecoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		enderecoBefore.setUpdateBy(EMAIL);
+		enderecoBefore.setUpdatedDate(LOCAL_TIME);
+		enderecoBefore.setCreatedIp(IP);
+		enderecoBefore.setUpdatedIp(IP);
 	}
 
 	// CONSTRUTOR
@@ -260,7 +264,7 @@ public class TesteEndereco {
 	// Estado
 	@Test
 	public void teste35_deve_atribuir_um_novo_valor_para_estado() {
-		Estado estado = new Estado("São Paulo", "SP");
+		Estado estado = new Estado("SP", "São Paulo");
 		enderecoBefore.setEstado(estado);
 		assertEquals(estado, enderecoBefore.getEstado());
 	}
@@ -385,73 +389,4 @@ public class TesteEndereco {
 		boolean resp = enderecoBefore.equals(enderecoBefore);
 		assertTrue(resp);
 	}
-
-	@Test
-	public void teste54_deve_retornar_por_quem_foi_criado() {
-		enderecoBefore.setCreatedBy(EMAIL);
-		assertEquals(EMAIL, enderecoBefore.getCreatedBy());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste55_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
-		enderecoBefore.setCreatedBy(null);
-	}
-
-	@Test
-	public void teste56_deve_retornar_quando_foi_criado() {
-		enderecoBefore.setCreateDate(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, enderecoBefore.getCreateDate());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste57_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
-		enderecoBefore.setCreateDate(null);
-	}
-
-	@Test
-	public void teste58_deve_retornar_por_quem_foi_alterado() {
-		enderecoBefore.setLastByUpdadeNotify(EMAIL);
-		assertEquals(EMAIL, enderecoBefore.getLastByUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste59_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
-		enderecoBefore.setCreatedBy(null);
-	}
-
-	@Test
-	public void teste60_deve_retornar_quando_foi_alterado() {
-		enderecoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, enderecoBefore.getLastDateUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste61_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
-		enderecoBefore.setLastDateUpdadeNotify(null);
-	}
-
-	@Test
-	public void teste62_deve_retornar_createby_no_to_string() {
-		String result = enderecoBefore.toString();
-		assertThat(result, containsString(String.valueOf(enderecoBefore.getCreatedBy())));
-	}
-
-	@Test
-	public void teste63_deve_retornar_create_date_no_to_string() {
-		String result = enderecoBefore.toString();
-		assertThat(result, containsString(String.valueOf(enderecoBefore.getCreateDate())));
-	}
-
-	@Test
-	public void teste64_deve_retornar_LastDateUpdadeNotify_no_to_string() {
-		String result = enderecoBefore.toString();
-		assertThat(result, containsString(String.valueOf(enderecoBefore.getLastDateUpdadeNotify())));
-	}
-
-	@Test
-	public void teste65_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
-		String result = enderecoBefore.toString();
-		assertThat(result, containsString(String.valueOf(enderecoBefore.getLastByUpdadeNotify())));
-	}
-
 }

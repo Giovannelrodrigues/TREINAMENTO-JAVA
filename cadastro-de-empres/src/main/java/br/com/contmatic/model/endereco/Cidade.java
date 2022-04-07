@@ -1,19 +1,18 @@
 package br.com.contmatic.model.endereco;
 
-import static br.com.contmatic.model.constants.CidadeConstants.CODIGO_IBGE_MAX;
-import static br.com.contmatic.model.constants.CidadeConstants.TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.CidadeConstants.TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_CODIGO_IBGE_MAX;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_CODIGO_IBGE_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_CODIGO_IBGE_NOTNULL;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_CODIGO_IBGE_ZERO;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_ESTADO_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_ESTADO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_NOME_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_NOME_NOTNULL;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_REGEX_NOME;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.messages.CidadeMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_CODIGO_IBGE_MAX;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_CODIGO_IBGE_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_CODIGO_IBGE_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_CODIGO_IBGE_ZERO;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_ESTADO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_REGEX_NOME;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.mensagens.CidadeMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.numericas.CidadeConstants.CODIGO_IBGE_MAX;
+import static br.com.contmatic.model.constants.numericas.CidadeConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.numericas.CidadeConstants.TAMANHO_MIN_NOME;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
 import static br.com.contmatic.model.validacoes.Validador.validarNumeroMaximo;
@@ -32,7 +31,12 @@ public class Cidade {
 	private String nome;
 
 	private Estado estado;
-
+	
+	public Cidade(Integer codigoIBGE, Estado estado) {
+		this.setCodigoIBGE(codigoIBGE);
+		this.setEstado(estado);
+	}
+	
 	public Cidade(String nome, Integer codigoIBGE, Estado estado) {
 		this.setNome(nome);
 		this.setCodigoIBGE(codigoIBGE);
@@ -45,7 +49,6 @@ public class Cidade {
 
 	public void setEstado(Estado estado) {
 		validarNulo(estado, MESSAGE_ESTADO_NOTNULL);
-		validarVazio(estado, MESSAGE_ESTADO_NOTBLANK);
 		this.estado = estado;
 	}
 
@@ -76,7 +79,7 @@ public class Cidade {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoIBGE);
+		return Objects.hash(codigoIBGE, estado);
 	}
 
 	@Override
@@ -88,7 +91,7 @@ public class Cidade {
 		if (getClass() != obj.getClass())
 			return false;
 		Cidade other = (Cidade) obj;
-		return Objects.equals(codigoIBGE, other.codigoIBGE);
+		return Objects.equals(codigoIBGE, other.codigoIBGE) && Objects.equals(estado, other.estado);
 	}
 
 	@Override

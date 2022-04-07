@@ -1,17 +1,19 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.constants.CargoConstants.TAMANHO_MAX_DESCRICAO;
-import static br.com.contmatic.model.constants.CargoConstants.TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.CargoConstants.TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_DESCRICAO_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_DESCRICAO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_NOME_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_NOME_NOTNULL;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_NOME_REGEX;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
-import static br.com.contmatic.model.constants.messages.CargoMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_AMBIENTE_TRABALHO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_DESCRICAO_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_DESCRICAO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.mensagens.CargoMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.numericas.CargoConstants.TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.numericas.CargoConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.numericas.CargoConstants.TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.numericas.CargoConstants.TAMANHO_MIN_NOME;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
 import static br.com.contmatic.model.validacoes.Validador.validarRegex;
@@ -21,17 +23,19 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.auditoria.Audit;
-import br.com.contmatic.model.constants.CargoConstants;
+import br.com.contmatic.model.auditoria.Auditoria;
 
-public class Cargo extends Audit {
+public class Cargo extends Auditoria {
 
 	private String nome;
 
 	private String descricao;
+	
+	private AmbienteTrabalho ambienteTrabalho;
 
-	public Cargo(String nome) {
+	public Cargo(String nome, AmbienteTrabalho ambienteTrabalho) {
 		this.setNome(nome);
+		this.setAmbienteTrabalho(ambienteTrabalho);
 	}
 
 	public String getNome() {
@@ -55,13 +59,22 @@ public class Cargo extends Audit {
 		validarNulo(descricao, MESSAGE_DESCRICAO_NOTNULL);
 		validarVazio(descricao, MESSAGE_DESCRICAO_NOTBLANK);
 		validarTamanhoMaximo(descricao, TAMANHO_MAX_DESCRICAO, MESSAGE_TAMANHO_MAX_DESCRICAO);
-		validarTamanhoMinimo(descricao, CargoConstants.TAMANHO_MIN_DESCRICAO, MESSAGE_TAMANHO_MIN_DESCRICAO);
+		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO, MESSAGE_TAMANHO_MIN_DESCRICAO);
 		this.descricao = descricao;
+	}
+	
+	public AmbienteTrabalho getAmbienteTrabalho() {
+		return ambienteTrabalho;
+	}
+
+	public void setAmbienteTrabalho(AmbienteTrabalho ambienteTrabalho) {
+		validarNulo(ambienteTrabalho, MESSAGE_AMBIENTE_TRABALHO_NOTNULL);
+		this.ambienteTrabalho = ambienteTrabalho;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(ambienteTrabalho, nome);
 	}
 
 	@Override
@@ -73,7 +86,7 @@ public class Cargo extends Audit {
 		if (getClass() != obj.getClass())
 			return false;
 		Cargo other = (Cargo) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(ambienteTrabalho, other.ambienteTrabalho) && Objects.equals(nome, other.nome);
 	}
 
 	@Override
@@ -83,6 +96,8 @@ public class Cargo extends Audit {
 		builder.append(nome);
 		builder.append(", descricao=");
 		builder.append(descricao);
+		builder.append(", ambienteTrabalho=");
+		builder.append(ambienteTrabalho);
 		builder.append(", toString()=");
 		builder.append(super.toString());
 		builder.append("]");

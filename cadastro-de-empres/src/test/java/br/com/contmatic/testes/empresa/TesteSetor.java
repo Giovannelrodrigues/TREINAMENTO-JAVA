@@ -26,6 +26,8 @@ import br.com.contmatic.model.empresa.Setor;
 public class TesteSetor {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
+	
+	private static final String IP = "122.21.123.1";
 
 	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
@@ -38,7 +40,7 @@ public class TesteSetor {
 	private static final String NOME = "Departemendo de contas a receber";
 
 	@Before
-	public void antesDeTodosOsTeste() {
+	public void antesDeCadaTestes() {
 		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		empresaBefore = new Empresa("63516934000109");
 		ambienteBefore = new AmbienteTrabalho("financeiro", empresaBefore);
@@ -47,8 +49,10 @@ public class TesteSetor {
 		setorBefore.setFuncionarios(funcionarios);
 		setorBefore.setCreatedBy(EMAIL);
 		setorBefore.setCreateDate(LOCAL_TIME);
-		setorBefore.setLastByUpdadeNotify(EMAIL);
-		setorBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		setorBefore.setUpdateBy(EMAIL);
+		setorBefore.setUpdatedDate(LOCAL_TIME);
+		setorBefore.setCreatedIp(IP);
+		setorBefore.setUpdatedIp(IP);
 	}
 
 	// CONSTRUTOR
@@ -251,78 +255,4 @@ public class TesteSetor {
 		boolean resp = setorBefore.equals(setorBefore);
 		assertTrue(resp);
 	}
-
-	// CREATE BY
-	@Test
-	public void teste32_deve_retornar_por_quem_foi_criado() {
-		setorBefore.setCreatedBy(EMAIL);
-		assertEquals(EMAIL, setorBefore.getCreatedBy());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste33_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
-		setorBefore.setCreatedBy(null);
-	}
-
-	// CREATE TIME
-	@Test
-	public void teste34_deve_retornar_quando_foi_criado() {
-		setorBefore.setCreateDate(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, setorBefore.getCreateDate());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste35_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
-		setorBefore.setCreateDate(null);
-	}
-
-	// LAST BY UPDATE NOTIFY
-	@Test
-	public void teste36_deve_retornar_por_quem_foi_alterado() {
-		setorBefore.setLastByUpdadeNotify(EMAIL);
-		assertEquals(EMAIL, setorBefore.getLastByUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste37_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
-		setorBefore.setCreatedBy(null);
-	}
-
-	// LAST DATE UPDATE NOTIFY
-	@Test
-	public void teste38_deve_retornar_quando_foi_alterado() {
-		setorBefore.setLastDateUpdadeNotify(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, setorBefore.getLastDateUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste39_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
-		setorBefore.setLastDateUpdadeNotify(null);
-	}
-
-	// TO STRING
-	@Test
-	public void teste40_deve_retornar_createby_no_to_string() {
-		String result = setorBefore.toString();
-		assertThat(result, containsString(String.valueOf(setorBefore.getCreatedBy())));
-	}
-
-	@Test
-	public void teste41_deve_retornar_create_date_no_to_string() {
-		String result = setorBefore.toString();
-		assertThat(result, containsString(String.valueOf(setorBefore.getCreateDate())));
-	}
-
-	@Test
-	public void teste42_deve_retornar_LastDateUpdadeNotify_no_to_string() {
-		String result = setorBefore.toString();
-		assertThat(result, containsString(String.valueOf(setorBefore.getLastDateUpdadeNotify())));
-	}
-
-	@Test
-	public void teste43_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
-		String result = setorBefore.toString();
-		assertThat(result, containsString(String.valueOf(setorBefore.getLastByUpdadeNotify())));
-	}
-
 }

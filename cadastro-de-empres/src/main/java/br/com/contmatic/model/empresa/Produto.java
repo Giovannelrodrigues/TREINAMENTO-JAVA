@@ -1,39 +1,39 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.constants.ProdutoConstants.PRECO_MAX;
-import static br.com.contmatic.model.constants.ProdutoConstants.QUANTIDADE_MAX;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MAX_CODIGO;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MAX_COR;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MAX_MARCA;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MIN_CODIGO;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MIN_COR;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MIN_MARCA;
-import static br.com.contmatic.model.constants.ProdutoConstants.TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_CODIGO_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_CODIGO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_COR_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_COR_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_COR_REGEX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_EMPRESA_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_MARCA_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_MARCA_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_NOME_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_NOME_REGEX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_PRECO_MAX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_PRECO_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_PRECO_ZERO;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_QUANTIDADE_MAX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_QUANTIDADE_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_QUANTIDADE_ZERO;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_CODIGO_MAX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_CODIGO_MIN;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_COR_MAX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_COR_MIN;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_MARCA_MAX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_MARCA_MIN;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_NOME_MAX;
-import static br.com.contmatic.model.constants.messages.ProdutoMessage.MESSAGE_TAMANHO_NOME_MIN;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_CODIGO_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_CODIGO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_COR_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_COR_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_COR_REGEX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_EMPRESA_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_MARCA_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_MARCA_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_NOME_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_PRECO_MAX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_PRECO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_PRECO_ZERO;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_QUANTIDADE_MAX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_QUANTIDADE_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_QUANTIDADE_ZERO;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_CODIGO_MAX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_CODIGO_MIN;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_COR_MAX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_COR_MIN;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_MARCA_MAX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_MARCA_MIN;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_NOME_MAX;
+import static br.com.contmatic.model.constants.mensagens.ProdutoMessage.MESSAGE_TAMANHO_NOME_MIN;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.PRECO_MAX;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.QUANTIDADE_MAX;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MAX_CODIGO;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MAX_COR;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MAX_MARCA;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MIN_CODIGO;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MIN_COR;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MIN_MARCA;
+import static br.com.contmatic.model.constants.numericas.ProdutoConstants.TAMANHO_MIN_NOME;
 import static br.com.contmatic.model.constants.regex.BaseRegex.ALFANUMERICO;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
@@ -43,12 +43,13 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
 import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import static br.com.contmatic.model.validacoes.Validador.validarZero;
+import static br.com.contmatic.model.validacoes.Validador.validarZeroOrNegative;
 
 import java.util.Objects;
 
-import br.com.contmatic.model.auditoria.Audit;
+import br.com.contmatic.model.auditoria.Auditoria;
 
-public class Produto extends Audit {
+public class Produto extends Auditoria {
 
 	private String codigo;
 
@@ -136,7 +137,7 @@ public class Produto extends Audit {
 
 	public void setPreco(Double preco) {
 		validarNulo(preco, MESSAGE_PRECO_NOT_NULL);
-		validarZero(preco, MESSAGE_PRECO_ZERO);
+		validarZeroOrNegative(preco, MESSAGE_PRECO_ZERO);
 		validarNumeroMaximo(preco, PRECO_MAX, MESSAGE_PRECO_MAX);
 		this.preco = preco;
 	}

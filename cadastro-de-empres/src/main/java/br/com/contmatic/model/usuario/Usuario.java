@@ -1,13 +1,13 @@
 package br.com.contmatic.model.usuario;
 
-import static br.com.contmatic.model.constants.UsuarioConstants.TAMANHO_MAX_SENHA;
-import static br.com.contmatic.model.constants.UsuarioConstants.TAMANHO_MIN_SENHA;
-import static br.com.contmatic.model.constants.messages.UsuarioMessage.MENSAGEM_SENHA_FRACA;
-import static br.com.contmatic.model.constants.messages.UsuarioMessage.MESSAGE_EMAIL_NOTNULL;
-import static br.com.contmatic.model.constants.messages.UsuarioMessage.MESSAGE_SENHA_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.UsuarioMessage.MESSAGE_SENHA_NOTNULL;
-import static br.com.contmatic.model.constants.messages.UsuarioMessage.MESSAGE_TAMANHO_MAX_SENHA;
-import static br.com.contmatic.model.constants.messages.UsuarioMessage.MESSAGE_TAMANHO_MIN_SENHA;
+import static br.com.contmatic.model.constants.mensagens.UsuarioMessage.MENSAGEM_SENHA_FRACA;
+import static br.com.contmatic.model.constants.mensagens.UsuarioMessage.MESSAGE_EMAIL_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.UsuarioMessage.MESSAGE_SENHA_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.UsuarioMessage.MESSAGE_SENHA_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.UsuarioMessage.MESSAGE_TAMANHO_MAX_SENHA;
+import static br.com.contmatic.model.constants.mensagens.UsuarioMessage.MESSAGE_TAMANHO_MIN_SENHA;
+import static br.com.contmatic.model.constants.numericas.UsuarioConstants.TAMANHO_MAX_SENHA;
+import static br.com.contmatic.model.constants.numericas.UsuarioConstants.TAMANHO_MIN_SENHA;
 import static br.com.contmatic.model.constants.regex.UsuarioRegex.REGEX_SENHA;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
 import static br.com.contmatic.model.validacoes.Validador.validarRegex;

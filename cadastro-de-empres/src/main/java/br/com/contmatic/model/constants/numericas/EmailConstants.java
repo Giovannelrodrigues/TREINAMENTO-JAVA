@@ -1,4 +1,4 @@
-package br.com.contmatic.model.constants;
+package br.com.contmatic.model.constants.numericas;
 
 public final class EmailConstants {
 	
@@ -6,5 +6,5 @@ public final class EmailConstants {
 	
 	public static final Integer TAMANHO_MAX_EMAIL = 100;
 	public static final Integer TAMANHO_MIN_EMAIL = 5;
-	public static final String CARACTERE_OBRIGATORIO_EMAIL = "@";
+	
 }

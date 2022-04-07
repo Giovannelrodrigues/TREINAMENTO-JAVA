@@ -1,10 +1,16 @@
 package br.com.contmatic.testes.empresa;
 
+import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO;
+import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_EMAILS;
+import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_ENDERECO;
+import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_PRODUTO;
+import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_TELEFONES;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
@@ -12,7 +18,10 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -32,20 +41,42 @@ import br.com.contmatic.model.endereco.TipoEndereco;
 public class TesteEmpresa {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
+	
+	private static final String IP = "122.21.123.1";
 
 	private static Empresa empresaBefore;
 
 	private static final String CNPJ = "63516934000109";
 
 	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
-	
+
+	private static Integer quantidadeTest;
+
+	@BeforeClass
+	public static void zerando_contador() {
+		setQuantidadeTest(0);
+	}
+
+	@After
+	public void depoisDeCadaTeste() {
+		setQuantidadeTest(quantidadeTest + 1);
+	}
+
+	@AfterClass
+	public static void depoisDeTodosOsTestes() {
+		System.out.println(String.format("Quantidade de Testes: %s", quantidadeTest - 8));
+	}
+
 	@Before
-	public void antesDeTodosOsTeste() {
+	public void teste00_antes_de_cada_teste() {
 		empresaBefore = new Empresa(CNPJ);
 		empresaBefore.setCreatedBy(EMAIL);
 		empresaBefore.setCreateDate(LOCAL_TIME);
-		empresaBefore.setLastByUpdadeNotify(EMAIL);
-		empresaBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		empresaBefore.setUpdateBy(EMAIL);
+		empresaBefore.setUpdatedDate(LOCAL_TIME);
+		empresaBefore.setUpdatedIp(IP);
+		empresaBefore.setCreatedIp(IP);
+		
 	}
 
 	// CONSTRUTOR
@@ -170,7 +201,7 @@ public class TesteEmpresa {
 	public void teste22_deve_atribuir_um_valor_para_lista_endereco() {
 		List<Endereco> enderecos = new ArrayList<Endereco>();
 		enderecos.add(new Endereco("04852510", "rua x", 194, "JD lucelia",
-				new Cidade("São Paulo", 24584, new Estado("São Paulo", "SP")), new Estado("São Paulo", "SP"),
+				new Cidade("São Paulo", 24584, new Estado("SP", "São Paulo")), new Estado("SP", "São Paulo"),
 				TipoEndereco.COMERCIAL));
 		empresaBefore.setEnderecos(enderecos);
 		assertEquals(enderecos, empresaBefore.getEnderecos());
@@ -190,7 +221,7 @@ public class TesteEmpresa {
 	@Test(expected = IllegalStateException.class)
 	public void teste25_deve_atribuir_um_valor_para_lista_endereco_com_mais_de_5_enderecos() {
 		List<Endereco> enderecos = new ArrayList<Endereco>();
-		for (int index = 6; index != 0; index--) {
+		for (int index = TAMANHO_MAX_LISTA_ENDERECO + 1; index != 0; index--) {
 			enderecos.add(new Endereco("04852510", "rua x", 194, "JD lucelia",
 					new Cidade("São Paulo", 24584, new Estado("São Paulo", "SP")), new Estado("São Paulo", "SP"),
 					TipoEndereco.COMERCIAL));
@@ -221,7 +252,7 @@ public class TesteEmpresa {
 	@Test(expected = IllegalStateException.class)
 	public void teste29_deve_atribuir_um_valor_para_lista_ambientes_coma_mais_de_30_ambientes() {
 		List<AmbienteTrabalho> ambientes = new ArrayList<AmbienteTrabalho>();
-		for (int index = 31; index != 0; index--) {
+		for (int index = TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO + 1; index != 0; index--) {
 			ambientes.add(new AmbienteTrabalho("Recusos Humanos", empresaBefore));
 		}
 		empresaBefore.setAmbientesTrabalhos(ambientes);
@@ -250,7 +281,7 @@ public class TesteEmpresa {
 	@Test(expected = IllegalStateException.class)
 	public void teste33_deve_atribuir_uma_nova_lista_de_produtos_coma_mais_de_30_produtos() {
 		List<Produto> produtos = new ArrayList<Produto>();
-		for (int index = 10000; index != 0; index--) {
+		for (int index = TAMANHO_MAX_LISTA_PRODUTO + 1; index != 0; index--) {
 			produtos.add(new Produto("123-abc", empresaBefore));
 		}
 		empresaBefore.setProdutos(produtos);
@@ -279,7 +310,7 @@ public class TesteEmpresa {
 	@Test(expected = IllegalStateException.class)
 	public void teste37_nao_deve_atribuir_uma_nova_lista_de_telefones_coma_mais_de_5_telefones() {
 		List<Telefone> telefones = new ArrayList<Telefone>();
-		for (int index = 7; index != 0; index--) {
+		for (int index = TAMANHO_MAX_LISTA_TELEFONES + 1; index != 0; index--) {
 			telefones.add(new Telefone("1159160668"));
 		}
 		empresaBefore.setTelefones(telefones);
@@ -308,7 +339,7 @@ public class TesteEmpresa {
 	@Test(expected = IllegalStateException.class)
 	public void teste41_nao_deve_atribuir_uma_nova_lista_de_telefones_coma_mais_de_5_telefones() {
 		List<Email> emails = new ArrayList<Email>();
-		for (int index = 7; index != 0; index--) {
+		for (int index = TAMANHO_MAX_LISTA_EMAILS + 1; index != 0; index--) {
 			emails.add(new Email("emailcont@cont.com"));
 		}
 		empresaBefore.setEmails(emails);
@@ -373,8 +404,7 @@ public class TesteEmpresa {
 		boolean resp = empresa1.hashCode() == empresa2.hashCode();
 		assertTrue(resp);
 	}
-	
-	
+
 	@Test
 	public void teste42_deve_retornar_hash_code_diferentes_para_cnpj_diferentes() {
 		Empresa empresa1 = new Empresa(CNPJ);
@@ -418,95 +448,37 @@ public class TesteEmpresa {
 		assertTrue(resp);
 	}
 
-	// CREATE BY
-	@Test
-	public void teste48_deve_retornar_por_quem_foi_criado() {
-		empresaBefore.setCreatedBy(EMAIL);
-		assertEquals(EMAIL, empresaBefore.getCreatedBy());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste49_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
-		empresaBefore.setCreatedBy(null);
-	}
-
-	// CREATE TIME
-	@Test
-	public void teste50_deve_retornar_quando_foi_criado() {
-		empresaBefore.setCreateDate(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, empresaBefore.getCreateDate());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste51_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
-		empresaBefore.setCreateDate(null);
-	}
-
-	// LAST BY UPDATE NOTIFY
-	@Test
-	public void teste52_deve_retornar_por_quem_foi_alterado() {
-		empresaBefore.setLastByUpdadeNotify(EMAIL);
-		assertEquals(EMAIL, empresaBefore.getLastByUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste53_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
-		empresaBefore.setCreatedBy(null);
-	}
-
-	// LAST DATE UPDATE NOTIFY
-	@Test
-	public void teste54_deve_retornar_quando_foi_alterado() {
-		empresaBefore.setLastDateUpdadeNotify(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, empresaBefore.getLastDateUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste55_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
-		empresaBefore.setLastDateUpdadeNotify(null);
-	}
-
-	// TO STRING
-	@Test
-	public void teste56_deve_retornar_createby_no_to_string() {
-		String result = empresaBefore.toString();
-		assertThat(result, containsString(String.valueOf(empresaBefore.getCreatedBy())));
-	}
-
-	@Test
-	public void teste57_deve_retornar_create_date_no_to_string() {
-		String result = empresaBefore.toString();
-		assertThat(result, containsString(String.valueOf(empresaBefore.getCreateDate())));
-	}
-
-	@Test
-	public void teste58_deve_retornar_LastDateUpdadeNotify_no_to_string() {
-		String result = empresaBefore.toString();
-		assertThat(result, containsString(String.valueOf(empresaBefore.getLastDateUpdadeNotify())));
-	}
-
-	@Test
-	public void teste59_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
-		String result = empresaBefore.toString();
-		assertThat(result, containsString(String.valueOf(empresaBefore.getLastByUpdadeNotify())));
-	}
-	
-	//IGNORE
 	@Test
 	@Ignore
-	public void teste60_deve_ignorar_teste() {
+	public void teste48_deve_ignorar_teste() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
-	
+
 	@Test(timeout = 1000)
-	public void teste61_deve_criar_um_objeto_empresas_em_menos_de_1_segundo() throws InterruptedException {
+	public void teste49_deve_criar_um_objeto_empresas_em_menos_de_1_segundo() throws InterruptedException {
 		assertNotNull(new Empresa("17940064000175"));
 	}
-	
-//	@Test(timeout = 1000)
-//	public void teste62_nao_deve_criar_um_objeto_empresas_que_demore_mais_de_1_segundo() throws InterruptedException {
-//		TimeUnit.SECONDS.sleep(2);
-//		assertNull(new Empresa("17940064000175"));
-//	}
+
+	@Test
+	public void teste50_nao_deve_criar_um_objeto_empresas_que_demore_mais_de_1_segundo() {
+		final long DIVISAO_SECONDS = 1000000000;
+		long start = System.currentTimeMillis();
+		try {
+			if(start / DIVISAO_SECONDS + 2 > System.currentTimeMillis() / DIVISAO_SECONDS) {
+				throw new InternalError("Erro interno, não foi possivel criar empresa");
+			} else {
+				assertNull(new Empresa("17940064000175"));
+			}
+		} catch (InternalError e) {
+		}
+	}
+
+	public static Integer getQuantidadeTest() {
+		return quantidadeTest;
+	}
+
+	public static void setQuantidadeTest(Integer quantidadeTest) {
+		TesteEmpresa.quantidadeTest = quantidadeTest;
+	}
 }

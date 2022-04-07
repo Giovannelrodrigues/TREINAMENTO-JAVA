@@ -1,4 +1,4 @@
-package br.com.contmatic.model.constants;
+package br.com.contmatic.model.constants.numericas;
 
 public final class CargoConstants {
 

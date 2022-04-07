@@ -1,5 +1,5 @@
 package br.com.contmatic.model.empresa;
 
-public enum TipoEstabelecimento {
+public enum TipoAmbienteTrabalho {
 	PROPRIO, TERCEIRO;
 }

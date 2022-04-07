@@ -23,6 +23,8 @@ public class TesteProduto {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 
+	private static final String IP = "122.21.123.1";
+
 	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	private static Produto produtoBefore;
@@ -44,7 +46,7 @@ public class TesteProduto {
 	private static final String CNPJ = "02240233000197";
 
 	@Before
-	public void antesDeTodosOsTeste() {
+	public void antesDeCadaTestes() {
 		empresaBefore = new Empresa(CNPJ);
 		produtoBefore = new Produto(CODIGO, empresaBefore);
 		produtoBefore.setNome(NOME);
@@ -52,6 +54,12 @@ public class TesteProduto {
 		produtoBefore.setCor(COR);
 		produtoBefore.setQuantidade(QUANTIDADE);
 		produtoBefore.setPreco(PRECO);
+		produtoBefore.setCreatedBy(EMAIL);
+		produtoBefore.setCreateDate(LOCAL_TIME);
+		produtoBefore.setUpdateBy(EMAIL);
+		produtoBefore.setUpdatedDate(LOCAL_TIME);
+		produtoBefore.setCreatedIp(IP);
+		produtoBefore.setUpdatedIp(IP);
 	}
 
 	@Test
@@ -338,78 +346,4 @@ public class TesteProduto {
 		boolean resp = produtoBefore.equals(produtoBefore);
 		assertTrue(resp);
 	}
-
-	// CREATE BY
-	@Test
-	public void teste47_deve_retornar_por_quem_foi_criado() {
-		produtoBefore.setCreatedBy(EMAIL);
-		assertEquals(EMAIL, produtoBefore.getCreatedBy());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste48_nao_deve_retornar_por_quem_foi_criado_passando_email_nulo() {
-		produtoBefore.setCreatedBy(null);
-	}
-
-	// CREATE TIME
-	@Test
-	public void teste49_deve_retornar_quando_foi_criado() {
-		produtoBefore.setCreateDate(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, produtoBefore.getCreateDate());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste50_nao_deve_retornar_por_quem_foi_criado_passando_create_by_nulo() {
-		produtoBefore.setCreateDate(null);
-	}
-
-	// LAST BY UPDATE NOTIFY
-	@Test
-	public void teste51_deve_retornar_por_quem_foi_alterado() {
-		produtoBefore.setLastByUpdadeNotify(EMAIL);
-		assertEquals(EMAIL, produtoBefore.getLastByUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste52_nao_deve_retornar_por_quem_foi_alterado_passando_email_nulo() {
-		produtoBefore.setCreatedBy(null);
-	}
-
-	// LAST DATE UPDATE NOTIFY
-	@Test
-	public void teste53_deve_retornar_quando_foi_alterado() {
-		produtoBefore.setLastDateUpdadeNotify(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, produtoBefore.getLastDateUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste54_nao_deve_retornar_por_quem_foi_alterado_passando_create_by_nulo() {
-		produtoBefore.setLastDateUpdadeNotify(null);
-	}
-
-	// TO STRING
-	@Test
-	public void teste55_deve_retornar_createby_no_to_string() {
-		String result = produtoBefore.toString();
-		assertThat(result, containsString(String.valueOf(produtoBefore.getCreatedBy())));
-	}
-
-	@Test
-	public void teste56_deve_retornar_create_date_no_to_string() {
-		String result = produtoBefore.toString();
-		assertThat(result, containsString(String.valueOf(produtoBefore.getCreateDate())));
-	}
-
-	@Test
-	public void teste57_deve_retornar_LastDateUpdadeNotify_no_to_string() {
-		String result = produtoBefore.toString();
-		assertThat(result, containsString(String.valueOf(produtoBefore.getLastDateUpdadeNotify())));
-	}
-
-	@Test
-	public void teste58_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
-		String result = produtoBefore.toString();
-		assertThat(result, containsString(String.valueOf(produtoBefore.getLastByUpdadeNotify())));
-	}
-
 }

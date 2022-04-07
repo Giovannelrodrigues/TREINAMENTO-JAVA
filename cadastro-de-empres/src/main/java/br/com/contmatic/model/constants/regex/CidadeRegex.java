@@ -5,5 +5,5 @@ public final class CidadeRegex {
 	private CidadeRegex() {
 	}
 	
-	public static final String REGEX_SIGLA_ESTADO = "([A-Z]*)";
+	public static final String REGEX_SIGLA_ESTADO = "[A-Z]{2}";
 }

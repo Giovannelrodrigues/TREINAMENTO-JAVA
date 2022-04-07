@@ -1,21 +1,21 @@
 package br.com.contmatic.model.endereco;
 
-import static br.com.contmatic.model.constants.EstadoConstants.TAMANHO_LISTA_MAX_CIDADES;
-import static br.com.contmatic.model.constants.EstadoConstants.TAMANHO_MAX_ESTADO;
-import static br.com.contmatic.model.constants.EstadoConstants.TAMANHO_MIN_ESTADO;
-import static br.com.contmatic.model.constants.EstadoConstants.TAMANHO_SIGLA;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_CIDADES_IS_EMPTY;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_CIDADES_LIST_MAX;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_CIDADES_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_NOME_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_NOME_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_NOME_SOMENTE_LETRAS;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_SIGLA_NOT_BLANK;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_SIGLA_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_SIGLA_REGEX;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_TAMANHO_NOME_MAX;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_TAMANHO_NOME_MIN;
-import static br.com.contmatic.model.constants.messages.EstadoMessage.MESSAGE_TAMANHO_SIGLA;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_CIDADES_IS_EMPTY;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_CIDADES_LIST_MAX;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_CIDADES_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_NOME_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_NOME_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_NOME_SOMENTE_LETRAS;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_SIGLA_NOT_BLANK;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_SIGLA_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_SIGLA_REGEX;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_TAMANHO_NOME_MAX;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_TAMANHO_NOME_MIN;
+import static br.com.contmatic.model.constants.mensagens.EstadoMessage.MESSAGE_TAMANHO_SIGLA;
+import static br.com.contmatic.model.constants.numericas.EstadoConstants.TAMANHO_LISTA_MAX_CIDADES;
+import static br.com.contmatic.model.constants.numericas.EstadoConstants.TAMANHO_MAX_ESTADO;
+import static br.com.contmatic.model.constants.numericas.EstadoConstants.TAMANHO_MIN_ESTADO;
+import static br.com.contmatic.model.constants.numericas.EstadoConstants.TAMANHO_SIGLA;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.constants.regex.EstadoRegex.REGEX_SIGLA_ESTADO;
 import static br.com.contmatic.model.validacoes.Validador.validarListaVazia;
@@ -37,8 +37,12 @@ public class Estado {
 	private String sigla;
 
 	private List<Cidade> cidades;
-
-	public Estado(String nome, String sigla) {
+	
+	public Estado(String sigla) {
+		this.setSigla(sigla);
+	}
+	
+	public Estado(String sigla, String nome) {
 		this.setNome(nome);
 		this.setSigla(sigla);
 	}

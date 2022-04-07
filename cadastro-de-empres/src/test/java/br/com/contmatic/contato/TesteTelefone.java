@@ -27,87 +27,98 @@ public class TesteTelefone {
 
 	private static final String TELEFONE = "1195845635";
 
+	private static final String IP = "122.21.123.1";
+
 	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
 
 	@Before
-	public void antesDeTodosOsTeste() {
+	public void teste00_antes_de_cada_teste() {
 		telefoneBefore = new Telefone(TELEFONE, TipoTelefone.CELULAR);
 		telefoneBefore.setCreatedBy(EMAIL);
 		telefoneBefore.setCreateDate(LOCAL_TIME);
-		telefoneBefore.setLastByUpdadeNotify(EMAIL);
-		telefoneBefore.setLastDateUpdadeNotify(LOCAL_TIME);
+		telefoneBefore.setCreatedBy(EMAIL);
+		telefoneBefore.setUpdatedDate(LOCAL_TIME);
+		telefoneBefore.setCreatedIp(IP);
+		telefoneBefore.setUpdatedIp(IP);
 	}
 
 	// CONSTRUTOR
 	@Test
-	public void teste01_deve_instaciar_um_telefone_corretamente_campos_obrigatorios() {
+	public void teste01_deve_um_telefone_corretamente_campos_obrigatorios() {
 		Telefone telefone = new Telefone(TELEFONE);
-		assertEquals(TELEFONE, telefone.getTelefone());
+		assertEquals(TELEFONE, telefone.getNumero());
 	}
 
 	@Test
 	public void teste02_deve_instaciar_um_telefone_corretamente_todos_campos() {
-		assertEquals(TELEFONE, telefoneBefore.getTelefone());
-		assertEquals(TipoTelefone.CELULAR, telefoneBefore.getTipoTelefone());
+		Telefone telefone = new Telefone(TELEFONE, TipoTelefone.CELULAR);
+		assertEquals(TELEFONE, telefone.getNumero());
+		assertEquals(TipoTelefone.CELULAR, telefone.getTipoTelefone());
 	}
 
 	// TELEFONE
 	@Test
-	public void teste03_deve_atribuir_um_novo_valor_para_telefone() {
+	public void teste03_deve_setar_numero() {
 		String telefone = "1159587630";
-		telefoneBefore.setTelefone(telefone);
-		assertEquals(telefone, telefoneBefore.getTelefone());
+		telefoneBefore.setNumero(telefone);
+		assertEquals(telefone, telefoneBefore.getNumero());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste04_nao_deve_atribuir_um_novo_valor_para_telefone_passando_nulo() {
-		telefoneBefore.setTelefone(null);
+	public void teste04_nao_deve_setar_numero_passando_nulo() {
+		telefoneBefore.setNumero(null);
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste05_nao_deve_atribuir_um_novo_valor_para_telefone_passando_vazio() {
-		telefoneBefore.setTelefone("   ");
+	public void teste05_nao_deve_setar_numero_passando_vazio() {
+		telefoneBefore.setNumero("   ");
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste06_nao_deve_atribuir_um_novo_valor_para_telefone_passando_caracteres_diferentes_de_numeros() {
-		telefoneBefore.setTelefone("123abcdfee");
+	public void teste06_nao_deve_setar_numero_passando_caracteres_diferentes_de_numeros() {
+		telefoneBefore.setNumero("123abcdfee");
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste07_nao_deve_atribuir_um_novo_valor_para_telefone_passando_menos_de_10_caracteres() {
-		telefoneBefore.setTelefone("123456789");
+	public void teste07_nao_deve_setar_numero_passando_menos_de_10_caracteres() {
+		telefoneBefore.setNumero("123456789");
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste08_nao_deve_atribuir_um_novo_valor_para_telefone_passando_mais_de_11_caracteres() {
-		telefoneBefore.setTelefone("1234567891011");
+	public void teste08_nao_deve_setar_numero_passando_mais_de_11_caracteres() {
+		telefoneBefore.setNumero("1234567891011");
 	}
 
-	// TIPO TELEFONE
+	// TIPOTELEFONE
 	@Test
-	public void teste09_deve_atribuir_um_novo_valor_para_tipo_telefone() {
+	public void teste09_deve_setar_tipo_telefone() {
 		TipoTelefone tipoTelefone = TipoTelefone.COMERCIAL;
 		telefoneBefore.setTipoTelefone(tipoTelefone);
 		assertEquals(tipoTelefone, telefoneBefore.getTipoTelefone());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void teste10_nao_deve_atribuir_um_novo_valor_para_tipo_telefone_passando_nulo() {
-		telefoneBefore.setTelefone(null);
+	public void teste10_nao_deve_setar_tipo_telefone_passando_nulo() {
+		telefoneBefore.setTipoTelefone(null);
 	}
 
 	// TO STRING
 	@Test
 	public void teste11_deve_retornar_telefone_ao_usar_to_string() {
 		String result = telefoneBefore.toString();
-		assertThat(result, containsString(telefoneBefore.getTelefone()));
+		assertThat(result, containsString(telefoneBefore.getNumero()));
 	}
 
 	@Test
 	public void teste12_deve_retornar_tipo_telefone_ao_usar_to_string() {
 		String result = telefoneBefore.toString();
 		assertThat(result, containsString(String.valueOf(telefoneBefore.getTipoTelefone())));
+	}
+	
+	@Test
+	public void teste13_deve_retornar_dados_auditoria_ao_usar_to_string() {
+		String result = telefoneBefore.toString();
+		assertThat(result, containsString(String.valueOf(telefoneBefore.getCreatedBy())));
 	}
 
 	// HASHCODE
@@ -126,113 +137,55 @@ public class TesteTelefone {
 		boolean resp = telefone1.hashCode() == telefone2.hashCode();
 		assertFalse(resp);
 	}
+	
+	@Test
+	public void teste15_deve_retornar_o_mesmo_hashcode_para_telefones_que_sao_iguais_tipos_diferentes() {
+		Telefone telefone1 = new Telefone(TELEFONE, TipoTelefone.CELULAR);
+		Telefone telefone2 = new Telefone(TELEFONE, TipoTelefone.COMERCIAL);
+		boolean resp = telefone1.hashCode() == telefone2.hashCode();
+		assertTrue(resp);
+	}
 
 	// EQUALS
 	@Test
-	public void teste15_deve_retornar_true_quando_usar_equals_passado_telefones_iguais() {
+	public void teste16_deve_retornar_true_quando_usar_equals_passado_telefones_iguais() {
 		Telefone telefone1 = new Telefone("1159160668");
 		Telefone telefone2 = new Telefone("1159160668");
 		boolean resp = telefone1.equals(telefone2);
 		assertTrue(resp);
 	}
-	
+
 	@Test
-	public void teste16_deve_retornar_false_quando_usar_equals_passado_telefones_diferentes() {
+	public void teste17_deve_retornar_false_quando_usar_equals_passado_telefones_diferentes() {
 		Telefone telefone1 = new Telefone("1159160668");
 		Telefone telefone2 = new Telefone("1159666668");
 		boolean resp = telefone1.equals(telefone2);
 		assertFalse(resp);
 	}
+	
+	@Test
+	public void teste18_deve_retornar_true_quando_usar_equals_passado_telefones_iguais_de_tipos_diferentes() {
+		Telefone telefone1 = new Telefone("1159160668", TipoTelefone.CELULAR);
+		Telefone telefone2 = new Telefone("1159160668", TipoTelefone.COMERCIAL);
+		boolean resp = telefone1.equals(telefone2);
+		assertTrue(resp);
+	}
 
 	@Test
-	public void teste17_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste19_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = telefoneBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste18_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste20_deve_retornar_falso_quando_usar_equals_passado_outro_object() {
 		boolean resp = telefoneBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste19_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste21_deve_retornar_true_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = telefoneBefore.equals(telefoneBefore);
 		assertTrue(resp);
 	}
-
-	// CREATE BY
-	@Test
-	public void teste21_deve_retornar_por_quem_foi_criado() {
-		telefoneBefore.setCreatedBy(EMAIL);
-		assertEquals(EMAIL, telefoneBefore.getCreatedBy());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste21_nao_deve_atribuir_createdby_passando_email_nulo() {
-		telefoneBefore.setCreatedBy(null);
-	}
-
-	// CREATE TIME
-	@Test
-	public void teste22_deve_retornar_quando_foi_criado() {
-		telefoneBefore.setCreateDate(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, telefoneBefore.getCreateDate());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste23_nao_deve_atribuir_createdate_passando_nulo() {
-		telefoneBefore.setCreateDate(null);
-	}
-
-	// LAST BY UPDATE NOTIFY
-	@Test
-	public void teste24_deve_retornar_por_quem_foi_alterado() {
-		telefoneBefore.setLastByUpdadeNotify(EMAIL);
-		assertEquals(EMAIL, telefoneBefore.getLastByUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste25_nao_deve_atribuir_lastByUpdatedNotify_passando_email_nulo() {
-		telefoneBefore.setLastByUpdadeNotify(null);
-	}
-
-	// LAST DATE UPDATE NOTIFY
-	@Test
-	public void teste26_deve_retornar_quando_foi_alterado() {
-		telefoneBefore.setLastDateUpdadeNotify(LOCAL_TIME);
-		assertEquals(LOCAL_TIME, telefoneBefore.getLastDateUpdadeNotify());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void teste27_nao_deve_atribuir_lastDateUpdatedNotify_passando_nulo() {
-		telefoneBefore.setLastDateUpdadeNotify(null);
-	}
-
-	// TO STRING
-	@Test
-	public void teste28_deve_retornar_createby_no_to_string() {
-		String result = telefoneBefore.toString();
-		assertThat(result, containsString(String.valueOf(telefoneBefore.getCreatedBy())));
-	}
-
-	@Test
-	public void teste29_deve_retornar_create_date_no_to_string() {
-		String result = telefoneBefore.toString();
-		assertThat(result, containsString(String.valueOf(telefoneBefore.getCreateDate())));
-	}
-
-	@Test
-	public void teste30_deve_retornar_LastDateUpdadeNotify_no_to_string() {
-		String result = telefoneBefore.toString();
-		assertThat(result, containsString(String.valueOf(telefoneBefore.getLastDateUpdadeNotify())));
-	}
-
-	@Test
-	public void teste31_deve_retornar_LastByUpdadeNotify_date_no_to_string() {
-		String result = telefoneBefore.toString();
-		assertThat(result, containsString(String.valueOf(telefoneBefore.getLastByUpdadeNotify())));
-	}
-
 }

@@ -1,23 +1,23 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MAX_DESCRICAO;
-import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MAX_LISTA_FUNCIONARIOS;
-import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MIN_DESCRICAO;
-import static br.com.contmatic.model.constants.SetorConstants.TAMANHO_MIN_NOME;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_AMBIENTE_TRABALHO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_DESCRICAO_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_DESCRICAO_NOTNULL;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_FUCIONARIOS_IS_EMPTY;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_FUCIONARIOS_LIST_MAX;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_FUCIONARIOS_NOT_NULL;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_NOME_NOTBLANK;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_NOME_NOTNULL;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_NOME_REGEX;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MAX_NOME;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
-import static br.com.contmatic.model.constants.messages.SetorMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_AMBIENTE_TRABALHO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_DESCRICAO_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_DESCRICAO_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_FUCIONARIOS_IS_EMPTY;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_FUCIONARIOS_LIST_MAX;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_FUCIONARIOS_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_NOME_NOTBLANK;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_NOME_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_NOME_REGEX;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.mensagens.SetorMessage.MESSAGE_TAMANHO_MIN_NOME;
+import static br.com.contmatic.model.constants.numericas.SetorConstants.TAMANHO_MAX_DESCRICAO;
+import static br.com.contmatic.model.constants.numericas.SetorConstants.TAMANHO_MAX_LISTA_FUNCIONARIOS;
+import static br.com.contmatic.model.constants.numericas.SetorConstants.TAMANHO_MAX_NOME;
+import static br.com.contmatic.model.constants.numericas.SetorConstants.TAMANHO_MIN_DESCRICAO;
+import static br.com.contmatic.model.constants.numericas.SetorConstants.TAMANHO_MIN_NOME;
 import static br.com.contmatic.model.constants.regex.BaseRegex.SOMENTE_LETRAS;
 import static br.com.contmatic.model.validacoes.Validador.validarListaVazia;
 import static br.com.contmatic.model.validacoes.Validador.validarNulo;
@@ -30,9 +30,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.contmatic.model.auditoria.Audit;
+import br.com.contmatic.model.auditoria.Auditoria;
 
-public class Setor extends Audit {
+public class Setor extends Auditoria {
 
 	private String nome;
 
@@ -41,7 +41,7 @@ public class Setor extends Audit {
 	private List<Funcionario> funcionarios;
 
 	private AmbienteTrabalho ambienteTrabalho;
-
+	
 	public Setor(String nome, AmbienteTrabalho ambienteTrabalho) {
 		this.setNome(nome);
 		this.setAmbienteTrabalho(ambienteTrabalho);
@@ -94,7 +94,7 @@ public class Setor extends Audit {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome);
+		return Objects.hash(ambienteTrabalho, nome);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class Setor extends Audit {
 		if (getClass() != obj.getClass())
 			return false;
 		Setor other = (Setor) obj;
-		return Objects.equals(nome, other.nome);
+		return Objects.equals(ambienteTrabalho, other.ambienteTrabalho) && Objects.equals(nome, other.nome);
 	}
 
 	@Override

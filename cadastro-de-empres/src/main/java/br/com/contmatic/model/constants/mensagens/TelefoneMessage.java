@@ -1,4 +1,4 @@
-package br.com.contmatic.model.constants.messages;
+package br.com.contmatic.model.constants.mensagens;
 
 public final class TelefoneMessage {
 
