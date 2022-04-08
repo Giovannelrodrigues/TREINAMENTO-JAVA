@@ -1,4 +1,4 @@
-package br.com.contmatic.contato;
+package br.com.contmatic.model.contato;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,10 +14,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import br.com.contmatic.model.contato.Email;
-import br.com.contmatic.model.contato.Telefone;
-import br.com.contmatic.model.contato.TipoTelefone;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteTelefone {
 
@@ -25,7 +21,7 @@ public class TesteTelefone {
 
 	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 
-	private static final String TELEFONE = "1195845635";
+	private static final String TELEFONE = "95845635";
 
 	private static final String IP = "122.21.123.1";
 
@@ -33,7 +29,7 @@ public class TesteTelefone {
 
 	@Before
 	public void teste00_antes_de_cada_teste() {
-		telefoneBefore = new Telefone(TELEFONE, TipoTelefone.CELULAR);
+		telefoneBefore = new Telefone("+55", "11", TELEFONE, TipoTelefone.CELULAR);
 		telefoneBefore.setCreatedBy(EMAIL);
 		telefoneBefore.setCreateDate(LOCAL_TIME);
 		telefoneBefore.setCreatedBy(EMAIL);
@@ -45,13 +41,13 @@ public class TesteTelefone {
 	// CONSTRUTOR
 	@Test
 	public void teste01_deve_um_telefone_corretamente_campos_obrigatorios() {
-		Telefone telefone = new Telefone(TELEFONE);
+		Telefone telefone = new Telefone("+55", "11", TELEFONE);
 		assertEquals(TELEFONE, telefone.getNumero());
 	}
 
 	@Test
 	public void teste02_deve_instaciar_um_telefone_corretamente_todos_campos() {
-		Telefone telefone = new Telefone(TELEFONE, TipoTelefone.CELULAR);
+		Telefone telefone = new Telefone("+55", "11", TELEFONE, TipoTelefone.CELULAR);
 		assertEquals(TELEFONE, telefone.getNumero());
 		assertEquals(TipoTelefone.CELULAR, telefone.getTipoTelefone());
 	}
@@ -59,7 +55,7 @@ public class TesteTelefone {
 	// TELEFONE
 	@Test
 	public void teste03_deve_setar_numero() {
-		String telefone = "1159587630";
+		String telefone = "11595876";
 		telefoneBefore.setNumero(telefone);
 		assertEquals(telefone, telefoneBefore.getNumero());
 	}
@@ -80,8 +76,8 @@ public class TesteTelefone {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void teste07_nao_deve_setar_numero_passando_menos_de_10_caracteres() {
-		telefoneBefore.setNumero("123456789");
+	public void teste07_nao_deve_setar_numero_passando_menos_de_8_caracteres() {
+		telefoneBefore.setNumero("12345");
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -102,6 +98,52 @@ public class TesteTelefone {
 		telefoneBefore.setTipoTelefone(null);
 	}
 
+	// DDI
+	@Test
+	public void teste09_deve_setar_ddi() {
+		String ddi = "+55";
+		telefoneBefore.setDdi(ddi);
+		;
+		assertEquals(ddi, telefoneBefore.getDdi());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste10_nao_deve_setar_ddi_passando_nulo() {
+		telefoneBefore.setDdi(null);
+		;
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void teste11_nao_deve_setar_ddi_passando_vazio() {
+		telefoneBefore.setDdi("   ");
+		;
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void teste12_nao_deve_setar_ddi_sem_passa_prefixo_mais() {
+		telefoneBefore.setDdi("44");
+	}
+
+	@Test
+	public void teste13_deve_setar_ddd() {
+		String ddd = "11";
+		telefoneBefore.setDdd(ddd);
+		;
+		assertEquals(ddd, telefoneBefore.getDdd());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void teste14_nao_deve_setar_ddd_passando_nulo() {
+		telefoneBefore.setDdd(null);
+		;
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void teste15_nao_deve_setar_ddd_passando_vazio() {
+		telefoneBefore.setDdd("   ");
+		;
+	}
+
 	// TO STRING
 	@Test
 	public void teste11_deve_retornar_telefone_ao_usar_to_string() {
@@ -114,7 +156,7 @@ public class TesteTelefone {
 		String result = telefoneBefore.toString();
 		assertThat(result, containsString(String.valueOf(telefoneBefore.getTipoTelefone())));
 	}
-	
+
 	@Test
 	public void teste13_deve_retornar_dados_auditoria_ao_usar_to_string() {
 		String result = telefoneBefore.toString();
@@ -124,24 +166,24 @@ public class TesteTelefone {
 	// HASHCODE
 	@Test
 	public void teste13_deve_retornar_o_mesmo_hashcode_para_telefones_que_sao_iguais() {
-		Telefone telefone1 = new Telefone(TELEFONE);
-		Telefone telefone2 = new Telefone(TELEFONE);
+		Telefone telefone1 = new Telefone("+55", "11", TELEFONE);
+		Telefone telefone2 = new Telefone("+55", "11", TELEFONE);
 		boolean resp = telefone1.hashCode() == telefone2.hashCode();
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste14_deve_retornar_false_no_hashcode_para_telefones_diferentes() {
-		Telefone telefone1 = new Telefone(TELEFONE);
-		Telefone telefone2 = new Telefone("11959160668");
+		Telefone telefone1 = new Telefone("+55", "11", TELEFONE);
+		Telefone telefone2 = new Telefone("+55", "11", "95916668");
 		boolean resp = telefone1.hashCode() == telefone2.hashCode();
 		assertFalse(resp);
 	}
-	
+
 	@Test
 	public void teste15_deve_retornar_o_mesmo_hashcode_para_telefones_que_sao_iguais_tipos_diferentes() {
-		Telefone telefone1 = new Telefone(TELEFONE, TipoTelefone.CELULAR);
-		Telefone telefone2 = new Telefone(TELEFONE, TipoTelefone.COMERCIAL);
+		Telefone telefone1 = new Telefone("+55", "11", TELEFONE, TipoTelefone.CELULAR);
+		Telefone telefone2 = new Telefone("+55", "11", TELEFONE, TipoTelefone.COMERCIAL);
 		boolean resp = telefone1.hashCode() == telefone2.hashCode();
 		assertTrue(resp);
 	}
@@ -149,24 +191,24 @@ public class TesteTelefone {
 	// EQUALS
 	@Test
 	public void teste16_deve_retornar_true_quando_usar_equals_passado_telefones_iguais() {
-		Telefone telefone1 = new Telefone("1159160668");
-		Telefone telefone2 = new Telefone("1159160668");
+		Telefone telefone1 = new Telefone("+55", "11", "59160668");
+		Telefone telefone2 = new Telefone("+55", "11", "59160668");
 		boolean resp = telefone1.equals(telefone2);
 		assertTrue(resp);
 	}
 
 	@Test
 	public void teste17_deve_retornar_false_quando_usar_equals_passado_telefones_diferentes() {
-		Telefone telefone1 = new Telefone("1159160668");
-		Telefone telefone2 = new Telefone("1159666668");
+		Telefone telefone1 = new Telefone("+55", "11", "59160668");
+		Telefone telefone2 = new Telefone("+55", "11", "59666668");
 		boolean resp = telefone1.equals(telefone2);
 		assertFalse(resp);
 	}
-	
+
 	@Test
 	public void teste18_deve_retornar_true_quando_usar_equals_passado_telefones_iguais_de_tipos_diferentes() {
-		Telefone telefone1 = new Telefone("1159160668", TipoTelefone.CELULAR);
-		Telefone telefone2 = new Telefone("1159160668", TipoTelefone.COMERCIAL);
+		Telefone telefone1 = new Telefone("+55", "11", "59160668", TipoTelefone.CELULAR);
+		Telefone telefone2 = new Telefone("+55", "11", "59160668", TipoTelefone.COMERCIAL);
 		boolean resp = telefone1.equals(telefone2);
 		assertTrue(resp);
 	}

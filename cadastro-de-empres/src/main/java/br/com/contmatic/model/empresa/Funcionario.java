@@ -44,6 +44,7 @@ import static br.com.contmatic.model.validacoes.ValidadorData.validarDataNascime
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.contato.Email;
@@ -62,7 +63,7 @@ public class Funcionario extends Auditoria {
 
 	private Endereco endereco;
 
-	private List<Telefone> telefones;
+	private Set<Telefone> telefones;
 
 	private List<Email> emails;
 
@@ -113,11 +114,11 @@ public class Funcionario extends Auditoria {
 		this.endereco = endereco;
 	}
 
-	public List<Telefone> getTelefones() {
+	public Set<Telefone> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
+	public void setTelefones(Set<Telefone> telefones) {
 		validarNulo(telefones, MESSAGE_TELEFONES_NOT_NULL);
 		validarListaVazia(telefones, MESSAGE_TELEFONES_IS_EMPTY);
 		validarTamanhoMaximoLista(telefones, TAMANHO_MAX_LISTA_TELEFONES, MESSAGE_TELEFONES_LIST_MAX);

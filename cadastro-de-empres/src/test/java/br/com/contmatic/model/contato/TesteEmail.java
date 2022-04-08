@@ -1,4 +1,4 @@
-package br.com.contmatic.contato;
+package br.com.contmatic.model.contato;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,9 +10,6 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
-import br.com.contmatic.model.contato.Email;
-import br.com.contmatic.model.contato.TipoEmail;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEmail {

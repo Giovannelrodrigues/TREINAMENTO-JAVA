@@ -52,4 +52,6 @@ public final class EmpresaMessage {
 	public static final String MESSAGE_EMAILS_NOT_NULL = "A lista de emails não pode ser nulo";
 	public static final String MESSAGE_EMAILS_IS_EMPTY = "A lista de emails não pode ser vazia";
 	public static final String MESSAGE_EMAILS_LIST_MAX = String.format("A lista de emails não pode ser maior que %s", TAMANHO_MAX_LISTA_EMAILS);
+
+	public static final String MESSAGE_ATIVO_NOT_NULL = "o campo ativo não pode ser nulo";
 }

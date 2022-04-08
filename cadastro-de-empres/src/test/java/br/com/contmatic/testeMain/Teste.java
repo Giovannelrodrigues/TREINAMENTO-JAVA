@@ -3,19 +3,19 @@ package br.com.contmatic.testeMain;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import br.com.contmatic.auditoria.TesteAudit;
-import br.com.contmatic.contato.TesteEmail;
-import br.com.contmatic.contato.TesteTelefone;
-import br.com.contmatic.endereco.TesteCidade;
-import br.com.contmatic.endereco.TesteEndereco;
-import br.com.contmatic.endereco.TesteEstado;
-import br.com.contmatic.testes.empresa.TesteAmbienteTrabalho;
-import br.com.contmatic.testes.empresa.TesteCargo;
-import br.com.contmatic.testes.empresa.TesteEmpresa;
-import br.com.contmatic.testes.empresa.TesteFuncionario;
-import br.com.contmatic.testes.empresa.TesteProduto;
-import br.com.contmatic.testes.empresa.TesteSetor;
-import br.com.contmatic.testes.usuario.TesteUsuario;
+import br.com.contmatic.model.auditoria.TesteAudit;
+import br.com.contmatic.model.contato.TesteEmail;
+import br.com.contmatic.model.contato.TesteTelefone;
+import br.com.contmatic.model.endereco.TesteCidade;
+import br.com.contmatic.model.endereco.TesteEndereco;
+import br.com.contmatic.model.endereco.TesteEstado;
+import br.com.contmatic.testes.model.empresa.TesteAmbienteTrabalho;
+import br.com.contmatic.testes.model.empresa.TesteCargo;
+import br.com.contmatic.testes.model.empresa.TesteEmpresa;
+import br.com.contmatic.testes.model.empresa.TesteFuncionario;
+import br.com.contmatic.testes.model.empresa.TesteProduto;
+import br.com.contmatic.testes.model.empresa.TesteSetor;
+import br.com.contmatic.testes.model.usuario.TesteUsuario;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

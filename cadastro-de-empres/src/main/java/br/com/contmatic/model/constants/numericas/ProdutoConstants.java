@@ -1,9 +1,10 @@
 package br.com.contmatic.model.constants.numericas;
 
+import java.math.BigDecimal;
+
 public final class ProdutoConstants {
 	
 	private ProdutoConstants() {}
-	
 	
 	public static final Integer TAMANHO_MAX_CODIGO = 10;
 	public static final Integer TAMANHO_MIN_CODIGO = 1;
@@ -19,5 +20,5 @@ public final class ProdutoConstants {
 
 	public static final Integer QUANTIDADE_MAX = 9999;
 
-	public static final Double PRECO_MAX = 999999.99;
+	public static final BigDecimal PRECO_MAX = BigDecimal.valueOf(999999.99);
 }

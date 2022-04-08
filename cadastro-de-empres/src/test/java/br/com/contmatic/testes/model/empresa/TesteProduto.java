@@ -1,4 +1,4 @@
-package br.com.contmatic.testes.empresa;
+package br.com.contmatic.testes.model.empresa;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -39,7 +40,7 @@ public class TesteProduto {
 
 	private static final int QUANTIDADE = 10;
 
-	private static final double PRECO = 12.00;
+	private static final BigDecimal PRECO = BigDecimal.valueOf(12.00);
 
 	private static Empresa empresaBefore;
 
@@ -226,9 +227,9 @@ public class TesteProduto {
 
 	@Test
 	public void teste28_deve_atribuir_um_novo_preco_para_produto() {
-		double preco = 1200.00;
+		BigDecimal preco = BigDecimal.valueOf(1200.00);
 		produtoBefore.setPreco(preco);
-		assertEquals("Preco do Produto was not correct", preco, produtoBefore.getPreco(), 0);
+		assertEquals(preco, produtoBefore.getPreco());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -238,12 +239,12 @@ public class TesteProduto {
 
 	@Test(expected = IllegalStateException.class)
 	public void teste30_nao_deve_atribuir_um_novo_preco_para_produto_passando_valor_0() {
-		produtoBefore.setPreco(0.0);
+		produtoBefore.setPreco(BigDecimal.valueOf(0.0));
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void teste31_nao_deve_atribuir_um_novo_preco_para_produto_passando_valor_maior_que_99999999_com_casas_descimais_99() {
-		produtoBefore.setPreco(100000000.00);
+		produtoBefore.setPreco(BigDecimal.valueOf(100000000.00));
 	}
 
 	// EMPRESA

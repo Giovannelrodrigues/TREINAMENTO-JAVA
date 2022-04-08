@@ -5,6 +5,7 @@ import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MENSAGEM
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_IS_EMPTY;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_LIST_MAX;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_NOT_NULL;
+import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_ATIVO_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_CNPJ_NOTBLANK;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_CNPJ_NOTNULL;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_CNPJ_REGEX;
@@ -52,6 +53,7 @@ import static br.com.contmatic.model.validacoes.ValidadorCNPJ.validarCNPJ;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.contato.Email;
@@ -72,9 +74,11 @@ public class Empresa extends Auditoria {
 
 	private List<Produto> produtos;
 
-	private List<Telefone> telefones;
+	private Set<Telefone> telefones;
 
 	private List<Email> emails;
+			
+	private Boolean ativo;
 
 	public Empresa(String cnpj) {
 		this.setCnpj(cnpj);
@@ -153,11 +157,11 @@ public class Empresa extends Auditoria {
 		this.produtos = produtos;
 	}
 
-	public List<Telefone> getTelefones() {
+	public Set<Telefone> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
+	public void setTelefones(Set<Telefone> telefones) {
 		validarNulo(telefones, MESSAGE_TELEFONES_NOT_NULL);
 		validarListaVazia(telefones, MESSAGE_TELEFONES_IS_EMPTY);
 		validarTamanhoMaximoLista(telefones, TAMANHO_MAX_LISTA_TELEFONES, MESSAGE_TELEFONES_IS_EMPTY);
@@ -173,6 +177,15 @@ public class Empresa extends Auditoria {
 		validarListaVazia(emails, MESSAGE_EMAILS_IS_EMPTY);
 		validarTamanhoMaximoLista(emails, TAMANHO_MAX_LISTA_EMAILS, MESSAGE_EMAILS_LIST_MAX);
 		this.emails = emails;
+	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		validarNulo(ativo, MESSAGE_ATIVO_NOT_NULL);
+		this.ativo = ativo;
 	}
 
 	@Override

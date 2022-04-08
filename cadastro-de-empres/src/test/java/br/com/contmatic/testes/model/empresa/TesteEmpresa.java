@@ -1,4 +1,4 @@
-package br.com.contmatic.testes.empresa;
+package br.com.contmatic.testes.model.empresa;
 
 import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO;
 import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_EMAILS;
@@ -16,7 +16,9 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,7 +66,7 @@ public class TesteEmpresa {
 
 	@AfterClass
 	public static void depoisDeTodosOsTestes() {
-		System.out.println(String.format("Quantidade de Testes: %s", quantidadeTest - 8));
+		System.out.println(String.format("Quantidade de Testes: %s", quantidadeTest));
 	}
 
 	@Before
@@ -290,8 +292,8 @@ public class TesteEmpresa {
 	// LISTA TELEFONE
 	@Test
 	public void teste34_deve_atribuir_uma_nova_lista_de_telefone() {
-		List<Telefone> telefones = new ArrayList<Telefone>();
-		telefones.add(new Telefone("1159160668"));
+		Set<Telefone> telefones = new HashSet<Telefone>();
+		telefones.add(new Telefone("+55", "11", "59160668"));
 		empresaBefore.setTelefones(telefones);
 		assertEquals(telefones, empresaBefore.getTelefones());
 	}
@@ -303,15 +305,15 @@ public class TesteEmpresa {
 
 	@Test(expected = IllegalStateException.class)
 	public void teste36_nao_deve_atribuir_uma_nova_lista_de_telefone_lista_vazia() {
-		List<Telefone> telefones = new ArrayList<Telefone>();
+		Set<Telefone> telefones = new HashSet<Telefone>();
 		empresaBefore.setTelefones(telefones);
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void teste37_nao_deve_atribuir_uma_nova_lista_de_telefones_coma_mais_de_5_telefones() {
-		List<Telefone> telefones = new ArrayList<Telefone>();
+		Set<Telefone> telefones = new HashSet<Telefone>();
 		for (int index = TAMANHO_MAX_LISTA_TELEFONES + 1; index != 0; index--) {
-			telefones.add(new Telefone("1159160668"));
+			telefones.add(new Telefone("+55", "11", "11591606" + index));
 		}
 		empresaBefore.setTelefones(telefones);
 	}
@@ -344,61 +346,79 @@ public class TesteEmpresa {
 		}
 		empresaBefore.setEmails(emails);
 	}
+	
+	//ATIVO
+	@Test
+	public void teste42_deve_setar_empres_ativa() {
+		empresaBefore.setAtivo(true);
+		assertEquals(true, empresaBefore.getAtivo());
+	}
+	
+	@Test
+	public void teste43_deve_setar_empresa_inativa() {
+		empresaBefore.setAtivo(false);
+		assertEquals(false, empresaBefore.getAtivo());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void teste44_nao_deve_setar_empresa_ativa_nulo() {
+		empresaBefore.setAtivo(null);
+	}
 
 	// TO STRING
 	@Test
-	public void teste46_deve_retonar_cnpj_no_to_string() {
+	public void teste45_deve_retonar_cnpj_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(empresaBefore.getCnpj()));
 	}
 
 	@Test
-	public void teste47_deve_retonar_razao_social_no_to_string() {
+	public void teste46_deve_retonar_razao_social_no_to_string() {
 		empresaBefore.setRazaoSocial("Softmatic Sistemas Automaticos de Informatica Ltda");
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(empresaBefore.getRazaoSocial()));
 	}
 
 	@Test
-	public void teste48_deve_retonar_nome_fantasia_no_to_string() {
+	public void teste47_deve_retonar_nome_fantasia_no_to_string() {
 		empresaBefore.setNomeFantasia("Contmatic Phoenix");
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(empresaBefore.getNomeFantasia()));
 	}
 
 	@Test
-	public void teste49_deve_retonar_lista_enderecos_no_to_string() {
+	public void teste48_deve_retonar_lista_enderecos_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getEnderecos())));
 	}
 
 	@Test
-	public void teste50_deve_retonar_lista_ambientes_no_to_string() {
+	public void teste49_deve_retonar_lista_ambientes_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getAmbientesTrabalhos())));
 	}
 
 	@Test
-	public void teste51_deve_retonar_lista_produtos_no_to_string() {
+	public void teste50_deve_retonar_lista_produtos_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getProdutos())));
 	}
 
 	@Test
-	public void teste52_deve_retonar_lista_emails_no_to_string() {
+	public void teste51_deve_retonar_lista_emails_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getEmails())));
 	}
 
 	@Test
-	public void teste53_deve_retonar_lista_telefones_no_to_string() {
+	public void teste52_deve_retonar_lista_telefones_no_to_string() {
 		String result = empresaBefore.toString();
 		assertThat(result, containsString(String.valueOf(empresaBefore.getTelefones())));
 	}
 
 	// HASHCODE
 	@Test
-	public void teste41_deve_retornar_o_mesmo_hashcode_para_da_empresa_com_mesmo_cnpj() {
+	public void teste53_deve_retornar_o_mesmo_hashcode_para_da_empresa_com_mesmo_cnpj() {
 		Empresa empresa1 = new Empresa(CNPJ);
 		Empresa empresa2 = new Empresa(CNPJ);
 		boolean resp = empresa1.hashCode() == empresa2.hashCode();
@@ -406,7 +426,7 @@ public class TesteEmpresa {
 	}
 
 	@Test
-	public void teste42_deve_retornar_hash_code_diferentes_para_cnpj_diferentes() {
+	public void teste54_deve_retornar_hash_code_diferentes_para_cnpj_diferentes() {
 		Empresa empresa1 = new Empresa(CNPJ);
 		Empresa empresa2 = new Empresa("96160438000106");
 		boolean resp = empresa1.hashCode() == empresa2.hashCode();
@@ -415,7 +435,7 @@ public class TesteEmpresa {
 
 	// EQUALS
 	@Test
-	public void teste43_deve_retornar_true_quando_usar_equals_passado_empresas_iguais() {
+	public void teste55_deve_retornar_true_quando_usar_equals_passado_empresas_iguais() {
 		Empresa empresa1 = new Empresa(CNPJ);
 		Empresa empresa2 = new Empresa(CNPJ);
 		boolean resp = empresa1.equals(empresa2);
@@ -423,7 +443,7 @@ public class TesteEmpresa {
 	}
 
 	@Test
-	public void teste44_deve_retornar_falso_quando_usar_equals_passado_empresa_com_cnpj_diferente_difentes() {
+	public void teste56_deve_retornar_falso_quando_usar_equals_passado_empresa_com_cnpj_diferente_difentes() {
 		Empresa empresa1 = new Empresa(CNPJ);
 		Empresa empresa2 = new Empresa("45626047000101");
 		boolean resp = empresa1.equals(empresa2);
@@ -431,37 +451,37 @@ public class TesteEmpresa {
 	}
 
 	@Test
-	public void teste45_deve_retornar_falso_quando_usar_equals_passado_nulo() {
+	public void teste57_deve_retornar_falso_quando_usar_equals_passado_nulo() {
 		boolean resp = empresaBefore.equals(null);
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste46_deve_retornar_falso_quando_usar_equals_passado_object() {
+	public void teste58_deve_retornar_falso_quando_usar_equals_passado_object() {
 		boolean resp = empresaBefore.equals(new Object());
 		assertFalse(resp);
 	}
 
 	@Test
-	public void teste47_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
+	public void teste59_deve_retornar_verdadeiro_quando_usar_equals_passado_o_proprio_objeto() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
 
 	@Test
 	@Ignore
-	public void teste48_deve_ignorar_teste() {
+	public void teste60_deve_ignorar_teste() {
 		boolean resp = empresaBefore.equals(empresaBefore);
 		assertTrue(resp);
 	}
 
 	@Test(timeout = 1000)
-	public void teste49_deve_criar_um_objeto_empresas_em_menos_de_1_segundo() throws InterruptedException {
+	public void teste61_deve_criar_um_objeto_empresas_em_menos_de_1_segundo() throws InterruptedException {
 		assertNotNull(new Empresa("17940064000175"));
 	}
 
 	@Test
-	public void teste50_nao_deve_criar_um_objeto_empresas_que_demore_mais_de_1_segundo() {
+	public void teste62_nao_deve_criar_um_objeto_empresas_que_demore_mais_de_1_segundo() {
 		final long DIVISAO_SECONDS = 1000000000;
 		long start = System.currentTimeMillis();
 		try {

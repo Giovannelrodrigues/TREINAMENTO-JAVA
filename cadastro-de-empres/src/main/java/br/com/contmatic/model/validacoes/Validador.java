@@ -1,5 +1,7 @@
 package br.com.contmatic.model.validacoes;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class Validador {
@@ -25,8 +27,8 @@ public class Validador {
 		}
 	}
 	
-	public static void validarZeroOrNegative(double parametro, String message) {
-		if (parametro <= 0.0) {
+	public static void validarZeroOrNegative(BigDecimal parametro, String message) {
+		if (parametro.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalStateException(message);
 		}
 	}
@@ -60,24 +62,32 @@ public class Validador {
 			throw new IllegalStateException(message);
 		}
 	}
-
-	public static void validarNumeroMaximo(double parametro, double quantidadeMaxima, String message) {
-		if (parametro > quantidadeMaxima) {
+	
+	public static void validarNumeroMaximo(BigDecimal parametro, BigDecimal quantidadeMaxima, String message) {
+		if (parametro.compareTo(quantidadeMaxima) > 0 ) {
 			throw new IllegalStateException(message);
 		}
+	}
+
+	// LISTA
+	public static void validarListaVazia(Object lista, String message) {
+		if(lista instanceof List && !((List<?>) lista).isEmpty()) {
+			return;
+		}
+		if(lista instanceof Set && !((Set<?>) lista).isEmpty()) {
+			return;
+		}
+		throw new IllegalStateException(message);
 	}
 	
-	// LISTA
-	public static void validarListaVazia(List<?> parametro, String message) {
-		if (parametro.isEmpty()) {
-			throw new IllegalStateException(message);
+	public static void validarTamanhoMaximoLista(Object lista, int tamanho, String message) {
+		if(lista instanceof List && (((List<?>) lista).size() <= tamanho)) {
+			return;
 		}
-	}
-
-	public static void validarTamanhoMaximoLista(List<?> parametro, int tamanho, String message) {
-		if (parametro.size() > tamanho) {
-			throw new IllegalStateException(message);
+		if(lista instanceof Set && (((Set<?>) lista).size() <= tamanho)) {
+			return;
 		}
+		throw new IllegalStateException(message);
 	}
 
 	// DOCUMENTOS

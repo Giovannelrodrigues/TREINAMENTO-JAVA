@@ -1,4 +1,4 @@
-package br.com.contmatic.endereco;
+package br.com.contmatic.model.endereco;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,10 +15,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import br.com.contmatic.model.contato.Email;
-import br.com.contmatic.model.endereco.Cidade;
-import br.com.contmatic.model.endereco.Endereco;
-import br.com.contmatic.model.endereco.Estado;
-import br.com.contmatic.model.endereco.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEndereco {

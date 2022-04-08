@@ -1,4 +1,4 @@
-package br.com.contmatic.testes.usuario;
+package br.com.contmatic.testes.model.usuario;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;

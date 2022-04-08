@@ -1,4 +1,4 @@
-package br.com.contmatic.auditoria;
+package br.com.contmatic.model.auditoria;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;

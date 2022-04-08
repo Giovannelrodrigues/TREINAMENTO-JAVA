@@ -1,4 +1,4 @@
-package br.com.contmatic.testes.empresa;
+package br.com.contmatic.testes.model.empresa;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,7 +10,9 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -61,9 +63,9 @@ public class TesteFuncionario {
 		funcionarioBefore.setEndereco(new Endereco("04852510", "rua x", 194, "JD lucelia",
 				new Cidade("São Paulo", 2458, new Estado("SP", "São Paulo")), new Estado("SP", "São Paulo"),
 				TipoEndereco.COMERCIAL));
-		List<Telefone> telefones = new ArrayList<Telefone>();
+		Set<Telefone> telefones = new HashSet<Telefone>();
 		List<Email> emails = new ArrayList<Email>();
-		telefones.add(new Telefone("1159160668"));
+		telefones.add(new Telefone("+55", "11", "11591606"));
 		emails.add(EMAIL);
 		funcionarioBefore.setTelefones(telefones);
 		funcionarioBefore.setEmails(emails);
@@ -192,9 +194,9 @@ public class TesteFuncionario {
 
 	// LISTA TELEFONE
 	@Test
-	public void teste21_deve_atribuir_uma_nova_lista_de_endereco_para_funcionario() {
-		List<Telefone> telefones = new ArrayList<Telefone>();
-		telefones.add(new Telefone("1159160668"));
+	public void teste21_deve_atribuir_uma_nova_lista_de_telefones_para_funcionario() {
+		Set<Telefone> telefones = new HashSet<Telefone>();
+		telefones.add(new Telefone("+55", "11", "11591606"));
 		funcionarioBefore.setTelefones(telefones);
 		assertEquals(telefones, funcionarioBefore.getTelefones());
 	}
@@ -206,15 +208,15 @@ public class TesteFuncionario {
 
 	@Test(expected = IllegalStateException.class)
 	public void teste23_nao_deve_atribuir_uma_nova_lista_de_telefone_lista_vazia() {
-		List<Telefone> telefones = new ArrayList<Telefone>();
+		Set<Telefone> telefones = new HashSet<Telefone>();
 		funcionarioBefore.setTelefones(telefones);
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void teste24_nao_deve_atribuir_uma_nova_lista_de_telefones_coma_mais_de_5_telefones() {
-		List<Telefone> telefones = new ArrayList<Telefone>();
+		Set<Telefone> telefones = new HashSet<Telefone>();
 		for (int index = 7; index != 0; index--) {
-			telefones.add(new Telefone("1159160668"));
+			telefones.add(new Telefone("+55", "11", "5916063" + index));
 		}
 		funcionarioBefore.setTelefones(telefones);
 	}

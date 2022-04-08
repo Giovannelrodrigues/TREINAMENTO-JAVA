@@ -45,6 +45,7 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import static br.com.contmatic.model.validacoes.Validador.validarZero;
 import static br.com.contmatic.model.validacoes.Validador.validarZeroOrNegative;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import br.com.contmatic.model.auditoria.Auditoria;
@@ -59,7 +60,7 @@ public class Produto extends Auditoria {
 
 	private String cor;
 
-	private Double preco;
+	private BigDecimal preco;
 
 	private Integer quantidade;
 
@@ -131,11 +132,11 @@ public class Produto extends Auditoria {
 		this.quantidade = quantidade;
 	}
 
-	public double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
+	public void setPreco(BigDecimal preco) {
 		validarNulo(preco, MESSAGE_PRECO_NOT_NULL);
 		validarZeroOrNegative(preco, MESSAGE_PRECO_ZERO);
 		validarNumeroMaximo(preco, PRECO_MAX, MESSAGE_PRECO_MAX);
