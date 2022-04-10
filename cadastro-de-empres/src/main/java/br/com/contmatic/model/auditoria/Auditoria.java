@@ -18,22 +18,24 @@ import static br.com.contmatic.model.validacoes.ValidadorData.validarMaxDate;
 
 import java.time.LocalDateTime;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import br.com.contmatic.model.contato.Email;
 
 public abstract class Auditoria {
-	
+
 	private Email createdBy;
 
 	private LocalDateTime createDate;
-	
+
 	private String createdIp;
 
 	private Email updatedBy;
-	
+
 	private LocalDateTime updatedDate;
-	
+
 	private String updatedIp;
-	
+
 	public Email getCreatedBy() {
 		return createdBy;
 	}
@@ -53,7 +55,7 @@ public abstract class Auditoria {
 		validarMaxDate(createDate);
 		this.createDate = createDate;
 	}
-	
+
 	public String getCreatedIp() {
 		return createdIp;
 	}
@@ -73,7 +75,7 @@ public abstract class Auditoria {
 		validarNulo(updateBy, MESSAGE_UPDATED_BY_NOT_NULL);
 		this.updatedBy = updateBy;
 	}
-	
+
 	public LocalDateTime getUpdatedDate() {
 		return updatedDate;
 	}
@@ -85,7 +87,6 @@ public abstract class Auditoria {
 		this.updatedDate = updatedDate;
 	}
 
-
 	public String getUpdatedIp() {
 		return updatedIp;
 	}
@@ -96,23 +97,9 @@ public abstract class Auditoria {
 		validarRegex(updatedIp, REGEX_IP, MESSAGE_REGEX_IP);
 		this.updatedIp = updatedIp;
 	}
-
+	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Audit [createdBy=");
-		builder.append(createdBy);
-		builder.append(", createDate=");
-		builder.append(createDate);
-		builder.append(", createdIp=");
-		builder.append(createdIp);
-		builder.append(", updatedBy=");
-		builder.append(updatedBy);
-		builder.append(", updatedDate=");
-		builder.append(updatedDate);
-		builder.append(", updatedIp=");
-		builder.append(updatedIp);
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

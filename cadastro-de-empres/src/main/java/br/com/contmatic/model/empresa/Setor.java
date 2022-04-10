@@ -28,7 +28,10 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.List;
-import java.util.Objects;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -93,36 +96,17 @@ public class Setor extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(ambienteTrabalho, nome);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Setor other = (Setor) obj;
-		return Objects.equals(ambienteTrabalho, other.ambienteTrabalho) && Objects.equals(nome, other.nome);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Setor [nome=");
-		builder.append(nome);
-		builder.append(", descricao=");
-		builder.append(descricao);
-		builder.append(", funcionarios=");
-		builder.append(funcionarios);
-		builder.append(", ambienteTrabalho=");
-		builder.append(ambienteTrabalho);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

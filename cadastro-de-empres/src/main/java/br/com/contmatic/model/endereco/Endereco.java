@@ -44,7 +44,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import static br.com.contmatic.model.validacoes.Validador.validarZero;
 
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -166,44 +168,17 @@ public class Endereco extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(cep, numero);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Endereco other = (Endereco) obj;
-		return Objects.equals(cep, other.cep) && Objects.equals(numero, other.numero);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Endereco [cep=");
-		builder.append(cep);
-		builder.append(", logradouro=");
-		builder.append(logradouro);
-		builder.append(", numero=");
-		builder.append(numero);
-		builder.append(", bairro=");
-		builder.append(bairro);
-		builder.append(", cidade=");
-		builder.append(cidade);
-		builder.append(", estado=");
-		builder.append(estado);
-		builder.append(", complemento=");
-		builder.append(complemento);
-		builder.append(", tipoEndereco=");
-		builder.append(tipoEndereco);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

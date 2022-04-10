@@ -1,4 +1,4 @@
-package br.com.contmatic.testes.model.usuario;
+package br.com.contmatic.model.usuario;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import br.com.contmatic.model.contato.Email;
-import br.com.contmatic.model.usuario.Usuario;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteUsuario {

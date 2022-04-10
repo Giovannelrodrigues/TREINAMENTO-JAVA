@@ -31,7 +31,10 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.List;
-import java.util.Objects;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.constants.mensagens.AmbienteTrabalhoMessage;
@@ -122,40 +125,17 @@ public class AmbienteTrabalho extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(empresa, nome);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AmbienteTrabalho other = (AmbienteTrabalho) obj;
-		return Objects.equals(empresa, other.empresa) && Objects.equals(nome, other.nome);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AmbienteTrabalho [nome=");
-		builder.append(nome);
-		builder.append(", descricao=");
-		builder.append(descricao);
-		builder.append(", tipoEstabelecimento=");
-		builder.append(tipo);
-		builder.append(", setores=");
-		builder.append(setores);
-		builder.append(", enderecos=");
-		builder.append(enderecos);
-		builder.append(", empresa=");
-		builder.append(empresa);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

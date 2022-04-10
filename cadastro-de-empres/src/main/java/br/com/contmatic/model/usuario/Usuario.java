@@ -15,7 +15,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
 import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.contato.Email;
 
@@ -53,30 +55,17 @@ public class Usuario {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(email);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		return Objects.equals(email, other.email);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Usuario [email=");
-		builder.append(email);
-		builder.append(", senha=");
-		builder.append(senha);
-		builder.append("]");
-		return builder.toString();
-	}	
+		return ToStringBuilder.reflectionToString(this);
+	}
 }

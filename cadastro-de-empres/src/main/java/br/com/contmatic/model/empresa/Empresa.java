@@ -52,8 +52,11 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import static br.com.contmatic.model.validacoes.ValidadorCNPJ.validarCNPJ;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.contato.Email;
@@ -189,44 +192,17 @@ public class Empresa extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(cnpj);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Empresa other = (Empresa) obj;
-		return Objects.equals(cnpj, other.cnpj);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Empresa [cnpj=");
-		builder.append(cnpj);
-		builder.append(", nomeFantasia=");
-		builder.append(nomeFantasia);
-		builder.append(", razaoSocial=");
-		builder.append(razaoSocial);
-		builder.append(", enderecos=");
-		builder.append(enderecos);
-		builder.append(", ambientesTrabalhos=");
-		builder.append(ambientesTrabalhos);
-		builder.append(", produtos=");
-		builder.append(produtos);
-		builder.append(", telefones=");
-		builder.append(telefones);
-		builder.append(", emails=");
-		builder.append(emails);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

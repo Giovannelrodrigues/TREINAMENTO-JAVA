@@ -46,7 +46,10 @@ import static br.com.contmatic.model.validacoes.Validador.validarZero;
 import static br.com.contmatic.model.validacoes.Validador.validarZeroOrNegative;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -153,42 +156,17 @@ public class Produto extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(codigo);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Produto other = (Produto) obj;
-		return Objects.equals(codigo, other.codigo);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Produto [codigo=");
-		builder.append(codigo);
-		builder.append(", nome=");
-		builder.append(nome);
-		builder.append(", marca=");
-		builder.append(marca);
-		builder.append(", cor=");
-		builder.append(cor);
-		builder.append(", preco=");
-		builder.append(preco);
-		builder.append(", quantidade=");
-		builder.append(quantidade);
-		builder.append(", empresa=");
-		builder.append(empresa);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

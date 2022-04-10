@@ -18,7 +18,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarRegex;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import static br.com.contmatic.model.validacoes.ValidadorTelefone.validarTamanhoTelefone;
 
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -88,36 +90,17 @@ public class Telefone extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(ddd, ddi, numero);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Telefone other = (Telefone) obj;
-		return Objects.equals(ddd, other.ddd) && Objects.equals(ddi, other.ddi) && Objects.equals(numero, other.numero);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Telefone [ddi=");
-		builder.append(ddi);
-		builder.append(", ddd=");
-		builder.append(ddd);
-		builder.append(", numero=");
-		builder.append(numero);
-		builder.append(", tipo=");
-		builder.append(tipo);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

@@ -43,8 +43,11 @@ import static br.com.contmatic.model.validacoes.ValidadorCPF.validarCPF;
 import static br.com.contmatic.model.validacoes.ValidadorData.validarDataNascimento;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.contato.Email;
@@ -168,42 +171,17 @@ public class Funcionario extends Auditoria {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(cpf);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Funcionario other = (Funcionario) obj;
-		return Objects.equals(cpf, other.cpf);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Funcionario [cpf=");
-		builder.append(cpf);
-		builder.append(", nome=");
-		builder.append(nome);
-		builder.append(", cargo=");
-		builder.append(cargo);
-		builder.append(", dataNacimento=");
-		builder.append(dataNacimento);
-		builder.append(", endereco=");
-		builder.append(endereco);
-		builder.append(", telefones=");
-		builder.append(telefones);
-		builder.append(", emails=");
-		builder.append(emails);
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

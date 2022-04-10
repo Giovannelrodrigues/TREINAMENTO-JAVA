@@ -1,4 +1,4 @@
-package br.com.contmatic.testes.model.empresa;
+package br.com.contmatic.model.empresa;
 
 import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_AMBIENTE_TRABALHO;
 import static br.com.contmatic.model.constants.numericas.EmpresaConstants.TAMANHO_MAX_LISTA_EMAILS;

@@ -28,7 +28,10 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import java.util.List;
-import java.util.Objects;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Estado {
 
@@ -37,11 +40,11 @@ public class Estado {
 	private String sigla;
 
 	private List<Cidade> cidades;
-	
+
 	public Estado(String sigla) {
 		this.setSigla(sigla);
 	}
-	
+
 	public Estado(String sigla, String nome) {
 		this.setNome(nome);
 		this.setSigla(sigla);
@@ -68,7 +71,7 @@ public class Estado {
 		validarNulo(sigla, MESSAGE_SIGLA_NOT_NULL);
 		validarVazio(sigla, MESSAGE_SIGLA_NOT_BLANK);
 		validarTamanho(sigla, TAMANHO_SIGLA, MESSAGE_TAMANHO_SIGLA);
-		validarRegex(sigla, REGEX_SIGLA_ESTADO , MESSAGE_SIGLA_REGEX);
+		validarRegex(sigla, REGEX_SIGLA_ESTADO, MESSAGE_SIGLA_REGEX);
 		this.sigla = sigla;
 	}
 
@@ -84,32 +87,17 @@ public class Estado {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(sigla);
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Estado other = (Estado) obj;
-		return Objects.equals(sigla, other.sigla);
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Estado [nome=");
-		builder.append(nome);
-		builder.append(", sigla=");
-		builder.append(sigla);
-		builder.append(", cidades=");
-		builder.append(cidades);
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

@@ -22,7 +22,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 import static br.com.contmatic.model.validacoes.Validador.validarZero;
 
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Cidade {
 
@@ -78,32 +80,17 @@ public class Cidade {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(codigoIBGE, estado);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cidade other = (Cidade) obj;
-		return Objects.equals(codigoIBGE, other.codigoIBGE) && Objects.equals(estado, other.estado);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Cidade [codigoIBGE=");
-		builder.append(codigoIBGE);
-		builder.append(", nome=");
-		builder.append(nome);
-		builder.append(", estado=");
-		builder.append(estado);
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

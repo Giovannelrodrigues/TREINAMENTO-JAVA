@@ -15,7 +15,9 @@ import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMaximo;
 import static br.com.contmatic.model.validacoes.Validador.validarTamanhoMinimo;
 import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Email {
 
@@ -53,32 +55,19 @@ public class Email {
 		validarNulo(tipo, MESSAGE_TIPO_NOT_NULL);
 		this.tipo = tipo;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(endereco);
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Email other = (Email) obj;
-		return Objects.equals(endereco, other.endereco);
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Email [endereco=");
-		builder.append(endereco);
-		builder.append(", tipo=");
-		builder.append(tipo);
-		builder.append("]");
-		return builder.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 }
