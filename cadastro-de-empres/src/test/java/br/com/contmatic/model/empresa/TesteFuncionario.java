@@ -21,11 +21,6 @@ import org.junit.runners.MethodSorters;
 
 import br.com.contmatic.model.contato.Email;
 import br.com.contmatic.model.contato.Telefone;
-import br.com.contmatic.model.empresa.AmbienteTrabalho;
-import br.com.contmatic.model.empresa.Cargo;
-import br.com.contmatic.model.empresa.Empresa;
-import br.com.contmatic.model.empresa.Funcionario;
-import br.com.contmatic.model.empresa.Setor;
 import br.com.contmatic.model.endereco.Cidade;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.endereco.Estado;

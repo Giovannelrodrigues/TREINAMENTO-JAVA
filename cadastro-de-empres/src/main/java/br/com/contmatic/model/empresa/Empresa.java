@@ -5,7 +5,6 @@ import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MENSAGEM
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_IS_EMPTY;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_LIST_MAX;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_AMBIENTE_TRABALHO_NOT_NULL;
-import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_ATIVO_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_CNPJ_NOTBLANK;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_CNPJ_NOTNULL;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_CNPJ_REGEX;
@@ -21,6 +20,7 @@ import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_PRODUTOS_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_RAZAO_SOCIAL_NOTBLANK;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_RAZAO_SOCIAL_NOTNULL;
+import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_STATUS_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_TAMANHO_CNPJ;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_TAMANHO_MAX_NOME_FANTASIA;
 import static br.com.contmatic.model.constants.mensagens.EmpresaMessage.MESSAGE_TAMANHO_MAX_RAZAO_SOCIAL;
@@ -81,7 +81,7 @@ public class Empresa extends Auditoria {
 
 	private List<Email> emails;
 			
-	private Boolean ativo;
+	private Boolean status;
 
 	public Empresa(String cnpj) {
 		this.setCnpj(cnpj);
@@ -182,23 +182,23 @@ public class Empresa extends Auditoria {
 		this.emails = emails;
 	}
 	
-	public Boolean getAtivo() {
-		return ativo;
+	public Boolean getStatus() {
+		return status;
 	}
 
-	public void setAtivo(Boolean ativo) {
-		validarNulo(ativo, MESSAGE_ATIVO_NOT_NULL);
-		this.ativo = ativo;
+	public void setStatus(Boolean status) {
+		validarNulo(status, MESSAGE_STATUS_NOT_NULL);
+		this.status = status;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return EqualsBuilder.reflectionEquals(this, obj, "nomeFantasia", "razaoSocial", "enderecos", "ambientesTrabalhos", "produtos", "telefones", "emails", "status");
 	}
 	
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return HashCodeBuilder.reflectionHashCode(this, "nomeFantasia", "razaoSocial", "enderecos", "ambientesTrabalhos", "produtos", "telefones", "emails", "status");
 	}
 
 	@Override

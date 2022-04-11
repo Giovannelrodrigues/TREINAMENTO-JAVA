@@ -15,9 +15,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import br.com.contmatic.model.contato.Email;
-import br.com.contmatic.model.empresa.AmbienteTrabalho;
-import br.com.contmatic.model.empresa.Cargo;
-import br.com.contmatic.model.empresa.Empresa;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteCargo {

@@ -23,7 +23,7 @@ import static br.com.contmatic.model.validacoes.Validador.validarVazio;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -32,7 +32,7 @@ public class Cargo extends Auditoria {
 	private String nome;
 
 	private String descricao;
-	
+
 	private AmbienteTrabalho ambienteTrabalho;
 
 	public Cargo(String nome, AmbienteTrabalho ambienteTrabalho) {
@@ -64,7 +64,7 @@ public class Cargo extends Auditoria {
 		validarTamanhoMinimo(descricao, TAMANHO_MIN_DESCRICAO, MESSAGE_TAMANHO_MIN_DESCRICAO);
 		this.descricao = descricao;
 	}
-	
+
 	public AmbienteTrabalho getAmbienteTrabalho() {
 		return ambienteTrabalho;
 	}
@@ -76,16 +76,16 @@ public class Cargo extends Auditoria {
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return EqualsBuilder.reflectionEquals(this, obj, "descricao");
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return HashCodeBuilder.reflectionHashCode(this, "descricao");
 	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ReflectionToStringBuilder.toStringExclude(this, "ambienteTrabalho");
 	}
 }

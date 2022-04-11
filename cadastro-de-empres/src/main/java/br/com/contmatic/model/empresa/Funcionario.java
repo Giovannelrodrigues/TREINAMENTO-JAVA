@@ -47,7 +47,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.contato.Email;
@@ -71,7 +71,7 @@ public class Funcionario extends Auditoria {
 	private List<Email> emails;
 
 	private Setor setor;
-	
+
 	public Funcionario(String cpf) {
 		this.setCpf(cpf);
 	}
@@ -172,16 +172,18 @@ public class Funcionario extends Auditoria {
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return EqualsBuilder.reflectionEquals(this, obj, "nome", "cargo", "dataNacimento", "endereco", "telefones",
+				"emails", "setor");
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return HashCodeBuilder.reflectionHashCode(this, "nome", "cargo", "dataNacimento", "endereco", "telefones",
+				"emails", "setor");
 	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ReflectionToStringBuilder.toStringExclude(this, "setor");
 	}
 }

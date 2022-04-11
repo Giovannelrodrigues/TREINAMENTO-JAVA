@@ -19,10 +19,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import br.com.contmatic.model.contato.Email;
-import br.com.contmatic.model.empresa.AmbienteTrabalho;
-import br.com.contmatic.model.empresa.Empresa;
-import br.com.contmatic.model.empresa.Setor;
-import br.com.contmatic.model.empresa.TipoAmbienteTrabalho;
 import br.com.contmatic.model.endereco.Cidade;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.endereco.Estado;

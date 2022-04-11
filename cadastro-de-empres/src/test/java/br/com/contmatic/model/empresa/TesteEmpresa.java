@@ -13,17 +13,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,9 +25,6 @@ import org.junit.runners.MethodSorters;
 
 import br.com.contmatic.model.contato.Email;
 import br.com.contmatic.model.contato.Telefone;
-import br.com.contmatic.model.empresa.AmbienteTrabalho;
-import br.com.contmatic.model.empresa.Empresa;
-import br.com.contmatic.model.empresa.Produto;
 import br.com.contmatic.model.endereco.Cidade;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.endereco.Estado;
@@ -41,45 +32,10 @@ import br.com.contmatic.model.endereco.TipoEndereco;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteEmpresa {
-
-	private static final Email EMAIL = new Email("giovannelrodrigues@gmail.com");
 	
-	private static final String IP = "122.21.123.1";
-
 	private static Empresa empresaBefore;
 
 	private static final String CNPJ = "63516934000109";
-
-	private static final LocalDateTime LOCAL_TIME = LocalDateTime.of(2023, Month.JUNE, 28, 6, 30, 40, 50000);
-
-	private static Integer quantidadeTest;
-
-	@BeforeClass
-	public static void zerando_contador() {
-		setQuantidadeTest(0);
-	}
-
-	@After
-	public void depoisDeCadaTeste() {
-		setQuantidadeTest(quantidadeTest + 1);
-	}
-
-	@AfterClass
-	public static void depoisDeTodosOsTestes() {
-		System.out.println(String.format("Quantidade de Testes: %s", quantidadeTest));
-	}
-
-	@Before
-	public void teste00_antes_de_cada_teste() {
-		empresaBefore = new Empresa(CNPJ);
-		empresaBefore.setCreatedBy(EMAIL);
-		empresaBefore.setCreateDate(LOCAL_TIME);
-		empresaBefore.setUpdateBy(EMAIL);
-		empresaBefore.setUpdatedDate(LOCAL_TIME);
-		empresaBefore.setUpdatedIp(IP);
-		empresaBefore.setCreatedIp(IP);
-		
-	}
 
 	// CONSTRUTOR
 	@Test
@@ -492,13 +448,5 @@ public class TesteEmpresa {
 			}
 		} catch (InternalError e) {
 		}
-	}
-
-	public static Integer getQuantidadeTest() {
-		return quantidadeTest;
-	}
-
-	public static void setQuantidadeTest(Integer quantidadeTest) {
-		TesteEmpresa.quantidadeTest = quantidadeTest;
 	}
 }

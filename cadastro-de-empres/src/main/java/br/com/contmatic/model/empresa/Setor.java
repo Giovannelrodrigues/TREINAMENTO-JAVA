@@ -31,7 +31,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -44,7 +44,7 @@ public class Setor extends Auditoria {
 	private List<Funcionario> funcionarios;
 
 	private AmbienteTrabalho ambienteTrabalho;
-	
+
 	public Setor(String nome, AmbienteTrabalho ambienteTrabalho) {
 		this.setNome(nome);
 		this.setAmbienteTrabalho(ambienteTrabalho);
@@ -97,16 +97,16 @@ public class Setor extends Auditoria {
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return EqualsBuilder.reflectionEquals(this, obj, "descricao", "funcionarios");
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return HashCodeBuilder.reflectionHashCode(this, "descricao", "funcionarios");
 	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ReflectionToStringBuilder.toStringExclude(this, "ambienteTrabalho");
 	}
 }

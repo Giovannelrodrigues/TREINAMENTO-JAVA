@@ -10,7 +10,6 @@ import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE
 import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_COMPLEMENTO_NOT_BLANK;
 import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_COMPLEMENTO_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_COMPLEMENTO_REGEX;
-import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_ESTADO_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_LOGRADOURO_NOT_BLANK;
 import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_LOGRADOURO_NOT_NULL;
 import static br.com.contmatic.model.constants.mensagens.EnderecoMessage.MESSAGE_LOGRADOURO_REGEX;
@@ -61,21 +60,18 @@ public class Endereco extends Auditoria {
 	private String bairro;
 
 	private Cidade cidade;
-
-	private Estado estado;
-
+	
 	private String complemento;
 
-	private TipoEndereco tipoEndereco;
+	private TipoEndereco tipo;
 	
-	public Endereco(String cep, String logradouro, Integer numero, String bairro, Cidade cidade, Estado estado, TipoEndereco tipoEndereco) {
+	public Endereco(String cep, String logradouro, Integer numero, String bairro, Cidade cidade, TipoEndereco tipo) {
 		this.setCep(cep);
 		this.setLogradouro(logradouro);
 		this.setNumero(numero);
 		this.setBairro(bairro);
 		this.setCidade(cidade);
-		this.setEstado(estado);
-		this.setTipoEndereco(tipoEndereco);
+		this.setTipo(tipo);
 	}
 
 	public String getCep() {
@@ -149,32 +145,23 @@ public class Endereco extends Auditoria {
 		this.cidade = cidade;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public TipoEndereco getTipo() {
+		return tipo;
 	}
 
-	public void setEstado(Estado estado) {
-		validarNulo(estado, MESSAGE_ESTADO_NOT_NULL);
-		this.estado = estado;
-	}
-
-	public TipoEndereco getTipoEndereco() {
-		return tipoEndereco;
-	}
-
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
-		validarNulo(tipoEndereco, MESSAGE_TIPO_ENDERECO_NOT_NULL);
-		this.tipoEndereco = tipoEndereco;
+	public void setTipo(TipoEndereco tipo) {
+		validarNulo(tipo, MESSAGE_TIPO_ENDERECO_NOT_NULL);
+		this.tipo = tipo;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return EqualsBuilder.reflectionEquals(this, obj, "logradouro", "bairro", "cidade", "complemento", "tipo");
 	}
 	
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return HashCodeBuilder.reflectionHashCode(this, "logradouro", "bairro", "cidade", "complemento", "tipo");
 	}
 
 	@Override
